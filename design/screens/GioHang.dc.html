@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Giỏ hàng — KitFix247</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&amp;family=Chakra+Petch:ital,wght@0,600;0,700;1,700&amp;display=swap">
+<style>
+body{margin:0;background:#faf8f5}
+a{color:#b85200}a:hover{color:#9a4300}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #b85200;outline-offset:2px}
+.kf-brand:hover{background:#ff9a3d !important}
+.kf-step:hover{background:#f1ede6 !important}
+</style>
+</helmet>
+<div style="font-family: 'Be Vietnam Pro','Segoe UI',system-ui,sans-serif; color: #0e2843; background: #faf8f5; font-size: 16px; line-height: 24px; container-type: inline-size">
+
+<dc-import name="SiteHeader" active="gh" cart="{{count}}" hint-size="100%,73px"></dc-import>
+
+<section style="padding: 40px 0 80px">
+<div style="max-width: 1160px; margin: 0 auto; padding: 0 16px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
+<nav aria-label="Breadcrumb" style="font-size: 14px; color: #5a6069; display: flex; gap: 8px"><a href="Main.dc.html" style="color: #5a6069">Trang chủ</a><span aria-hidden="true">/</span><a href="SanPham.dc.html" style="color: #5a6069">Sản phẩm</a><span aria-hidden="true">/</span><span>Giỏ hàng</span></nav>
+<h1 style="margin: 0; font-family: 'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size: 32px; line-height: 40px; font-weight: 700">Giỏ hàng</h1>
+
+<sc-if value="{{done}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="background: #d9f1ed; color: #0f766e; border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start">
+<div style="font-family: 'Chakra Petch',system-ui,sans-serif; font-weight: 700; font-size: 24px; line-height: 32px">Đặt hàng thành công</div>
+<p style="margin: 0; font-weight: 600">Chúng tôi sẽ gọi xác nhận đơn và thời gian giao trong 15 phút. Phương thức thanh toán: {{payName}}.</p>
+<a href="SanPham.dc.html" style="color: #0f766e; font-weight: 700">Tiếp tục mua sắm</a>
+</div>
+</sc-if>
+
+<sc-if value="{{notDone}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start">
+
+<div style="flex: 999 1 600px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<div style="background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; overflow: hidden">
+<sc-for list="{{lines}}" as="l" hint-placeholder-count="2">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 16px; padding: 20px 24px; border-bottom: 1px solid #ddd6cc">
+<div style="width: 72px; height: 72px; border-radius: 12px; background: #f1ede6; flex: none"></div>
+<div style="flex: 1 1 200px; min-width: 0">
+<div style="font-weight: 600">{{l.name}}</div>
+<div style="font-size: 14px; color: #5a6069">{{l.cat}}</div>
+</div>
+<div style="display: inline-flex; align-items: center; border: 1.5px solid #8a9099; border-radius: 12px; overflow: hidden">
+<button type="button" class="kf-step" onClick="{{l.dec}}" aria-label="Giảm số lượng" style="width: 44px; height: 44px; border: 0; background: #ffffff; font: inherit; font-size: 20px; cursor: pointer; color: #0e2843">−</button>
+<span style="min-width: 36px; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums">{{l.qty}}</span>
+<button type="button" class="kf-step" onClick="{{l.inc}}" aria-label="Tăng số lượng" style="width: 44px; height: 44px; border: 0; background: #ffffff; font: inherit; font-size: 20px; cursor: pointer; color: #0e2843">+</button>
+</div>
+<div style="min-width: 110px; text-align: right; font-weight: 700; color: #b85200">[Giá] ₫</div>
+<button type="button" onClick="{{l.remove}}" style="min-height: 44px; padding: 0 8px; border: 0; background: transparent; color: #5a6069; font: inherit; font-size: 14px; text-decoration: underline; cursor: pointer">Xóa</button>
+</div>
+</sc-for>
+<sc-if value="{{empty}}" hint-placeholder-val="{{ false }}">
+<div style="padding: 32px 24px; color: #5a6069">Giỏ hàng trống. <a href="SanPham.dc.html">Xem linh kiện & dụng cụ</a>.</div>
+</sc-if>
+</div>
+
+<div style="background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+<h2 style="margin: 0; font-size: 18px; line-height: 26px; font-weight: 600">Thông tin giao hàng</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px">
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Họ tên
+<input type="text" autocomplete="name" style="min-height: 48px; padding: 0 14px; border: 1.5px solid #8a9099; border-radius: 6px; font: inherit; font-size: 16px; text-transform: none; letter-spacing: 0; font-weight: 400; color: #0e2843"></label>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Số điện thoại
+<input type="tel" autocomplete="tel" style="min-height: 48px; padding: 0 14px; border: 1.5px solid #8a9099; border-radius: 6px; font: inherit; font-size: 16px; text-transform: none; letter-spacing: 0; font-weight: 400; color: #0e2843"></label>
+</div>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Địa chỉ giao hàng
+<input type="text" autocomplete="street-address" placeholder="Số nhà, đường, phường" style="min-height: 48px; padding: 0 14px; border: 1.5px solid #8a9099; border-radius: 6px; font: inherit; font-size: 16px; text-transform: none; letter-spacing: 0; font-weight: 400; color: #0e2843"></label>
+</div>
+</div>
+
+<aside style="flex: 1 1 300px; min-width: 0; background: #ffffff; border: 1px solid #ddd6cc; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 16px; box-shadow: 0 1px 2px rgba(28,32,38,0.06), 0 4px 16px rgba(28,32,38,0.06)">
+<h2 style="margin: 0; font-size: 18px; line-height: 26px; font-weight: 600">Tóm tắt đơn hàng</h2>
+<dl style="margin: 0; display: grid; grid-template-columns: 1fr auto; gap: 10px 16px; font-size: 15px">
+<dt style="color: #5a6069">Tạm tính ({{count}} sản phẩm)</dt><dd style="margin: 0; font-weight: 600">[Tạm tính] ₫</dd>
+<dt style="color: #5a6069">Phí giao hàng</dt><dd style="margin: 0; font-weight: 600">[Phí giao] ₫</dd>
+<dt style="font-weight: 700; padding-top: 10px; border-top: 1px solid #ddd6cc">Tổng cộng</dt><dd style="margin: 0; padding-top: 10px; border-top: 1px solid #ddd6cc; font-weight: 800; color: #b85200; font-size: 18px">[Tổng] ₫</dd>
+</dl>
+<fieldset style="border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
+<legend style="font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase; margin-bottom: 8px">Thanh toán</legend>
+<sc-for list="{{pays}}" as="p" hint-placeholder-count="4">
+<label style="display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 14px; border: 1.5px solid {{p.border}}; background: {{p.bg}}; border-radius: 12px; cursor: pointer; font-weight: 600">
+<input type="radio" name="kf-pay" checked="{{p.on}}" onChange="{{p.pick}}" style="width: 18px; height: 18px; accent-color: #b85200">{{p.name}}
+<span style="margin-left: auto; font-weight: 400; font-size: 13px; color: #5a6069">{{p.note}}</span></label>
+</sc-for>
+</fieldset>
+<button type="button" class="kf-brand" onClick="{{order}}" style="min-height: 52px; border: 0; border-radius: 12px; background: #f57a0a; color: #0e2843; font: inherit; font-weight: 700; font-size: 17px; cursor: pointer">Đặt hàng</button>
+<p style="margin: 0; font-size: 13px; line-height: 18px; color: #5a6069">Giá chưa gồm VAT. Chúng tôi gọi xác nhận trước khi giao.</p>
+</aside>
+</div>
+</sc-if>
+</div>
+</section>
+
+<dc-import name="SiteFooter" hint-size="100%,460px"></dc-import>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1900}}'>
+var CAT = [
+  { id: 'vit', name: 'Bộ tua vít sửa chữa đa năng', cat: 'Dụng cụ' },
+  { id: 'keo', name: 'Keo tản nhiệt', cat: 'Vật tư' },
+  { id: 'cauchi', name: 'Cầu chì thay thế', cat: 'Linh kiện' }
+];
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { cart: { vit: 1, keo: 2, cauchi: 0 }, pay: 'cod', done: false };
+  }
+  renderVals() {
+    var self = this;
+    var s = this.state;
+    var count = 0;
+    var lines = [];
+    CAT.forEach(function (p) {
+      var q = s.cart[p.id] || 0;
+      if (!q) return;
+      count += q;
+      var set = function (n) { var c = Object.assign({}, self.state.cart); c[p.id] = Math.max(0, n); self.setState({ cart: c }); };
+      lines.push({ name: p.name, cat: p.cat, qty: q, inc: function () { set(q + 1); }, dec: function () { set(q - 1); }, remove: function () { set(0); } });
+    });
+    var PAYS = [
+      { id: 'cod', name: 'Tiền mặt khi nhận hàng', note: 'COD' },
+      { id: 'bank', name: 'Chuyển khoản ngân hàng', note: '' },
+      { id: 'momo', name: 'Ví MoMo', note: '' },
+      { id: 'zalopay', name: 'ZaloPay', note: '' }
+    ];
+    var payName = '';
+    return {
+      count: count,
+      empty: count === 0,
+      lines: lines,
+      done: s.done,
+      notDone: !s.done,
+      pays: PAYS.map(function (p) {
+        var on = s.pay === p.id;
+        if (on) payName = p.name;
+        return { name: p.name, note: p.note, on: on, bg: on ? '#fdead8' : '#ffffff', border: on ? '#b85200' : '#ddd6cc', pick: function () { self.setState({ pay: p.id }); } };
+      }),
+      payName: (PAYS.filter(function (p) { return p.id === s.pay; })[0] || {}).name,
+      order: function () { if (count > 0) self.setState({ done: true }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

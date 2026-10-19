@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Kiến thức & mẹo hay — KitFix247</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&amp;family=Chakra+Petch:ital,wght@0,600;0,700;1,700&amp;display=swap">
+<style>
+body{margin:0;background:#faf8f5}
+a{color:#b85200}a:hover{color:#9a4300}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #b85200;outline-offset:2px}
+.kf-card:hover{box-shadow:0 1px 2px rgba(28,32,38,0.06),0 4px 16px rgba(28,32,38,0.06)}
+.kf-chip:hover{border-color:#0e2843 !important}
+.kf-brand:hover{background:#ff9a3d !important}
+@container (max-width: 640px){
+section[style*="padding: 80px"]{padding-top:48px !important;padding-bottom:48px !important}
+.kf-h1{font-size:28px !important;line-height:36px !important}
+.kf-feat-img{min-height:180px !important}
+}
+</style>
+</helmet>
+<div style="font-family: 'Be Vietnam Pro','Segoe UI',system-ui,sans-serif; color: #0e2843; background: #faf8f5; font-size: 16px; line-height: 24px; container-type: inline-size">
+
+<dc-import name="SiteHeader" active="kt" hint-size="100%,77px"></dc-import>
+
+<sc-if value="{{brandMode}}" hint-placeholder-val="{{ false }}">
+<section style="background: #0e2843; color: #f4f1ec">
+<div style="max-width: 1160px; margin: 0 auto; padding: 36px 16px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+<nav aria-label="Breadcrumb" style="font-size: 14px; color: #aebbd0; display: flex; gap: 8px; flex-wrap: wrap"><a href="Main.dc.html" style="color: #aebbd0">Trang chủ</a><span aria-hidden="true">/</span><a href="KienThuc.dc.html" style="color: #aebbd0">Kiến thức</a><span aria-hidden="true">/</span><span style="color: #f4f1ec">{{brandName}}</span></nav>
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: center">
+<div style="width: 160px; height: 88px; border-radius: 12px; background: #ffffff; display: flex; align-items: center; justify-content: center; padding: 12px; box-sizing: border-box; flex: none">
+<sc-if value="{{brandLogo}}" hint-placeholder-val="{{ false }}"><img src="{{brandLogo}}" alt="Logo {{brandName}}" style="max-width: 100%; max-height: 100%; display: block"></sc-if>
+<sc-if value="{{noBrandLogo}}" hint-placeholder-val="{{ true }}"><span style="font-family: 'Chakra Petch',system-ui,sans-serif; font-weight: 700; font-size: 22px; letter-spacing: 0.04em; text-transform: uppercase; color: #5a6069">{{brandName}}</span></sc-if>
+</div>
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+<h1 class="kf-h1" style="margin: 0; font-family: 'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-style: italic; font-size: 36px; line-height: 44px; font-weight: 700; text-transform: uppercase">Kiến thức thiết bị <span style="color: #f57a0a">{{brandName}}</span></h1>
+<p style="margin: 0; font-size: 17px; line-height: 26px; color: #aebbd0; max-width: 680px">{{brandDesc}}</p>
+</div>
+<a class="kf-brand" href="DatLich.dc.html" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 22px; border-radius: 999px; background: #f57a0a; color: #0e2843; font-weight: 800; text-transform: uppercase; text-decoration: none; flex: none">Đặt lịch sửa {{brandName}}</a>
+</div>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{generalHero}}" hint-placeholder-val="{{ true }}">
+<section style="background: #0e2843; color: #f4f1ec">
+<div style="max-width: 1160px; margin: 0 auto; padding: 40px 16px 44px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; justify-content: space-between">
+<div style="flex: 1 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<nav aria-label="Breadcrumb" style="font-size: 14px; color: #aebbd0; display: flex; gap: 8px"><a href="Main.dc.html" style="color: #aebbd0">Trang chủ</a><span aria-hidden="true">/</span><span style="color: #f4f1ec">Kiến thức</span></nav>
+<h1 class="kf-h1" style="margin: 0; font-family: 'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-style: italic; font-size: 40px; line-height: 48px; font-weight: 700; text-transform: uppercase">Kiến thức & <span style="color: #f57a0a">mẹo hay</span></h1>
+<p style="margin: 0; font-size: 18px; line-height: 28px; color: #aebbd0; max-width: 620px">Bảng mã lỗi, mẹo dùng bền và tư vấn sửa chữa thiết bị nhà bếp — do kỹ thuật viên KitFix247 viết.</p>
+</div>
+<label style="flex: 0 1 360px; min-width: 0; display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 16px; border-radius: 12px; background: #ffffff; color: #5a6069">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14z M20 20l-4-4"></path></svg>
+<span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Tìm bài viết</span>
+<input type="search" value="{{q}}" onChange="{{onQ}}" placeholder="Tìm mã lỗi, tên thiết bị… (vd: E4)" style="flex: 1; min-width: 0; border: 0; outline: none; font: inherit; color: #0e2843; background: transparent"></label>
+</div>
+</section>
+</sc-if>
+
+<section style="padding: 32px 0 80px">
+<div style="max-width: 1160px; margin: 0 auto; padding: 0 16px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
+
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px">
+<div role="group" aria-label="Lọc theo chuyên mục" style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{cats}}" as="c" hint-placeholder-count="5">
+<button type="button" class="kf-chip" onClick="{{c.pick}}" aria-pressed="{{c.on}}" style="min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1.5px solid {{c.border}}; background: {{c.bg}}; color: {{c.fg}}; font: inherit; font-weight: 600; font-size: 14px; cursor: pointer">{{c.name}}</button>
+</sc-for>
+</div>
+<label style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: #5a6069">Thương hiệu
+<select value="{{brand}}" onChange="{{onBrand}}" style="min-height: 40px; padding: 0 10px; border: 1.5px solid #8a9099; border-radius: 6px; font: inherit; color: #0e2843; background: #ffffff">
+<option value="">Tất cả hãng</option>
+<sc-for list="{{brandOpts}}" as="b" hint-placeholder-count="9"><option value="{{b}}">{{b}}</option></sc-for>
+</select></label>
+</div>
+
+<div style="font-size: 14px; color: #5a6069">{{countText}}</div>
+
+<sc-if value="{{hasFeat}}" hint-placeholder-val="{{ true }}">
+<a class="kf-card" href="BaiViet.dc.html" style="background: #ffffff; border: 1px solid #ddd6cc; border-radius: 20px; overflow: hidden; display: flex; flex-wrap: wrap; text-decoration: none; color: #0e2843">
+<div class="kf-feat-img" style="flex: 1 1 420px; min-height: 300px; background: #f1ede6; color: #8a9099; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; font-size: 13px">
+<svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{feat.icon}}"></path></svg>[Ảnh đại diện bài viết]</div>
+<div style="flex: 1 1 380px; min-width: 0; padding: 32px; display: flex; flex-direction: column; gap: 14px; justify-content: center">
+<div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 13px">
+<span style="background: #f57a0a; color: #0e2843; border-radius: 999px; padding: 3px 10px; font-weight: 700">Nổi bật</span>
+<span style="background: #0e2843; color: #f4f1ec; border-radius: 999px; padding: 3px 10px; font-weight: 600">{{feat.cat}}</span>
+<span style="color: #5a6069">{{feat.date}} · {{feat.read}} phút đọc</span>
+</div>
+<h2 style="margin: 0; font-family: 'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size: 28px; line-height: 36px; font-weight: 700">{{feat.title}}</h2>
+<p style="margin: 0; color: #5a6069">{{feat.ex}}</p>
+<span style="display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-size: 14px; text-transform: uppercase; color: #b85200">Đọc bài
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6"></path></svg></span>
+</div>
+</a>
+</sc-if>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px">
+<sc-for list="{{posts}}" as="p" hint-placeholder-count="6">
+<a class="kf-card" href="BaiViet.dc.html" style="background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; text-decoration: none; color: #0e2843">
+<div style="height: 180px; background: #f1ede6; color: #8a9099; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-size: 12px">
+<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{p.icon}}"></path></svg>[Ảnh bài viết]</div>
+<div style="padding: 20px 24px 22px; display: flex; flex-direction: column; gap: 10px; flex-grow: 1">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 12px">
+<span style="background: #0e2843; color: #f4f1ec; border-radius: 999px; padding: 2px 9px; font-weight: 600">{{p.cat}}</span>
+<span style="border: 1px solid #ddd6cc; border-radius: 999px; padding: 1px 8px; color: #5a6069; font-weight: 600">{{p.brand}}</span>
+<span style="color: #5a6069">{{p.date}}</span>
+</div>
+<h3 style="margin: 0; font-size: 18px; line-height: 26px; font-weight: 600; flex-grow: 1">{{p.title}}</h3>
+<span style="font-size: 13px; font-weight: 700; text-transform: uppercase; color: #b85200">Đọc tiếp · {{p.read}} phút</span>
+</div>
+</a>
+</sc-for>
+</div>
+
+<sc-if value="{{empty}}" hint-placeholder-val="{{ false }}">
+<div style="background: #ffffff; border: 1px dashed #8a9099; border-radius: 12px; padding: 32px; text-align: center; display: flex; flex-direction: column; gap: 12px; align-items: center">
+<div style="font-weight: 700; font-size: 18px">Chưa có bài phù hợp</div>
+<p style="margin: 0; color: #5a6069">Anh/chị gọi <a href="tel:0989041641" style="font-weight: 700">0989.041.641</a> để kỹ thuật viên tư vấn trực tiếp.</p>
+<button type="button" onClick="{{reset}}" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1.5px solid #8a9099; background: #ffffff; color: #0e2843; font: inherit; font-weight: 700; cursor: pointer">Xóa bộ lọc</button>
+</div>
+</sc-if>
+
+<nav aria-label="Phân trang" style="display: flex; justify-content: center; gap: 6px; padding-top: 8px">
+<a href="#" aria-current="page" style="width: 44px; height: 44px; border-radius: 12px; background: #0e2843; color: #f4f1ec; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; text-decoration: none">1</a>
+<a href="#" style="width: 44px; height: 44px; border-radius: 12px; border: 1.5px solid #ddd6cc; background: #ffffff; color: #0e2843; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; text-decoration: none">2</a>
+<a href="#" style="width: 44px; height: 44px; border-radius: 12px; border: 1.5px solid #ddd6cc; background: #ffffff; color: #0e2843; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; text-decoration: none">3</a>
+<a href="#" aria-label="Trang sau" style="width: 44px; height: 44px; border-radius: 12px; border: 1.5px solid #ddd6cc; background: #ffffff; color: #0e2843; display: inline-flex; align-items: center; justify-content: center; text-decoration: none">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></a>
+</nav>
+</div>
+</section>
+
+<section style="background: #f1ede6; padding: 56px 0">
+<div style="max-width: 1160px; margin: 0 auto; padding: 0 16px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between">
+<div style="flex: 1 1 420px; min-width: 0">
+<h2 style="margin: 0 0 6px; font-family: 'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size: 26px; line-height: 34px; font-weight: 700">Đọc rồi mà thiết bị vẫn chưa chạy?</h2>
+<p style="margin: 0; color: #5a6069">Kỹ thuật viên có mặt trong 60 phút, kiểm tra miễn phí, bảo hành 12 tháng.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<a class="kf-brand" href="tel:0989041641" style="display: inline-flex; align-items: center; gap: 8px; min-height: 52px; padding: 0 24px; border-radius: 999px; background: #f57a0a; color: #0e2843; font-weight: 800; text-transform: uppercase; text-decoration: none">Gọi 0989.041.641</a>
+<a href="DatLich.dc.html" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 22px; border-radius: 12px; border: 1.5px solid #0e2843; background: #ffffff; color: #0e2843; font-weight: 700; text-transform: uppercase; text-decoration: none">Đặt lịch sửa</a>
+</div>
+</div>
+</section>
+
+<dc-import name="SiteFooter" hint-size="100%,460px"></dc-import>
+
+<div style="position: sticky; bottom: 0; height: 0; z-index: 50">
+<div style="position: absolute; right: 20px; bottom: 20px">
+<dc-import name="ChatBubbles" book-href="DatLich.dc.html" hint-size="64px,200px"></dc-import>
+</div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"brand":{"editor":"text","default":""},"brandLogo":{"editor":null},"brandDesc":{"editor":null},"$preview":{"width":1440,"height":2600}}'>
+var I = {
+  burner: 'M3 5h18v14H3z M8.5 9.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z M16 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z',
+  hood: 'M9 3h6v6l5 6H4l5-6z M4 15v3h16v-3',
+  oven: 'M4 4h16v16H4z M4 9h16 M8 6.5h.01 M11 6.5h.01 M8 12h8v5H8z',
+  microwave: 'M3 6h18v12H3z M6 9h9v6H6z M18 9v.01 M18 12v.01 M18 15v.01',
+  dishwasher: 'M5 3h14v18H5z M5 7h14 M12 10a4 4 0 1 0 0 8 4 4 0 0 0 0-8z',
+  wrench: 'M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z'
+};
+var POSTS = [
+  { title: 'Bếp từ báo lỗi E1, E4: nguyên nhân và cách xử lý tại nhà', cat: 'Bảng mã lỗi', brand: 'Bosch', date: '10/10/2026', read: 6, icon: I.burner, ex: 'Giải thích ý nghĩa các mã lỗi thường gặp, cách tự kiểm tra an toàn và khi nào nên gọi kỹ thuật viên.' },
+  { title: 'Bao lâu nên vệ sinh máy hút mùi một lần?', cat: 'Mẹo sử dụng', brand: 'Hafele', date: '06/10/2026', read: 4, icon: I.hood },
+  { title: 'Lò vi sóng chạy nhưng không nóng: có phải hỏng magnetron?', cat: 'Tư vấn', brand: 'Teka', date: '01/10/2026', read: 5, icon: I.microwave },
+  { title: 'Bảng mã lỗi lò nướng Siemens và cách đọc nhanh', cat: 'Bảng mã lỗi', brand: 'Siemens', date: '28/09/2026', read: 7, icon: I.oven },
+  { title: 'Máy rửa chén không xả nước: 4 bước tự kiểm tra', cat: 'Tư vấn', brand: 'Bosch', date: '24/09/2026', read: 5, icon: I.dishwasher },
+  { title: '5 thói quen âm thầm làm giảm tuổi thọ bếp từ', cat: 'Mẹo sử dụng', brand: 'Chefs', date: '20/09/2026', read: 4, icon: I.burner },
+  { title: 'Lắp bếp âm đúng cách: khoảng hở, dây nguồn, aptomat', cat: 'Tư vấn', brand: 'Malloca', date: '15/09/2026', read: 6, icon: I.wrench },
+  { title: 'Bếp hồng ngoại Canzy nóng yếu: nguyên nhân thường gặp', cat: 'Bảng mã lỗi', brand: 'Canzy', date: '11/09/2026', read: 4, icon: I.burner },
+  { title: '[Tên chương trình khuyến mãi thật]', cat: 'Khuyến mãi', brand: 'Eurosun', date: '05/09/2026', read: 2, icon: I.hood },
+  { title: 'Máy hút mùi Fagor kêu to khi chạy: xử lý thế nào?', cat: 'Tư vấn', brand: 'Fagor', date: '01/09/2026', read: 4, icon: I.hood }
+];
+var BRANDS = ['Bosch', 'Hafele', 'Chefs', 'Eurosun', 'Teka', 'Siemens', 'Canzy', 'Fagor', 'Malloca'];
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { cat: 'Tất cả', brand: props.brand || '', q: '' };
+  }
+  renderVals() {
+    var self = this;
+    var s = this.state;
+    var pb = this.props.brand || '';
+    var BRAND_DESC = 'Mã lỗi, mẹo dùng bền và hướng dẫn xử lý sự cố bếp từ, máy hút mùi, lò nướng, máy rửa chén ' + pb + ' — do kỹ thuật viên KitFix247 tổng hợp.';
+    var q = s.q.trim().toLowerCase();
+    var list = POSTS.filter(function (p) {
+      return (s.cat === 'Tất cả' || p.cat === s.cat) && (!s.brand || p.brand === s.brand) && (!q || p.title.toLowerCase().indexOf(q) !== -1);
+    });
+    var filtered = s.cat !== 'Tất cả' || !!s.brand || !!q;
+    var feat = !filtered && list.length ? list[0] : null;
+    var rest = feat ? list.slice(1) : list;
+    var parts = [];
+    if (s.cat !== 'Tất cả') parts.push(s.cat);
+    if (s.brand) parts.push('hãng ' + s.brand);
+    if (q) parts.push('“' + s.q.trim() + '”');
+    return {
+      brandMode: !!pb, generalHero: !pb, brandName: pb,
+      brandLogo: this.props.brandLogo || '', noBrandLogo: !this.props.brandLogo,
+      brandDesc: this.props.brandDesc || BRAND_DESC,
+      q: s.q, brand: s.brand, brandOpts: BRANDS,
+      onQ: function (e) { self.setState({ q: e.target.value }); },
+      onBrand: function (e) { self.setState({ brand: e.target.value }); },
+      reset: function () { self.setState({ cat: 'Tất cả', brand: '', q: '' }); },
+      cats: ['Tất cả', 'Bảng mã lỗi', 'Mẹo sử dụng', 'Tư vấn', 'Khuyến mãi'].map(function (c) {
+        var on = s.cat === c;
+        return { name: c, on: on ? 'true' : 'false', bg: on ? '#0e2843' : '#ffffff', fg: on ? '#f4f1ec' : '#0e2843', border: on ? '#0e2843' : '#8a9099', pick: function () { self.setState({ cat: c }); } };
+      }),
+      countText: list.length + ' bài viết' + (parts.length ? ' · ' + parts.join(' · ') : ''),
+      hasFeat: !!feat,
+      feat: feat || POSTS[0],
+      posts: rest,
+      empty: list.length === 0
+    };
+  }
+}
+</script>
+</body>
+</html>

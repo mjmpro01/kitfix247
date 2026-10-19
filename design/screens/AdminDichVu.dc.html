@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>KitFix247 Admin — Dịch vụ & bảng giá</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&amp;family=Chakra+Petch:ital,wght@0,600;0,700;1,700&amp;display=swap">
+<style>
+body{margin:0;background:#faf8f5}
+@container (max-width: 640px){.kf-pad{padding-left:16px !important;padding-right:16px !important}}
+a{color:#b85200}a:hover{color:#9a4300}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #b85200;outline-offset:2px}
+.kf-brand:hover{background:#ff9a3d !important}
+.kf-sec:hover{background:#f1ede6 !important}
+.kf-li:hover{background:#f1ede6}
+</style>
+</helmet>
+<div style="font-family: 'Be Vietnam Pro','Segoe UI',system-ui,sans-serif; color: #0e2843; background: #faf8f5; font-size: 15px; line-height: 22px; display: flex; flex-wrap: wrap; align-items: stretch; container-type: inline-size">
+
+<div style="flex: 1 1 248px; min-width: 0; display: flex; flex-direction: column">
+<dc-import name="AdminSidebar" active="dichvu" hint-size="100%,900px"></dc-import>
+</div>
+
+<main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+<div class="kf-pad" style="background: #ffffff; border-bottom: 1px solid #ddd6cc; padding: 12px 32px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between">
+<h1 style="margin: 0; font-family: 'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size: 24px; line-height: 32px; font-weight: 700">Dịch vụ & bảng giá</h1>
+<div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap">
+<sc-if value="{{saved}}" hint-placeholder-val="{{ false }}"><span role="status" style="background: #d9f1ed; color: #0f766e; border-radius: 999px; padding: 6px 12px; font-weight: 600; font-size: 13px">Đã lưu thay đổi</span></sc-if>
+<a class="kf-sec" href="DichVu.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1.5px solid #8a9099; background: #ffffff; color: #0e2843; font-weight: 700; text-decoration: none">Xem trang</a>
+<button type="button" class="kf-brand" onClick="{{save}}" style="min-height: 44px; padding: 0 18px; border-radius: 12px; border: 0; background: #f57a0a; color: #0e2843; font: inherit; font-weight: 700; cursor: pointer">Lưu thay đổi</button>
+</div>
+</div>
+
+<div class="kf-pad" style="padding: 24px 32px 48px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; box-sizing: border-box; width: 100%">
+
+<nav aria-label="Danh sách dịch vụ" style="flex: 1 1 260px; min-width: 0; background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; padding: 8px; display: flex; flex-direction: column; gap: 2px">
+<div style="padding: 10px 12px; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: #5a6069">7 dịch vụ · kéo để sắp xếp</div>
+<sc-for list="{{list}}" as="l" hint-placeholder-count="7">
+<button type="button" class="kf-li" onClick="{{l.pick}}" aria-current="{{l.cur}}" style="display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 12px; border: 0; border-radius: 8px; background: {{l.bg}}; color: #0e2843; font: inherit; font-weight: 600; text-align: left; cursor: pointer; box-shadow: inset 3px 0 0 {{l.bar}}">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8a9099" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6h.01 M15 6h.01 M9 12h.01 M15 12h.01 M9 18h.01 M15 18h.01"></path></svg>
+<span style="flex: 1">{{l.name}}</span>
+<span style="font-size: 12px; color: {{l.visC}}; font-weight: 600">{{l.vis}}</span>
+</button>
+</sc-for>
+<button type="button" class="kf-sec" style="margin: 8px 4px 4px; min-height: 44px; border-radius: 12px; border: 1.5px dashed #8a9099; background: #ffffff; color: #0e2843; font: inherit; font-weight: 700; cursor: pointer">+ Thêm dịch vụ</button>
+</nav>
+
+<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+
+<section style="background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap">
+<h2 style="margin: 0; font-size: 18px; line-height: 26px; font-weight: 600">Thông tin trang dịch vụ</h2>
+<label style="display: inline-flex; align-items: center; gap: 10px; min-height: 44px; cursor: pointer; font-weight: 600; font-size: 14px">
+<input type="checkbox" checked="{{cur.home}}" onChange="{{toggleHome}}" style="width: 20px; height: 20px; accent-color: #b85200">Hiện card ở trang chủ & menu</label>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 16px">
+<label style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 13px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Tên dịch vụ</span>
+<input type="text" value="{{cur.name}}" onChange="{{onName}}" style="min-height: 48px; padding: 0 14px; border: 1.5px solid #8a9099; border-radius: 6px; font: inherit; color: #0e2843"></label>
+<label style="flex: 1 1 240px; min-width: 0; display: flex; flex-direction: column; gap: 8px"><span style="font-size: 13px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Đường dẫn</span>
+<input type="text" value="{{cur.slug}}" readonly style="min-height: 48px; padding: 0 14px; border: 1.5px solid #8a9099; border-radius: 6px; font: inherit; color: #5a6069; background: #faf8f5"></label>
+</div>
+<label style="display: flex; flex-direction: column; gap: 8px"><span style="font-size: 13px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Đoạn dẫn (Hero trang dịch vụ)</span>
+<textarea rows="2" style="padding: 10px 14px; border: 1.5px solid #8a9099; border-radius: 6px; font: inherit; color: #0e2843; resize: vertical">Kỹ thuật viên có mặt trong 60 phút, kiểm tra miễn phí và sửa ngay tại nhà anh/chị.</textarea></label>
+</section>
+
+<section style="background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<h2 style="margin: 0; font-size: 18px; line-height: 26px; font-weight: 600">Lỗi thường gặp (hiện trên card)</h2>
+<span style="font-size: 13px; color: #5a6069">Trang chủ hiện 3 lỗi đầu</span>
+</div>
+<sc-for list="{{faults}}" as="f" hint-placeholder-count="3">
+<div style="display: flex; gap: 8px; align-items: center">
+<span style="width: 28px; text-align: center; font-weight: 700; color: #5a6069">{{f.n}}</span>
+<input type="text" value="{{f.text}}" onChange="{{f.edit}}" aria-label="Lỗi số {{f.n}}" style="flex: 1; min-width: 0; min-height: 44px; padding: 0 12px; border: 1.5px solid #8a9099; border-radius: 6px; font: inherit; color: #0e2843">
+<button type="button" class="kf-sec" onClick="{{f.remove}}" aria-label="Xóa lỗi số {{f.n}}" style="width: 44px; height: 44px; border-radius: 8px; border: 1.5px solid #8a9099; background: #ffffff; color: #b42318; font: inherit; font-size: 18px; cursor: pointer">×</button>
+</div>
+</sc-for>
+<button type="button" class="kf-sec" onClick="{{addFault}}" style="align-self: flex-start; min-height: 44px; padding: 0 14px; border-radius: 12px; border: 1.5px dashed #8a9099; background: #ffffff; color: #0e2843; font: inherit; font-weight: 700; cursor: pointer">+ Thêm lỗi</button>
+</section>
+
+<section style="background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px">
+<h2 style="margin: 0; font-size: 18px; line-height: 26px; font-weight: 600">Bảng giá tham khảo</h2>
+<label style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: #5a6069">Nhóm giá trên trang chủ
+<select style="min-height: 40px; padding: 0 10px; border: 1.5px solid #8a9099; border-radius: 6px; font: inherit; color: #0e2843; background: #ffffff">
+<option>{{cur.group}}</option><option>Bếp từ & bếp hồng ngoại</option><option>Lò nướng & lò vi sóng</option><option>Máy hút mùi</option><option>Không hiện ở trang chủ</option>
+</select></label>
+</div>
+<div style="overflow-x: auto">
+<table style="width: 100%; border-collapse: collapse; min-width: 560px">
+<thead><tr style="text-align: left; background: #f1ede6">
+<th scope="col" style="padding: 10px 12px; font-size: 12px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Hạng mục</th>
+<th scope="col" style="padding: 10px 12px; font-size: 12px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase; width: 150px">Giá từ (₫)</th>
+<th scope="col" style="padding: 10px 12px; font-size: 12px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase; width: 150px">Giá đến (₫)</th>
+<th scope="col" style="padding: 10px 12px; width: 52px"><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Xóa</span></th>
+</tr></thead>
+<tbody>
+<sc-for list="{{prices}}" as="p" hint-placeholder-count="3">
+<tr style="border-top: 1px solid #ddd6cc">
+<td style="padding: 8px 12px"><input type="text" value="{{p.n}}" onChange="{{p.editN}}" aria-label="Hạng mục" style="width: 100%; box-sizing: border-box; min-height: 40px; padding: 0 10px; border: 1.5px solid #8a9099; border-radius: 6px; font: inherit; color: #0e2843"></td>
+<td style="padding: 8px 12px"><input type="text" inputmode="numeric" value="{{p.from}}" onChange="{{p.editFrom}}" placeholder="vd 650.000" aria-label="Giá từ" style="width: 100%; box-sizing: border-box; min-height: 40px; padding: 0 10px; border: 1.5px solid #8a9099; border-radius: 6px; font: inherit; color: #0e2843; text-align: right"></td>
+<td style="padding: 8px 12px"><input type="text" inputmode="numeric" value="{{p.to}}" onChange="{{p.editTo}}" placeholder="vd 1.200.000" aria-label="Giá đến" style="width: 100%; box-sizing: border-box; min-height: 40px; padding: 0 10px; border: 1.5px solid #8a9099; border-radius: 6px; font: inherit; color: #0e2843; text-align: right"></td>
+<td style="padding: 8px 12px"><button type="button" class="kf-sec" onClick="{{p.remove}}" aria-label="Xóa hạng mục" style="width: 40px; height: 40px; border-radius: 8px; border: 1.5px solid #8a9099; background: #ffffff; color: #b42318; font: inherit; font-size: 18px; cursor: pointer">×</button></td>
+</tr>
+</sc-for>
+</tbody>
+</table>
+</div>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px">
+<button type="button" class="kf-sec" onClick="{{addPrice}}" style="min-height: 44px; padding: 0 14px; border-radius: 12px; border: 1.5px dashed #8a9099; background: #ffffff; color: #0e2843; font: inherit; font-weight: 700; cursor: pointer">+ Thêm hạng mục giá</button>
+<span style="font-size: 13px; color: #5a6069">Ghi chú tự động: “Giá chưa gồm VAT, báo giá chính xác sau khi kiểm tra.”</span>
+</div>
+</section>
+</div>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
+var DATA = [
+  { name: 'Sửa bếp từ', slug: '/dich-vu/sua-bep-tu', home: true, group: 'Bếp từ & bếp hồng ngoại', faults: ['Không nhận nồi, báo lỗi E1, E4', 'Quạt kêu to, bếp tự tắt khi đang nấu', 'Mặt kính nứt, cảm ứng không nhạy'], prices: [{ n: 'Thay sò công suất (IGBT)', from: '', to: '' }, { n: 'Thay quạt tản nhiệt', from: '', to: '' }, { n: 'Thay mặt kính', from: '', to: '' }] },
+  { name: 'Sửa bếp hồng ngoại', slug: '/dich-vu/sua-bep-hong-ngoai', home: true, group: 'Bếp từ & bếp hồng ngoại', faults: ['Mâm nhiệt không đỏ, nóng yếu', 'Bật bếp là nhảy aptomat', 'Mặt kính nứt vỡ'], prices: [{ n: 'Thay mâm nhiệt hồng ngoại', from: '', to: '' }] },
+  { name: 'Sửa lò nướng', slug: '/dich-vu/sua-lo-nuong', home: true, group: 'Lò nướng & lò vi sóng', faults: ['Không lên nhiệt hoặc nóng không đều', 'Quạt đối lưu, đèn lò không chạy', 'Hỏng bộ hẹn giờ, núm điều chỉnh'], prices: [{ n: 'Thay thanh nhiệt lò nướng', from: '', to: '' }, { n: 'Thay rơ-le, bộ hẹn giờ', from: '', to: '' }] },
+  { name: 'Sửa lò vi sóng', slug: '/dich-vu/sua-lo-vi-song', home: true, group: 'Lò nướng & lò vi sóng', faults: ['Chạy nhưng không nóng (hỏng magnetron)', 'Đĩa không quay, có tia lửa trong lò', 'Bàn phím không nhận lệnh'], prices: [{ n: 'Thay magnetron', from: '650.000', to: '1.200.000' }, { n: 'Thay mô-tơ đĩa quay', from: '', to: '' }] },
+  { name: 'Sửa máy hút mùi', slug: '/dich-vu/sua-may-hut-mui', home: true, group: 'Máy hút mùi', faults: ['Hút yếu, quạt kêu to', 'Đèn không sáng, phím bấm liệt', 'Chảy dầu, lưới lọc bám bẩn'], prices: [{ n: 'Thay mô-tơ quạt hút', from: '', to: '' }, { n: 'Vệ sinh tổng thể, thay lưới lọc', from: '', to: '' }] },
+  { name: 'Sửa máy rửa chén', slug: '/dich-vu/sua-may-rua-chen', home: true, group: 'Không hiện ở trang chủ', faults: ['Không cấp hoặc không xả nước', 'Rửa không sạch, báo lỗi', 'Rò nước, không sấy khô'], prices: [] },
+  { name: 'Bảo dưỡng thiết bị bếp', slug: '/dich-vu/bao-duong-thiet-bi-bep', home: false, group: 'Không hiện ở trang chủ', faults: ['Vệ sinh quạt tản nhiệt bếp từ', 'Vệ sinh lưới lọc, máng dầu máy hút mùi', 'Kiểm tra dây nguồn, aptomat, ổ cắm'], prices: [] }
+];
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { sel: 0, data: JSON.parse(JSON.stringify(DATA)), saved: false };
+  }
+  patch(fn) {
+    var d = JSON.parse(JSON.stringify(this.state.data));
+    fn(d[this.state.sel]);
+    this.setState({ data: d, saved: false });
+  }
+  renderVals() {
+    var self = this;
+    var s = this.state;
+    var cur = s.data[s.sel];
+    return {
+      saved: s.saved,
+      cur: cur,
+      list: s.data.map(function (d, i) {
+        var on = i === s.sel;
+        return { name: d.name, cur: on ? 'true' : 'false', bg: on ? '#fdead8' : 'transparent', bar: on ? '#f57a0a' : 'transparent', vis: d.home ? 'Đang hiện' : 'Ẩn', visC: d.home ? '#0f766e' : '#5a6069', pick: function () { self.setState({ sel: i }); } };
+      }),
+      faults: cur.faults.map(function (t, i) {
+        return { n: i + 1, text: t,
+          edit: function (e) { var v = e.target.value; self.patch(function (c) { c.faults[i] = v; }); },
+          remove: function () { self.patch(function (c) { c.faults.splice(i, 1); }); } };
+      }),
+      prices: cur.prices.map(function (p, i) {
+        var ed = function (k) { return function (e) { var v = e.target.value; self.patch(function (c) { c.prices[i][k] = v; }); }; };
+        return Object.assign({}, p, { editN: ed('n'), editFrom: ed('from'), editTo: ed('to'), remove: function () { self.patch(function (c) { c.prices.splice(i, 1); }); } });
+      }),
+      onName: function (e) { var v = e.target.value; self.patch(function (c) { c.name = v; }); },
+      toggleHome: function () { self.patch(function (c) { c.home = !c.home; }); },
+      addFault: function () { self.patch(function (c) { c.faults.push(''); }); },
+      addPrice: function () { self.patch(function (c) { c.prices.push({ n: '', from: '', to: '' }); }); },
+      save: function () { self.setState({ saved: true }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

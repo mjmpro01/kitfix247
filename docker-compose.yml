@@ -1,0 +1,20 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: kitfix247-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: kitfix
+      MYSQL_DATABASE: kitfix247
+      MYSQL_USER: kitfix
+      MYSQL_PASSWORD: kitfix
+    ports:
+      - "3307:3306"
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-pkitfix"]
+      interval: 5s
+      retries: 20
+volumes:
+  mysql-data:

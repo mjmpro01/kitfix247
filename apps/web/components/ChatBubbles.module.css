@@ -1,0 +1,140 @@
+.wrap {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+:global(html[data-menu-open]) .wrap {
+  display: none;
+}
+.bub {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.bub:focus-visible {
+  outline: none;
+}
+.bub:focus-visible .circle {
+  outline: 2px solid var(--heat);
+  outline-offset: 3px;
+}
+.tip {
+  background: var(--glass);
+  color: var(--on-glass);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(14, 40, 67, 0.25);
+  opacity: 0;
+  transform: translateX(6px);
+  transition:
+    opacity 0.15s,
+    transform 0.15s;
+  pointer-events: none;
+}
+.tipBrand {
+  background: var(--brand);
+  color: var(--on-brand);
+  font-weight: 800;
+}
+.bub:hover .tip,
+.bub:focus-visible .tip {
+  opacity: 1;
+  transform: none;
+}
+.circle {
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s;
+}
+.bub:hover .circle {
+  transform: scale(1.06);
+}
+.book {
+  width: 52px;
+  height: 52px;
+  background: var(--surface-raised);
+  color: var(--ink);
+  border: 1.5px solid var(--line);
+  box-shadow: 0 4px 14px rgba(14, 40, 67, 0.22);
+}
+.zalo {
+  width: 56px;
+  height: 56px;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--glass);
+  color: var(--on-glass);
+  box-shadow: 0 4px 14px rgba(14, 40, 67, 0.3);
+}
+.zaloText {
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 800;
+}
+.callWrap {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  flex: none;
+}
+.call {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  background: var(--brand);
+  color: var(--on-brand);
+  box-shadow: 0 6px 18px rgba(245, 122, 10, 0.45);
+}
+.pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-full);
+  background: var(--brand);
+  animation: kfPulse 1.8s ease-out infinite;
+}
+@keyframes kfPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pulse {
+    animation: none;
+    opacity: 0;
+  }
+  .tip,
+  .circle {
+    transition: none;
+  }
+}
+@media (hover: none) {
+  .tip {
+    display: none;
+  }
+}
+@media (max-width: 640px) {
+  .wrap {
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    gap: 10px;
+  }
+}

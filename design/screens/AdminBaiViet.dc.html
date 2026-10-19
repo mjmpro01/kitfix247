@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>KitFix247 Admin — Viết bài & check SEO</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&amp;family=Chakra+Petch:ital,wght@0,600;0,700;1,700&amp;display=swap">
+<style>
+body{margin:0;background:#faf8f5}
+@container (max-width: 640px){.kf-pad{padding-left:16px !important;padding-right:16px !important}}
+a{color:#b85200}a:hover{color:#9a4300}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #b85200;outline-offset:2px}
+.kf-brand:hover{background:#ff9a3d !important}
+.kf-sec:hover{background:#f1ede6 !important}
+.kf-tool:hover{background:#f1ede6 !important}
+</style>
+</helmet>
+<div style="font-family: 'Be Vietnam Pro','Segoe UI',system-ui,sans-serif; color: #0e2843; background: #faf8f5; font-size: 15px; line-height: 22px; display: flex; flex-wrap: wrap; align-items: stretch; container-type: inline-size">
+
+<div style="flex: 1 1 248px; min-width: 0; display: flex; flex-direction: column">
+<dc-import name="AdminSidebar" active="baiviet" hint-size="100%,900px"></dc-import>
+</div>
+
+<main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+<div class="kf-pad" style="background: #ffffff; border-bottom: 1px solid #ddd6cc; padding: 12px 32px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between">
+<div style="display: flex; flex-direction: column">
+<nav aria-label="Breadcrumb" style="font-size: 13px; color: #5a6069"><a href="AdminTongQuan.dc.html" style="color: #5a6069">Bài viết</a> / Viết bài mới</nav>
+<h1 style="margin: 0; font-family: 'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size: 24px; line-height: 32px; font-weight: 700">Viết bài mới</h1>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
+<sc-if value="{{published}}" hint-placeholder-val="{{ false }}">
+<span role="status" style="background: #d9f1ed; color: #0f766e; border-radius: 999px; padding: 6px 12px; font-weight: 600; font-size: 13px">Đã xuất bản — bài hiện ở mục Tin tức trang chủ</span>
+</sc-if>
+<button type="button" class="kf-sec" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1.5px solid #8a9099; background: #ffffff; color: #0e2843; font: inherit; font-weight: 700; cursor: pointer">Lưu nháp</button>
+<button type="button" class="kf-sec" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1.5px solid #8a9099; background: #ffffff; color: #0e2843; font: inherit; font-weight: 700; cursor: pointer">Xem trước</button>
+<button type="button" class="kf-brand" onClick="{{publish}}" style="min-height: 44px; padding: 0 18px; border-radius: 12px; border: 0; background: #f57a0a; color: #0e2843; font: inherit; font-weight: 700; cursor: pointer">Xuất bản</button>
+</div>
+</div>
+
+<div class="kf-pad" style="padding: 24px 32px 48px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; box-sizing: border-box; width: 100%">
+
+<!-- EDITOR -->
+<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<div style="background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+<label style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Tiêu đề bài viết (H1)</span>
+<input type="text" value="{{title}}" onChange="{{onTitle}}" style="min-height: 52px; padding: 0 14px; border: 1.5px solid #8a9099; border-radius: 6px; font-family: 'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-weight: 700; font-size: 20px; color: #0e2843; box-sizing: border-box; width: 100%"></label>
+<div style="display: flex; flex-wrap: wrap; gap: 16px">
+<label style="flex: 2 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Đường dẫn (slug)</span>
+<div style="display: flex; align-items: center; border: 1.5px solid #8a9099; border-radius: 6px; overflow: hidden; min-height: 48px">
+<span style="padding: 0 10px; color: #5a6069; background: #f1ede6; align-self: stretch; display: flex; align-items: center; font-size: 13px; white-space: nowrap">kitfix247.com/tin-tuc/</span>
+<input type="text" value="{{slug}}" onChange="{{onSlug}}" aria-label="Slug" style="flex: 1; min-width: 0; border: 0; padding: 0 10px; font: inherit; color: #0e2843; outline: none; min-height: 44px">
+<button type="button" onClick="{{autoSlug}}" style="border: 0; border-left: 1px solid #ddd6cc; background: #ffffff; padding: 0 12px; font: inherit; font-size: 13px; font-weight: 700; color: #b85200; cursor: pointer; align-self: stretch">Tạo từ tiêu đề</button>
+</div></label>
+<label style="flex: 1 1 180px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Chuyên mục</span>
+<select style="min-height: 48px; padding: 0 10px; border: 1.5px solid #8a9099; border-radius: 6px; font: inherit; color: #0e2843; background: #ffffff">
+<option>Bảng mã lỗi</option><option>Mẹo sử dụng</option><option>Tư vấn</option><option>Khuyến mãi</option>
+</select></label>
+</div>
+<fieldset style="border: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px">
+<legend style="font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase; margin-bottom: 8px">Thương hiệu liên quan <span style="text-transform: none; letter-spacing: 0; font-weight: 400; color: #5a6069">— bài hiện khi khách bấm tên hãng ở trang chủ</span></legend>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{brandTags}}" as="b" hint-placeholder-count="9">
+<button type="button" onClick="{{b.toggle}}" aria-pressed="{{b.on}}" style="min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid {{b.border}}; background: {{b.bg}}; color: {{b.fg}}; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer">{{b.name}}</button>
+</sc-for>
+</div>
+</fieldset>
+</div>
+
+<div style="background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; overflow: hidden">
+<div role="toolbar" aria-label="Định dạng" style="display: flex; flex-wrap: wrap; gap: 4px; padding: 8px; border-bottom: 1px solid #ddd6cc; background: #faf8f5">
+<button type="button" class="kf-tool" onClick="{{addH2}}" style="min-width: 44px; min-height: 40px; border: 0; border-radius: 6px; background: transparent; font: inherit; font-weight: 800; cursor: pointer; color: #0e2843">H2</button>
+<button type="button" class="kf-tool" style="min-width: 44px; min-height: 40px; border: 0; border-radius: 6px; background: transparent; font: inherit; font-weight: 800; cursor: pointer; color: #0e2843">H3</button>
+<button type="button" class="kf-tool" aria-label="In đậm" style="min-width: 44px; min-height: 40px; border: 0; border-radius: 6px; background: transparent; font: inherit; font-weight: 800; cursor: pointer; color: #0e2843">B</button>
+<button type="button" class="kf-tool" aria-label="In nghiêng" style="min-width: 44px; min-height: 40px; border: 0; border-radius: 6px; background: transparent; font: inherit; font-style: italic; font-weight: 700; cursor: pointer; color: #0e2843">I</button>
+<button type="button" class="kf-tool" onClick="{{addLink}}" style="min-height: 40px; padding: 0 10px; border: 0; border-radius: 6px; background: transparent; font: inherit; font-weight: 600; cursor: pointer; color: #0e2843">Chèn link dịch vụ</button>
+<button type="button" class="kf-tool" style="min-height: 40px; padding: 0 10px; border: 0; border-radius: 6px; background: transparent; font: inherit; font-weight: 600; cursor: pointer; color: #0e2843">Chèn ảnh</button>
+<button type="button" class="kf-tool" style="min-height: 40px; padding: 0 10px; border: 0; border-radius: 6px; background: transparent; font: inherit; font-weight: 600; cursor: pointer; color: #0e2843">Khối gọi hotline</button>
+<span style="margin-left: auto; align-self: center; padding: 0 8px; font-size: 13px; color: #5a6069">{{words}} từ</span>
+</div>
+<label style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)" for="kf-content">Nội dung bài viết</label>
+<textarea id="kf-content" value="{{content}}" onChange="{{onContent}}" rows="18" style="display: block; width: 100%; box-sizing: border-box; border: 0; padding: 20px 24px; font: inherit; font-size: 16px; line-height: 26px; color: #0e2843; resize: vertical; outline: none; min-height: 460px"></textarea>
+</div>
+
+<div style="background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; padding: 24px; display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+<div style="width: 200px; height: 120px; border-radius: 12px; background: #0e2843; color: #aebbd0; display: flex; align-items: center; justify-content: center; font-size: 13px; flex: none">[Ảnh đại diện]</div>
+<div style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+<label style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Văn bản thay thế ảnh (alt)</span>
+<input type="text" value="{{alt}}" onChange="{{onAlt}}" style="min-height: 48px; padding: 0 14px; border: 1.5px solid #8a9099; border-radius: 6px; font: inherit; color: #0e2843; box-sizing: border-box; width: 100%"></label>
+<button type="button" class="kf-sec" style="align-self: flex-start; min-height: 40px; padding: 0 14px; border-radius: 12px; border: 1.5px solid #8a9099; background: #ffffff; color: #0e2843; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer">Đổi ảnh</button>
+</div>
+</div>
+</div>
+
+<!-- SEO PANEL -->
+<aside aria-label="Kiểm tra SEO" style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<div style="background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; align-items: center; gap: 16px">
+<div style="width: 76px; height: 76px; border-radius: 999px; border: 6px solid {{scoreColor}}; display: flex; align-items: center; justify-content: center; box-sizing: border-box; flex: none">
+<span style="font-family: 'Chakra Petch',system-ui,sans-serif; font-style: italic; font-weight: 700; font-size: 26px; color: {{scoreColor}}; font-variant-numeric: tabular-nums">{{score}}</span>
+</div>
+<div>
+<h2 style="margin: 0; font-size: 18px; line-height: 26px; font-weight: 600">Điểm SEO: {{scoreLabel}}</h2>
+<p style="margin: 0; font-size: 13px; line-height: 18px; color: #5a6069">Đạt {{passed}}/{{total}} tiêu chí. Cập nhật ngay khi anh/chị gõ.</p>
+</div>
+</div>
+<label style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Từ khóa chính</span>
+<input type="text" value="{{kw}}" onChange="{{onKw}}" placeholder="vd: bếp từ báo lỗi" style="min-height: 48px; padding: 0 14px; border: 1.5px solid #8a9099; border-radius: 6px; font: inherit; color: #0e2843; box-sizing: border-box; width: 100%"></label>
+<div style="font-size: 13px; color: #5a6069">Xuất hiện {{occ}} lần · mật độ {{density}}% (nên 0,5–2,5%)</div>
+</div>
+
+<div style="background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-size: 16px; line-height: 24px; font-weight: 600">Hiển thị trên Google</h2>
+<div style="border: 1px solid #ddd6cc; border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; font-family: Arial, sans-serif">
+<span style="font-size: 12px; color: #4d5156">kitfix247.com › tin-tuc › {{slug}}</span>
+<span style="font-size: 18px; line-height: 24px; color: #1a0dab">{{pvTitle}}</span>
+<span style="font-size: 13px; line-height: 20px; color: #4d5156">{{pvDesc}}</span>
+</div>
+<label style="display: flex; flex-direction: column; gap: 6px">
+<span style="display: flex; justify-content: space-between; font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Tiêu đề SEO <span style="color: {{mtColor}}; text-transform: none; letter-spacing: 0">{{mtLen}}/60</span></span>
+<input type="text" value="{{metaTitle}}" onChange="{{onMetaTitle}}" placeholder="Để trống sẽ dùng tiêu đề bài viết" style="min-height: 44px; padding: 0 12px; border: 1.5px solid #8a9099; border-radius: 6px; font: inherit; color: #0e2843; box-sizing: border-box; width: 100%"></label>
+<label style="display: flex; flex-direction: column; gap: 6px">
+<span style="display: flex; justify-content: space-between; font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Mô tả meta <span style="color: {{mdColor}}; text-transform: none; letter-spacing: 0">{{mdLen}}/160</span></span>
+<textarea value="{{metaDesc}}" onChange="{{onMetaDesc}}" rows="3" style="padding: 10px 12px; border: 1.5px solid #8a9099; border-radius: 6px; font: inherit; color: #0e2843; box-sizing: border-box; width: 100%; resize: vertical"></textarea></label>
+</div>
+
+<div style="background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 4px">
+<h2 style="margin: 0 0 8px; font-size: 16px; line-height: 24px; font-weight: 600">Danh sách kiểm tra</h2>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column">
+<sc-for list="{{checks}}" as="c" hint-placeholder-count="12">
+<li style="display: flex; gap: 10px; align-items: flex-start; padding: 10px 0; border-top: 1px solid #ddd6cc">
+<span style="width: 22px; height: 22px; border-radius: 999px; background: {{c.bg}}; color: {{c.fg}}; display: flex; align-items: center; justify-content: center; flex: none; margin-top: 1px">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{c.icon}}"></path></svg></span>
+<span style="display: flex; flex-direction: column"><span style="font-weight: 600; font-size: 14px">{{c.label}}</span><span style="font-size: 13px; line-height: 18px; color: #5a6069">{{c.hint}}</span></span>
+<span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">{{c.sr}}</span>
+</li>
+</sc-for>
+</ul>
+</div>
+</aside>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1700}}'>
+function deaccent(s) { return s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd').replace(/Đ/g, 'D'); }
+function slugify(s) { return deaccent(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); }
+function countOcc(hay, needle) { if (!needle) return 0; var n = 0, i = 0; while ((i = hay.indexOf(needle, i)) !== -1) { n++; i += needle.length; } return n; }
+function cut(s, n) { return s.length > n ? s.slice(0, n - 1).trim() + '…' : s; }
+var SAMPLE = 'Bếp từ báo lỗi là tình huống nhiều gia đình gặp phải sau vài năm sử dụng. Bài viết này giải thích ý nghĩa các mã lỗi phổ biến và cách anh/chị tự kiểm tra trước khi gọi thợ.\n\n## Lỗi E1: bếp không nhận nồi\nNguyên nhân thường do nồi không có đáy từ hoặc đặt lệch vùng nấu. Anh/chị thử đổi nồi khác có đáy phẳng, nhiễm từ tốt.\n\n## Lỗi E4: bếp quá nhiệt\nQuạt tản nhiệt bám bụi hoặc khe thoát gió bị che. Tắt bếp, để nguội rồi vệ sinh khe gió phía dưới.\n\n## Khi nào cần gọi kỹ thuật viên?\nNếu đã thử các cách trên mà bếp vẫn báo lỗi, anh/chị đặt lịch để kỹ thuật viên kiểm tra miễn phí tại nhà.';
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: 'Bếp từ báo lỗi E1, E4: nguyên nhân và cách xử lý tại nhà',
+      slug: 'bep-tu-bao-loi-e1-e4',
+      kw: 'bếp từ báo lỗi',
+      metaTitle: '',
+      metaDesc: 'Bếp từ báo lỗi E1, E4 là gì? Hướng dẫn tự kiểm tra tại nhà.',
+      alt: 'Mặt bếp từ hiển thị mã lỗi',
+      content: SAMPLE,
+      published: false,
+      brands: { Bosch: true, Teka: true }
+    };
+  }
+  renderVals() {
+    var self = this;
+    var s = this.state;
+    var set = function (k) { return function (e) { var o = {}; o[k] = e.target.value; self.setState(o); }; };
+    var kw = s.kw.trim().toLowerCase();
+    var content = s.content;
+    var lc = content.toLowerCase();
+    var words = content.trim() ? content.trim().split(/\s+/).length : 0;
+    var occ = countOcc(lc, kw);
+    var kwWords = kw ? kw.split(/\s+/).length : 0;
+    var density = words ? (occ * kwWords / words * 100) : 0;
+    var mt = (s.metaTitle.trim() || s.title.trim());
+    var md = s.metaDesc.trim();
+    var paras = content.split(/\n\s*\n/).filter(function (p) { return p.trim() && !/^#/.test(p.trim()); });
+    var intro = (paras[0] || '').toLowerCase();
+    var kwSlug = slugify(kw);
+    var C = [
+      { ok: !!kw, label: 'Đã nhập từ khóa chính', hint: 'Mỗi bài tập trung một từ khóa khách hay tìm.' },
+      { ok: !!kw && s.title.toLowerCase().indexOf(kw) !== -1, label: 'Tiêu đề chứa từ khóa', hint: 'Đặt từ khóa càng gần đầu tiêu đề càng tốt.' },
+      { ok: mt.length >= 30 && mt.length <= 60, label: 'Tiêu đề SEO dài 30–60 ký tự', hint: 'Hiện tại ' + mt.length + ' ký tự.' },
+      { ok: md.length >= 120 && md.length <= 160, label: 'Mô tả meta dài 120–160 ký tự', hint: 'Hiện tại ' + md.length + ' ký tự.' },
+      { ok: !!kw && md.toLowerCase().indexOf(kw) !== -1, label: 'Mô tả meta chứa từ khóa', hint: 'Google thường in đậm từ khóa trong mô tả.' },
+      { ok: !!kwSlug && s.slug.indexOf(kwSlug) !== -1, label: 'Slug chứa từ khóa', hint: 'Slug nên là: ' + (kwSlug || '…') },
+      { ok: !!kw && intro.indexOf(kw) !== -1, label: 'Từ khóa có trong đoạn mở đầu', hint: 'Nhắc từ khóa trong 1–2 câu đầu bài.' },
+      { ok: density >= 0.5 && density <= 2.5, label: 'Mật độ từ khóa 0,5–2,5%', hint: 'Hiện tại ' + density.toFixed(1).replace('.', ',') + '%.' },
+      { ok: words >= 300, label: 'Bài viết từ 300 từ', hint: 'Hiện tại ' + words + ' từ.' },
+      { ok: /^##\s/m.test(content), label: 'Có tiêu đề phụ (H2)', hint: 'Chia bài theo từng lỗi hoặc từng bước.' },
+      { ok: /\]\(|https?:\/\/|\/dich-vu|\/dat-lich/.test(content), label: 'Có liên kết nội bộ', hint: 'Dẫn tới trang dịch vụ hoặc trang Đặt lịch.' },
+      { ok: !!kw && s.alt.toLowerCase().indexOf(kw) !== -1, label: 'Alt ảnh đại diện chứa từ khóa', hint: 'Mô tả ảnh và nhắc từ khóa tự nhiên.' }
+    ];
+    var passed = C.filter(function (c) { return c.ok; }).length;
+    var score = Math.round(passed / C.length * 100);
+    var scoreColor = score >= 80 ? '#0f766e' : (score >= 50 ? '#b85200' : '#b42318');
+    var lenColor = function (n, lo, hi) { return (n >= lo && n <= hi) ? '#0f766e' : (n > hi ? '#b42318' : '#b85200'); };
+    return {
+      title: s.title, slug: s.slug, kw: s.kw, metaTitle: s.metaTitle, metaDesc: s.metaDesc, alt: s.alt, content: content,
+      published: s.published,
+      brandTags: ['Bosch', 'Hafele', 'Chefs', 'Eurosun', 'Teka', 'Siemens', 'Canzy', 'Fagor', 'Malloca'].map(function (n) {
+        var on = !!s.brands[n];
+        return { name: n, on: on ? 'true' : 'false', bg: on ? '#0e2843' : '#ffffff', fg: on ? '#f4f1ec' : '#0e2843', border: on ? '#0e2843' : '#8a9099',
+          toggle: function () { var b = Object.assign({}, self.state.brands); b[n] = !b[n]; self.setState({ brands: b }); } };
+      }),
+      words: words, occ: occ, density: density.toFixed(1).replace('.', ','),
+      score: score, scoreColor: scoreColor, scoreLabel: score >= 80 ? 'Tốt' : (score >= 50 ? 'Cần cải thiện' : 'Kém'),
+      passed: passed, total: C.length,
+      mtLen: mt.length, mdLen: md.length,
+      mtColor: lenColor(mt.length, 30, 60), mdColor: lenColor(md.length, 120, 160),
+      pvTitle: cut(mt || 'Tiêu đề bài viết', 60) + ' | KitFix247',
+      pvDesc: cut(md || 'Chưa có mô tả meta — Google sẽ tự lấy một đoạn trong bài.', 160),
+      checks: C.map(function (c) {
+        return { label: c.label, hint: c.hint, sr: c.ok ? 'Đạt' : 'Chưa đạt', bg: c.ok ? '#d9f1ed' : '#fbe4e2', fg: c.ok ? '#0f766e' : '#b42318', icon: c.ok ? 'M5 12.5l4.5 4.5L19 7.5' : 'M7 7l10 10 M17 7L7 17' };
+      }),
+      onTitle: set('title'), onSlug: set('slug'), onKw: set('kw'), onMetaTitle: set('metaTitle'), onMetaDesc: set('metaDesc'), onAlt: set('alt'), onContent: set('content'),
+      autoSlug: function () { self.setState({ slug: slugify(self.state.title) }); },
+      addH2: function () { self.setState({ content: self.state.content + '\n\n## Tiêu đề phụ mới\n' }); },
+      addLink: function () { self.setState({ content: self.state.content + ' Xem thêm [dịch vụ sửa bếp từ](/dich-vu/sua-bep-tu).' }); },
+      publish: function () { self.setState({ published: true }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,385 @@
+.head {
+  padding-top: 32px;
+  padding-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.crumb {
+  font-size: 14px;
+  color: var(--ink-muted);
+}
+.crumb ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.crumb li + li::before {
+  content: '/';
+  margin-right: 8px;
+}
+.crumb a {
+  color: var(--ink-muted);
+}
+.crumb a:hover {
+  color: var(--ink);
+}
+
+.labels {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  font-size: 13px;
+  line-height: 20px;
+}
+.labelCat,
+.label {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  text-decoration: none;
+  min-height: 28px;
+  position: relative;
+}
+/* Nhãn nhìn nhỏ nhưng vùng chạm vẫn ≥44px */
+.labelCat::after,
+.label::after {
+  content: '';
+  position: absolute;
+  inset: -8px -2px;
+}
+.labelCat {
+  background: var(--glass);
+  color: var(--on-glass);
+  padding: 3px 10px;
+}
+.labelCat:hover {
+  color: var(--on-glass);
+  background: var(--glass-hover);
+}
+.label {
+  border: 1px solid var(--line-strong);
+  color: var(--ink);
+  padding: 2px 10px;
+}
+.label:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 40px;
+  line-height: 50px;
+  font-weight: 700;
+  max-width: 900px;
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  align-items: center;
+  font-size: 14px;
+  color: var(--ink-muted);
+}
+.author {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--heat-soft);
+  color: var(--heat-strong);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.figure {
+  margin: 0;
+}
+.cover {
+  height: 420px;
+  max-height: 56vw;
+  border-radius: var(--radius-lg);
+  font-size: 14px;
+  gap: 8px;
+  text-align: center;
+  padding: 16px;
+}
+
+.layout {
+  padding-top: 40px;
+  padding-bottom: 64px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 48px;
+  align-items: flex-start;
+}
+.main {
+  flex: 999 1 560px;
+  min-width: 0;
+  max-width: 720px;
+}
+
+/* ---------- Thân bài (HTML từ Markdown) ---------- */
+.body {
+  font-size: 17px;
+  line-height: 28px;
+  overflow-wrap: break-word;
+}
+.body > p:first-child {
+  font-size: 19px;
+  line-height: 30px;
+}
+.body :global(h2) {
+  font-family: var(--font-display);
+  font-size: 26px;
+  line-height: 34px;
+  font-weight: 700;
+  margin: 40px 0 12px;
+}
+.body :global(h3) {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 700;
+  margin: 28px 0 8px;
+}
+.body :global(h4) {
+  font-size: 17px;
+  line-height: 26px;
+  font-weight: 700;
+  margin: 24px 0 8px;
+}
+.body :global(p) {
+  margin: 0 0 16px;
+}
+.body :global(ul),
+.body :global(ol) {
+  margin: 0 0 16px;
+  padding-left: 22px;
+}
+.body :global(li) {
+  margin-bottom: 6px;
+}
+.body :global(a) {
+  font-weight: 600;
+}
+.body :global(img) {
+  display: block;
+  height: auto;
+  border-radius: var(--radius-md);
+  margin: 0 0 16px;
+}
+.body :global(blockquote) {
+  margin: 0 0 16px;
+  background: var(--heat-soft);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  font-size: 15px;
+  line-height: 23px;
+}
+.body :global(blockquote p:last-child) {
+  margin-bottom: 0;
+}
+.body :global(code) {
+  background: var(--surface-sunken);
+  border-radius: var(--radius-sm);
+  padding: 1px 6px;
+  font-size: 0.9em;
+}
+.body :global(hr) {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 32px 0;
+}
+.body :global(.table-wrap) {
+  overflow-x: auto;
+  margin: 0 0 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface-raised);
+}
+.body :global(table) {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  line-height: 22px;
+  min-width: 480px;
+}
+.body :global(thead tr) {
+  background: var(--surface-sunken);
+  text-align: left;
+}
+.body :global(th) {
+  padding: 12px 16px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  text-align: left;
+}
+.body :global(td) {
+  padding: 12px 16px;
+  border-top: 1px solid var(--line);
+  vertical-align: top;
+}
+
+/* ---------- CTA cuối bài ---------- */
+.cta {
+  margin-top: 32px;
+  background: var(--glass);
+  color: var(--on-glass);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.ctaTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+}
+.ctaText {
+  margin: 0;
+  color: var(--on-glass-muted);
+}
+.pill {
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  font-weight: 800;
+  font-size: 16px;
+}
+.ctaBook {
+  text-transform: uppercase;
+  font-size: 16px;
+}
+
+/* ---------- Cột phải: mục lục dính ---------- */
+.side {
+  flex: 1 1 300px;
+  min-width: 0;
+  position: sticky;
+  top: 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.box {
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.boxTitle {
+  margin: 0;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.toc,
+.svcList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.toc a {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 15px;
+  line-height: 21px;
+}
+.toc a:hover {
+  color: var(--heat);
+}
+.svcLink {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  color: var(--heat);
+  text-decoration: none;
+}
+.trust {
+  margin: 0;
+  background: var(--trust-soft);
+  color: var(--trust);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+/* ---------- Bài liên quan ---------- */
+.related {
+  background: var(--surface-sunken);
+  padding: 64px 0;
+}
+.relatedIn {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.relatedGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+/* Ít hơn 3 bài: giữ độ rộng thẻ, không kéo giãn cả hàng */
+.relatedGrid > :only-child {
+  max-width: 380px;
+}
+
+@media (max-width: 640px) {
+  .h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+  .body :global(h2) {
+    font-size: 22px;
+    line-height: 30px;
+  }
+  .layout {
+    padding-top: 32px;
+    padding-bottom: 48px;
+    gap: 32px;
+  }
+  .side {
+    position: static;
+  }
+  .cta {
+    padding: 24px;
+  }
+  .related {
+    padding: 48px 0;
+  }
+  .relatedGrid {
+    grid-template-columns: 1fr;
+  }
+  .relatedGrid > :only-child {
+    max-width: none;
+  }
+}

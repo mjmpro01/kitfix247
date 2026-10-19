@@ -1,0 +1,51 @@
+/* Design tokens KitFix247 — sinh từ design/tokens.json (theme sáng). */
+:root {
+  --surface: #faf8f5;
+  --surface-raised: #ffffff;
+  --surface-sunken: #f1ede6;
+  --glass: #0e2843;
+  --glass-deep: #0b2340;
+  --glass-hover: #16365a;
+  --glass-line: #22446a;
+  --glass-chip: #2c4c72;
+  --on-glass: #f4f1ec;
+  --on-glass-muted: #aebbd0;
+  --ink: #0e2843;
+  --ink-muted: #5a6069;
+  --line: #ddd6cc;
+  --line-strong: #8a9099;
+  --brand: #f57a0a;
+  --brand-hover: #ff9a3d;
+  --on-brand: #0e2843;
+  --heat: #b85200;
+  --heat-strong: #9a4300;
+  --heat-soft: #fdead8;
+  --spark: #f2a70e;
+  --trust: #0f766e;
+  --trust-soft: #d9f1ed;
+  --star: #b45309;
+  --danger: #b42318;
+
+  --font-display: var(--font-chakra), "Chakra Petch", "Be Vietnam Pro", system-ui, sans-serif;
+  --font-sans: var(--font-bvp), "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 80px;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 999px;
+
+  --shadow-card: 0 1px 2px rgba(28, 32, 38, 0.06), 0 4px 16px rgba(28, 32, 38, 0.06);
+  --shadow-bar: 0 -4px 20px rgba(28, 32, 38, 0.18);
+  --shadow-menu: 0 1px 2px rgba(28, 32, 38, 0.06), 0 8px 28px rgba(14, 40, 67, 0.14);
+
+  --content-max: 1160px;
+}

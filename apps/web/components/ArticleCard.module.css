@@ -1,0 +1,91 @@
+.card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.coverWrap {
+  position: relative;
+  overflow: hidden;
+  background: var(--surface-sunken);
+}
+.coverImg {
+  object-fit: cover;
+}
+.img {
+  height: 180px;
+}
+.imgCompact {
+  height: 160px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.body {
+  padding: 20px 24px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-grow: 1;
+}
+.bodyCompact {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  line-height: 18px;
+}
+.cat {
+  background: var(--glass);
+  color: var(--on-glass);
+  border-radius: var(--radius-full);
+  padding: 2px 9px;
+  font-weight: 600;
+}
+.brand {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-full);
+  padding: 1px 8px;
+  color: var(--ink-muted);
+  font-weight: 600;
+}
+.title {
+  margin: 0;
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 600;
+  flex-grow: 1;
+}
+/* Cả thẻ bấm được nhưng chỉ có một link thật (tiêu đề) cho trình đọc màn hình. */
+.link {
+  color: var(--ink);
+  text-decoration: none;
+}
+.link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+.link:hover {
+  color: var(--ink);
+}
+.link:focus-visible {
+  outline: none;
+}
+.link:focus-visible::after {
+  outline: 2px solid var(--heat);
+  outline-offset: 2px;
+}
+.more {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--heat);
+}

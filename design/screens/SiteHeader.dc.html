@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>KitFix247 — Header</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&amp;family=Chakra+Petch:ital,wght@0,600;0,700;1,700&amp;display=swap">
+<style>
+body{margin:0}
+.kf-dd{position:relative}
+.kf-dd-menu{display:none}
+.kf-dd:hover .kf-dd-menu,.kf-dd:focus-within .kf-dd-menu,.kf-dd-menu.kf-open{display:grid}
+.kf-nav:hover{color:#b85200 !important}
+.kf-dd-item:hover{background:#fdead8}
+.kf-brand:hover{background:#ff9a3d !important}
+.kf-sec:hover{background:#f1ede6 !important}
+.kf-mlink:hover{background:#f1ede6}
+.kf-burger{display:none !important}
+.kf-ph-short{display:none}
+.kf-mpanel summary{list-style:none;cursor:pointer}
+.kf-mpanel summary::-webkit-details-marker{display:none}
+.kf-mpanel details[open] .kf-chev{transform:rotate(180deg)}
+.kf-hot,.kf-nav-d{white-space:nowrap}
+@container (max-width: 1279px){
+.kf-hot{display:none !important}
+}
+@container (max-width: 1100px){
+.kf-nav-d{display:none !important}
+.kf-burger{display:inline-flex !important}
+}
+@container (max-width: 640px){
+.kf-logo{height:38px !important}
+.kf-hot{display:none !important}
+.kf-ph-full{display:none}
+.kf-ph-short{display:inline}
+}
+@container (min-width: 1101px){
+.kf-mpanel{display:none !important}
+.kf-callbtn{display:none !important}
+}
+</style>
+</helmet>
+<header style="width: 100%; background: #ffffff; border-bottom: 1px solid #ddd6cc; font-family: 'Be Vietnam Pro','Segoe UI',system-ui,sans-serif; color: #0e2843; position: relative; z-index: 40; container-type: inline-size">
+<div style="max-width: 1160px; margin: 0 auto; padding: 10px 16px; box-sizing: border-box; display: flex; align-items: center; gap: 12px 20px">
+<a href="Main.dc.html" style="display: inline-flex; align-items: center; text-decoration: none; flex: none"><img class="kf-logo" src="/_blob/e386016b6beeebde9254aabaf6551ca6" alt="KitFix247 — Sửa chuyên nghiệp. Dùng bền lâu." style="height: 48px; width: auto; display: block"></a>
+
+<nav class="kf-nav-d" aria-label="Menu chính" style="flex: 1 1 auto; min-width: 0; display: flex; justify-content: center">
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: nowrap; align-items: center; gap: 2px">
+<li><a class="kf-nav" href="Main.dc.html" style="display: inline-flex; align-items: center; height: 56px; padding: 0 10px; white-space: nowrap; text-decoration: none; color: {{c.home}}; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.02em; box-shadow: inset 0 -3px 0 {{u.home}}">Trang chủ</a></li>
+<li><a class="kf-nav" href="Main.dc.html" style="display: inline-flex; align-items: center; height: 56px; padding: 0 10px; white-space: nowrap; text-decoration: none; color: {{c.about}}; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.02em; box-shadow: inset 0 -3px 0 {{u.about}}">Giới thiệu</a></li>
+<li class="kf-dd">
+<a class="kf-nav" href="DichVu.dc.html" aria-haspopup="true" style="display: inline-flex; align-items: center; gap: 4px; height: 56px; padding: 0 10px; white-space: nowrap; text-decoration: none; color: {{c.dv}}; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.02em; box-shadow: inset 0 -3px 0 {{u.dv}}">Dịch vụ
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></a>
+<div class="kf-dd-menu {{openCls}}" style="position: absolute; top: 100%; left: -120px; width: 600px; max-width: 92vw; padding: 12px; background: #ffffff; border: 1px solid #ddd6cc; border-top: 3px solid #f57a0a; border-radius: 0 0 12px 12px; box-shadow: 0 1px 2px rgba(28,32,38,0.06), 0 8px 28px rgba(14,40,67,0.14); grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; box-sizing: border-box">
+<sc-for list="{{services}}" as="s" hint-placeholder-count="8">
+<a class="kf-dd-item" href="DichVu.dc.html" style="display: flex; gap: 12px; align-items: flex-start; padding: 10px 12px; border-radius: 8px; text-decoration: none; color: #0e2843">
+<span style="width: 36px; height: 36px; border-radius: 8px; background: #fdead8; color: #9a4300; display: flex; align-items: center; justify-content: center; flex: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{s.icon}}"></path></svg></span>
+<span style="display: flex; flex-direction: column"><span style="font-weight: 600; font-size: 15px; line-height: 22px">{{s.name}}</span><span style="font-size: 13px; line-height: 18px; color: #5a6069">{{s.hint}}</span></span>
+</a>
+</sc-for>
+</div>
+</li>
+<li><a class="kf-nav" href="#" style="display: inline-flex; align-items: center; height: 56px; padding: 0 10px; white-space: nowrap; text-decoration: none; color: {{c.gia}}; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.02em; box-shadow: inset 0 -3px 0 {{u.gia}}">Bảng giá</a></li>
+<li><a class="kf-nav" href="KienThuc.dc.html" style="display: inline-flex; align-items: center; height: 56px; padding: 0 10px; white-space: nowrap; text-decoration: none; color: {{c.kt}}; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.02em; box-shadow: inset 0 -3px 0 {{u.kt}}">Kiến thức</a></li>
+<li><a class="kf-nav" href="DatLich.dc.html" style="display: inline-flex; align-items: center; height: 56px; padding: 0 10px; white-space: nowrap; text-decoration: none; color: {{c.lh}}; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.02em; box-shadow: inset 0 -3px 0 {{u.lh}}">Liên hệ</a></li>
+</ul>
+</nav>
+
+<div style="display: flex; align-items: center; gap: 16px; margin-left: auto; flex: none">
+<a class="kf-hot" href="tel:0989041641" style="display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: #0e2843">
+<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#b85200" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2 M15 3a6 6 0 0 1 6 6 M15 6.5a2.5 2.5 0 0 1 2.5 2.5"></path></svg>
+<span style="display: flex; flex-direction: column; line-height: 1.2"><span style="font-size: 13px; color: #5a6069">Hotline</span><span style="font-family: 'Chakra Petch',system-ui,sans-serif; font-weight: 700; font-size: 22px; color: #b85200; font-variant-numeric: tabular-nums">0989.041.641</span></span></a>
+<a class="kf-brand kf-nav-d" href="DatLich.dc.html" style="display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 12px; background: #f57a0a; color: #0e2843; font-weight: 800; font-size: 15px; text-transform: uppercase; letter-spacing: 0.02em; text-decoration: none; box-sizing: border-box">Đặt lịch ngay</a>
+<a class="kf-brand kf-callbtn" href="tel:0989041641" aria-label="Gọi 0989.041.641" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px; border-radius: 12px; background: #f57a0a; color: #0e2843; font-weight: 700; font-size: 15px; text-decoration: none; box-sizing: border-box">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg><span class="kf-ph-full">Gọi ngay</span><span class="kf-ph-short">Gọi</span></a>
+<button type="button" class="kf-burger kf-sec" onClick="{{toggle}}" aria-expanded="{{expanded}}" aria-label="{{burgerLabel}}" style="width: 44px; height: 44px; border-radius: 12px; border: 1.5px solid #8a9099; background: #ffffff; color: #0e2843; align-items: center; justify-content: center; cursor: pointer; padding: 0">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{burgerIcon}}"></path></svg></button>
+</div>
+</div>
+
+<sc-if value="{{mOpen}}" hint-placeholder-val="{{ false }}">
+<div class="kf-mpanel" style="border-top: 1px solid #ddd6cc; background: #ffffff; padding: 8px 16px 20px; display: flex; flex-direction: column; gap: 2px">
+<a class="kf-mlink" href="Main.dc.html" style="display: flex; align-items: center; min-height: 52px; padding: 0 12px; border-radius: 8px; text-decoration: none; color: #0e2843; font-weight: 600; font-size: 17px; box-shadow: inset 3px 0 0 {{u.home}}">Trang chủ</a>
+<a class="kf-mlink" href="Main.dc.html" style="display: flex; align-items: center; min-height: 52px; padding: 0 12px; border-radius: 8px; text-decoration: none; color: #0e2843; font-weight: 600; font-size: 17px; box-shadow: inset 3px 0 0 {{u.about}}">Giới thiệu</a>
+<details open="{{svcOpen}}">
+<summary class="kf-mlink" style="display: flex; align-items: center; justify-content: space-between; min-height: 52px; padding: 0 12px; border-radius: 8px; font-weight: 600; font-size: 17px; box-shadow: inset 3px 0 0 {{u.dv}}">Dịch vụ
+<svg class="kf-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg></summary>
+<div style="display: flex; flex-direction: column; padding: 4px 0 8px 12px">
+<sc-for list="{{services}}" as="s" hint-placeholder-count="8">
+<a class="kf-mlink" href="DichVu.dc.html" style="display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 12px; border-radius: 8px; text-decoration: none; color: #0e2843; font-size: 16px">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9a4300" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{s.icon}}"></path></svg>{{s.name}}</a>
+</sc-for>
+</div>
+</details>
+<a class="kf-mlink" href="#" style="display: flex; align-items: center; min-height: 52px; padding: 0 12px; border-radius: 8px; text-decoration: none; color: #0e2843; font-weight: 600; font-size: 17px; box-shadow: inset 3px 0 0 {{u.gia}}">Bảng giá</a>
+<a class="kf-mlink" href="KienThuc.dc.html" style="display: flex; align-items: center; min-height: 52px; padding: 0 12px; border-radius: 8px; text-decoration: none; color: #0e2843; font-weight: 600; font-size: 17px; box-shadow: inset 3px 0 0 {{u.kt}}">Kiến thức</a>
+<a class="kf-mlink" href="DatLich.dc.html" style="display: flex; align-items: center; min-height: 52px; padding: 0 12px; border-radius: 8px; text-decoration: none; color: #0e2843; font-weight: 600; font-size: 17px; box-shadow: inset 3px 0 0 {{u.lh}}">Liên hệ</a>
+<div style="display: flex; gap: 8px; margin-top: 12px">
+<a class="kf-brand" href="DatLich.dc.html" style="flex: 1 1 0; display: inline-flex; align-items: center; justify-content: center; min-height: 48px; border-radius: 12px; background: #f57a0a; color: #0e2843; font-weight: 700; text-decoration: none">Đặt lịch ngay</a>
+<a class="kf-sec" href="https://zalo.me/0989041641" style="flex: 1 1 0; display: inline-flex; align-items: center; justify-content: center; min-height: 48px; border-radius: 12px; border: 1.5px solid #8a9099; background: #ffffff; color: #0e2843; font-weight: 700; text-decoration: none">Nhắn Zalo</a>
+</div>
+<a href="tel:0989041641" style="padding: 12px 12px 0; font-weight: 700; color: #b85200; text-decoration: none">Hotline 0989.041.641</a>
+<div style="font-size: 13px; color: #5a6069; padding: 4px 12px 0">7:00 – 21:00 mỗi ngày · 2 Bạch Đằng, P. Tân Sơn Hòa</div>
+</div>
+</sc-if>
+</header>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"active":{"editor":"enum","options":["home","about","dv","gia","kt","lh"],"default":"home"},"showMenu":{"editor":"boolean","default":false},"mobileOpen":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":420}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { open: false };
+  }
+  renderVals() {
+    var self = this;
+    var a = this.props.active;
+    var keys = ['home', 'about', 'dv', 'gia', 'kt', 'lh'];
+    var u = {}, c = {};
+    keys.forEach(function (k) { u[k] = (k === a) ? '#f57a0a' : 'transparent'; c[k] = (k === a) ? '#b85200' : '#0e2843'; });
+    var open = this.props.showMenu === true || !a;
+    var mOpen = this.state.open || this.props.mobileOpen === true;
+    return {
+      u: u, c: c,
+      openCls: open ? 'kf-open' : '',
+      mOpen: mOpen,
+      svcOpen: this.props.mobileOpen === true,
+      expanded: mOpen ? 'true' : 'false',
+      burgerLabel: mOpen ? 'Đóng menu' : 'Mở menu',
+      burgerIcon: mOpen ? 'M6 6l12 12 M18 6L6 18' : 'M4 7h16 M4 12h16 M4 17h16',
+      toggle: function () { self.setState({ open: !self.state.open }); },
+      services: [
+        { name: 'Sửa bếp từ', hint: 'Không nhận nồi, lỗi E1–E9', icon: 'M3 5h18v14H3z M8.5 9.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z M16 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z' },
+        { name: 'Sửa bếp hồng ngoại', hint: 'Mâm không đỏ, nóng yếu', icon: 'M3 5h18v14H3z M8.5 9.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z M13.5 12c.8-1 1.5-1 2.2 0s1.5 1 2.3 0' },
+        { name: 'Sửa & vệ sinh máy hút mùi', hint: 'Hút yếu, kêu to, bám dầu', icon: 'M9 3h6v6l5 6H4l5-6z M4 15v3h16v-3' },
+        { name: 'Sửa lò nướng', hint: 'Không nóng, sai nhiệt độ', icon: 'M4 4h16v16H4z M4 9h16 M8 6.5h.01 M11 6.5h.01 M8 12h8v5H8z' },
+        { name: 'Sửa lò vi sóng', hint: 'Không nóng, kêu to, mất nguồn', icon: 'M3 6h18v12H3z M6 9h9v6H6z M18 9v.01 M18 12v.01 M18 15v.01' },
+        { name: 'Sửa máy rửa chén', hint: 'Không cấp nước, không rửa', icon: 'M5 3h14v18H5z M5 7h14 M12 10a4 4 0 1 0 0 8 4 4 0 0 0 0-8z' },
+        { name: 'Lắp đặt thiết bị bếp', hint: 'Bếp, hút mùi, lò âm tủ', icon: 'M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z' },
+        { name: 'Bảo dưỡng định kỳ', hint: 'Vệ sinh, kiểm tra an toàn', icon: 'M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z M8.5 12l2.5 2.5 4.5-5' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Bếp từ báo lỗi E1, E4: nguyên nhân và cách xử lý tại nhà — KitFix247</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&amp;family=Chakra+Petch:ital,wght@0,600;0,700;1,700&amp;display=swap">
+<style>
+body{margin:0;background:#faf8f5}
+a{color:#b85200}a:hover{color:#9a4300}
+a:focus-visible,button:focus-visible{outline:2px solid #b85200;outline-offset:2px}
+.kf-card:hover{box-shadow:0 1px 2px rgba(28,32,38,0.06),0 4px 16px rgba(28,32,38,0.06)}
+.kf-brand:hover{background:#ff9a3d !important}
+.kf-toc a:hover{color:#b85200 !important}
+.kf-body h2{font-family:'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif;font-size:26px;line-height:34px;font-weight:700;margin:40px 0 12px;scroll-margin-top:24px}
+.kf-body p{margin:0 0 16px}
+.kf-body ul,.kf-body ol{margin:0 0 16px;padding-left:22px}
+.kf-body li{margin-bottom:6px}
+@container (max-width: 640px){
+.kf-h1{font-size:28px !important;line-height:36px !important}
+.kf-body h2{font-size:22px;line-height:30px}
+.kf-side{position:static !important}
+}
+</style>
+</helmet>
+<div style="font-family: 'Be Vietnam Pro','Segoe UI',system-ui,sans-serif; color: #0e2843; background: #faf8f5; font-size: 16px; line-height: 24px; container-type: inline-size">
+
+<dc-import name="SiteHeader" active="kt" hint-size="100%,77px"></dc-import>
+
+<article>
+<header style="max-width: 1160px; margin: 0 auto; padding: 32px 16px 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+<nav aria-label="Breadcrumb" style="font-size: 14px; color: #5a6069; display: flex; flex-wrap: wrap; gap: 8px"><a href="Main.dc.html" style="color: #5a6069">Trang chủ</a><span aria-hidden="true">/</span><a href="KienThuc.dc.html" style="color: #5a6069">Kiến thức</a><span aria-hidden="true">/</span><span>Bảng mã lỗi</span></nav>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 13px">
+<a href="KienThuc.dc.html" style="background: #0e2843; color: #f4f1ec; border-radius: 999px; padding: 3px 10px; font-weight: 600; text-decoration: none">Bảng mã lỗi</a>
+<a href="KienThuc.dc.html" style="border: 1px solid #8a9099; color: #0e2843; border-radius: 999px; padding: 2px 10px; font-weight: 600; text-decoration: none">Bếp từ</a>
+<a href="KienThucHang.dc.html" style="border: 1px solid #8a9099; color: #0e2843; border-radius: 999px; padding: 2px 10px; font-weight: 600; text-decoration: none">Bosch</a>
+<a href="KienThucHang.dc.html" style="border: 1px solid #8a9099; color: #0e2843; border-radius: 999px; padding: 2px 10px; font-weight: 600; text-decoration: none">Teka</a>
+</div>
+<h1 class="kf-h1" style="margin: 0; font-family: 'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size: 40px; line-height: 50px; font-weight: 700; max-width: 900px">Bếp từ báo lỗi E1, E4: nguyên nhân và cách xử lý tại nhà</h1>
+<div style="display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; font-size: 14px; color: #5a6069">
+<span style="display: inline-flex; align-items: center; gap: 8px"><span style="width: 32px; height: 32px; border-radius: 999px; background: #fdead8; color: #9a4300; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px">KTV</span>Kỹ thuật viên KitFix247</span>
+<span>Cập nhật 10/10/2026</span>
+<span>6 phút đọc</span>
+</div>
+</header>
+
+<div style="max-width: 1160px; margin: 0 auto; padding: 0 16px; box-sizing: border-box">
+<figure style="margin: 0; height: 420px; max-height: 56vw; border-radius: 20px; background: #f1ede6; color: #8a9099; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; font-size: 14px; text-align: center; padding: 16px; box-sizing: border-box">
+<svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18v14H3z M3 16l5-5 4 4 3-3 6 6 M15.5 8.5h.01"></path></svg>
+[Ảnh đại diện: mặt bếp từ hiển thị mã lỗi E1]
+</figure>
+</div>
+
+<div style="max-width: 1160px; margin: 0 auto; padding: 40px 16px 64px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start">
+
+<div class="kf-body" style="flex: 999 1 560px; min-width: 0; max-width: 720px; font-size: 17px; line-height: 28px">
+<p style="font-size: 19px; line-height: 30px; color: #0e2843"><strong>Bếp từ báo lỗi</strong> là tình huống nhiều gia đình gặp sau vài năm sử dụng. Bài viết này giải thích ý nghĩa các mã lỗi thường gặp, cách anh/chị tự kiểm tra an toàn tại nhà và lúc nào nên gọi kỹ thuật viên.</p>
+
+<div role="note" style="background: #fdead8; border-radius: 12px; padding: 16px 20px; margin: 0 0 16px; font-size: 15px; line-height: 23px; color: #0e2843"><strong>Lưu ý:</strong> ý nghĩa mã lỗi có thể khác nhau giữa các hãng. Luôn đối chiếu với sách hướng dẫn của bếp nhà mình.</div>
+
+<h2 id="ma-loi">Các mã lỗi thường gặp</h2>
+<div style="overflow-x: auto; margin: 0 0 16px; border: 1px solid #ddd6cc; border-radius: 12px; background: #ffffff">
+<table style="width: 100%; border-collapse: collapse; font-size: 15px; line-height: 22px; min-width: 480px">
+<thead><tr style="background: #f1ede6; text-align: left">
+<th scope="col" style="padding: 12px 16px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.02em">Mã lỗi</th>
+<th scope="col" style="padding: 12px 16px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.02em">Thường gặp</th>
+<th scope="col" style="padding: 12px 16px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.02em">Anh/chị tự làm được</th>
+</tr></thead>
+<tbody>
+<tr style="border-top: 1px solid #ddd6cc"><td style="padding: 12px 16px; font-weight: 800">E0, E1</td><td style="padding: 12px 16px">Không nhận nồi, nồi không đúng loại</td><td style="padding: 12px 16px">Đổi nồi đáy từ, đặt đúng giữa vùng nấu</td></tr>
+<tr style="border-top: 1px solid #ddd6cc"><td style="padding: 12px 16px; font-weight: 800">E2, E3</td><td style="padding: 12px 16px">Điện áp quá cao hoặc quá thấp</td><td style="padding: 12px 16px">Kiểm tra ổ cắm, aptomat riêng cho bếp</td></tr>
+<tr style="border-top: 1px solid #ddd6cc"><td style="padding: 12px 16px; font-weight: 800">E4, E5</td><td style="padding: 12px 16px">Quá nhiệt, cảm biến nhiệt</td><td style="padding: 12px 16px">Tắt bếp, để nguội, vệ sinh khe gió</td></tr>
+<tr style="border-top: 1px solid #ddd6cc"><td style="padding: 12px 16px; font-weight: 800">E6 trở lên</td><td style="padding: 12px 16px">Lỗi bo mạch, quạt, linh kiện</td><td style="padding: 12px 16px">Nên gọi kỹ thuật viên</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="e1">Lỗi E1: bếp không nhận nồi</h2>
+<p>Nguyên nhân thường do nồi không có đáy từ, đáy cong vênh hoặc đặt lệch vùng nấu. Anh/chị thử đặt một nồi khác có đáy phẳng, hút nam châm tốt.</p>
+<ul>
+<li>Thử nam châm vào đáy nồi — không hút là nồi không dùng được cho bếp từ.</li>
+<li>Đặt nồi vào đúng giữa vòng tròn vùng nấu.</li>
+<li>Nếu đổi nồi vẫn báo lỗi, có thể cuộn dây hoặc bo mạch đã hỏng.</li>
+</ul>
+
+<h2 id="e4">Lỗi E4: bếp quá nhiệt</h2>
+<p>Quạt tản nhiệt bám bụi hoặc khe thoát gió bị che khiến bếp nóng và tự ngắt. Tắt bếp, rút điện, để nguội rồi vệ sinh khe gió phía dưới mặt bếp.</p>
+
+<h2 id="khi-nao-goi">Khi nào cần gọi kỹ thuật viên?</h2>
+<ol>
+<li>Đã thử các bước trên mà bếp vẫn báo lỗi.</li>
+<li>Có mùi khét, tiếng nổ lách tách hoặc nhảy aptomat.</li>
+<li>Mặt kính nứt — ngừng dùng ngay để đảm bảo an toàn điện.</li>
+</ol>
+
+<aside aria-label="Liên hệ sửa chữa" style="margin: 32px 0 0; background: #0e2843; color: #f4f1ec; border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 14px">
+<div style="font-family: 'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-weight: 700; font-size: 24px; line-height: 32px">Đã thử mà bếp vẫn báo lỗi?</div>
+<p style="margin: 0; color: #aebbd0; font-size: 16px; line-height: 24px">Kỹ thuật viên có mặt trong 60 phút, chẩn đoán miễn phí, báo giá trước khi sửa, bảo hành 12 tháng.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<a class="kf-brand" href="tel:0989041641" style="display: inline-flex; align-items: center; gap: 8px; min-height: 52px; padding: 0 24px; border-radius: 999px; background: #f57a0a; color: #0e2843; font-weight: 800; font-size: 16px; text-transform: uppercase; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg>Gọi 0989.041.641</a>
+<a href="DatLich.dc.html" style="display: inline-flex; align-items: center; min-height: 52px; padding: 0 22px; border-radius: 12px; border: 1.5px solid #aebbd0; color: #f4f1ec; font-weight: 700; font-size: 16px; text-transform: uppercase; text-decoration: none">Đặt lịch sửa</a>
+</div>
+</aside>
+</div>
+
+<aside class="kf-side" style="flex: 1 1 300px; min-width: 0; position: sticky; top: 24px; display: flex; flex-direction: column; gap: 16px">
+<nav class="kf-toc" aria-label="Mục lục" style="background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; padding: 20px 24px; display: flex; flex-direction: column; gap: 4px">
+<div style="font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase; margin-bottom: 8px">Mục lục</div>
+<a href="#ma-loi" style="min-height: 36px; display: flex; align-items: center; color: #0e2843; text-decoration: none; font-size: 15px">Các mã lỗi thường gặp</a>
+<a href="#e1" style="min-height: 36px; display: flex; align-items: center; color: #0e2843; text-decoration: none; font-size: 15px">Lỗi E1: bếp không nhận nồi</a>
+<a href="#e4" style="min-height: 36px; display: flex; align-items: center; color: #0e2843; text-decoration: none; font-size: 15px">Lỗi E4: bếp quá nhiệt</a>
+<a href="#khi-nao-goi" style="min-height: 36px; display: flex; align-items: center; color: #0e2843; text-decoration: none; font-size: 15px">Khi nào cần gọi kỹ thuật viên?</a>
+</nav>
+<div style="background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; padding: 20px 24px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Dịch vụ liên quan</div>
+<a href="DichVu.dc.html" style="font-weight: 700; color: #b85200; text-decoration: none">Sửa bếp từ tận nhà →</a>
+<a href="DichVu.dc.html" style="font-weight: 700; color: #b85200; text-decoration: none">Bảo dưỡng định kỳ →</a>
+</div>
+<div style="background: #d9f1ed; color: #0f766e; border-radius: 12px; padding: 16px 20px; font-weight: 600; font-size: 14px; line-height: 21px">Chẩn đoán miễn phí · Bảo hành 12 tháng · Có mặt trong 60 phút</div>
+</aside>
+</div>
+</article>
+
+<section style="background: #f1ede6; padding: 64px 0">
+<div style="max-width: 1160px; margin: 0 auto; padding: 0 16px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-family: 'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size: 26px; line-height: 34px; font-weight: 700; text-transform: uppercase">Bài viết liên quan</h2>
+<span style="width: 64px; height: 4px; border-radius: 999px; background: #f57a0a"></span>
+</div>
+<a href="KienThuc.dc.html" style="font-weight: 700; font-size: 14px; text-transform: uppercase; color: #0e2843; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center">Xem tất cả bài viết →</a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px">
+<sc-for list="{{related}}" as="p" hint-placeholder-count="3">
+<a class="kf-card" href="BaiViet.dc.html" style="background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; text-decoration: none; color: #0e2843">
+<div style="height: 160px; background: #faf8f5; border-bottom: 1px solid #ddd6cc; color: #8a9099; display: flex; align-items: center; justify-content: center; font-size: 12px">[Ảnh bài viết]</div>
+<div style="padding: 20px 24px; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; gap: 8px; font-size: 12px; align-items: center"><span style="background: #0e2843; color: #f4f1ec; border-radius: 999px; padding: 2px 9px; font-weight: 600">{{p.cat}}</span><span style="color: #5a6069">{{p.date}}</span></div>
+<h3 style="margin: 0; font-size: 18px; line-height: 26px; font-weight: 600">{{p.title}}</h3>
+</div>
+</a>
+</sc-for>
+</div>
+</div>
+</section>
+
+<dc-import name="SiteFooter" hint-size="100%,460px"></dc-import>
+
+<div style="position: sticky; bottom: 0; height: 0; z-index: 50">
+<div style="position: absolute; right: 20px; bottom: 20px">
+<dc-import name="ChatBubbles" book-href="DatLich.dc.html" hint-size="64px,200px"></dc-import>
+</div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3400}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      related: [
+        { title: '5 thói quen âm thầm làm giảm tuổi thọ bếp từ', cat: 'Mẹo sử dụng', date: '20/09/2026' },
+        { title: 'Bếp hồng ngoại Canzy nóng yếu: nguyên nhân thường gặp', cat: 'Bảng mã lỗi', date: '11/09/2026' },
+        { title: 'Lắp bếp âm đúng cách: khoảng hở, dây nguồn, aptomat', cat: 'Tư vấn', date: '15/09/2026' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

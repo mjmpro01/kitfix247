@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>KitFix247 — Form đặt lịch</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&amp;family=Chakra+Petch:ital,wght@0,600;0,700;1,700&amp;display=swap">
+<style>
+body{margin:0}
+.kf-brand:hover{background:#ff9a3d !important}
+.kf-in:focus{outline:2px solid #b85200;outline-offset:2px}
+@container (max-width: 640px){.kf-form{padding:20px !important;border-radius:12px !important}}
+</style>
+</helmet>
+<div class="kf-form" style="width: 100%; max-width: 560px; box-sizing: border-box; background: #ffffff; border: 1px solid #ddd6cc; border-radius: 20px; padding: 32px; box-shadow: 0 1px 2px rgba(28,32,38,0.06), 0 4px 16px rgba(28,32,38,0.06); font-family: 'Be Vietnam Pro','Segoe UI',system-ui,sans-serif; color: #0e2843; font-size: 16px; line-height: 24px">
+
+<sc-if value="{{showForm}}" hint-placeholder-val="{{ true }}">
+<form onSubmit="{{submit}}" novalidate style="display: flex; flex-direction: column; gap: 16px; margin: 0">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h3 style="margin: 0; font-family: 'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size: 24px; line-height: 32px; font-weight: 700">Đặt lịch sửa tại nhà</h3>
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #5a6069">Chẩn đoán miễn phí. Chúng tôi gọi lại trong 15 phút.</p>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="kf-name" style="font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Họ tên</label>
+<input class="kf-in" id="kf-name" type="text" autocomplete="name" placeholder="Nguyễn Văn A" value="{{name}}" onChange="{{onName}}" style="min-height: 48px; padding: 0 14px; border: 1.5px solid {{nameBorder}}; border-radius: 6px; font: inherit; color: #0e2843; background: #ffffff; box-sizing: border-box; width: 100%">
+<sc-if value="{{errName}}" hint-placeholder-val="{{ false }}"><span style="font-size: 14px; line-height: 20px; color: #b42318">Anh/chị vui lòng nhập họ tên.</span></sc-if>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="kf-phone" style="font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Số điện thoại</label>
+<input class="kf-in" id="kf-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="09xx xxx xxx" value="{{phone}}" onChange="{{onPhone}}" style="min-height: 48px; padding: 0 14px; border: 1.5px solid {{phoneBorder}}; border-radius: 6px; font: inherit; color: #0e2843; background: #ffffff; box-sizing: border-box; width: 100%">
+<sc-if value="{{errPhone}}" hint-placeholder-val="{{ false }}"><span style="font-size: 14px; line-height: 20px; color: #b42318">Số điện thoại chưa đúng — cần 10 chữ số, bắt đầu bằng 0.</span></sc-if>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="kf-device" style="font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Thiết bị cần sửa</label>
+<select class="kf-in" id="kf-device" value="{{device}}" onChange="{{onDevice}}" style="min-height: 48px; padding: 0 12px; border: 1.5px solid #8a9099; border-radius: 6px; font: inherit; color: #0e2843; background: #ffffff; box-sizing: border-box; width: 100%">
+<option value="Bếp từ">Bếp từ</option>
+<option value="Bếp hồng ngoại">Bếp hồng ngoại</option>
+<option value="Lò nướng">Lò nướng</option>
+<option value="Lò vi sóng">Lò vi sóng</option>
+<option value="Máy hút mùi">Máy hút mùi</option>
+<option value="Máy rửa chén">Máy rửa chén</option>
+<option value="Lắp đặt thiết bị bếp">Lắp đặt thiết bị bếp</option>
+<option value="Vệ sinh / bảo dưỡng">Vệ sinh / bảo dưỡng</option>
+<option value="Khác">Thiết bị khác</option>
+</select>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="kf-addr" style="font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Địa chỉ</label>
+<input class="kf-in" id="kf-addr" type="text" autocomplete="street-address" placeholder="Số nhà, đường, phường" value="{{addr}}" onChange="{{onAddr}}" style="min-height: 48px; padding: 0 14px; border: 1.5px solid #8a9099; border-radius: 6px; font: inherit; color: #0e2843; background: #ffffff; box-sizing: border-box; width: 100%">
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<label for="kf-desc" style="font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Mô tả lỗi</label>
+<textarea class="kf-in" id="kf-desc" rows="3" placeholder="Ví dụ: bếp báo lỗi E1, không nhận nồi" value="{{desc}}" onChange="{{onDesc}}" style="padding: 12px 14px; border: 1.5px solid #8a9099; border-radius: 6px; font: inherit; color: #0e2843; background: #ffffff; box-sizing: border-box; width: 100%; resize: vertical"></textarea>
+</div>
+
+<button class="kf-brand" type="submit" style="min-height: 52px; border: 0; border-radius: 12px; background: #f57a0a; color: #0e2843; font: inherit; font-weight: 700; font-size: 17px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16v14H4z M4 10h16 M8 3v4 M16 3v4"></path></svg>
+Gửi yêu cầu đặt lịch</button>
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 16px; font-size: 14px; line-height: 20px; color: #5a6069">
+<span>Cần gấp?</span>
+<a href="tel:0989041641" style="color: #b85200; font-weight: 700; text-decoration: none">Gọi 0989.041.641</a>
+<a href="https://zalo.me/0989041641" style="color: #b85200; font-weight: 700; text-decoration: none">Nhắn Zalo</a>
+</div>
+</form>
+</sc-if>
+
+<sc-if value="{{showSuccess}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="display: flex; flex-direction: column; gap: 16px; align-items: flex-start">
+<div style="width: 56px; height: 56px; border-radius: 999px; background: #d9f1ed; color: #0f766e; display: flex; align-items: center; justify-content: center">
+<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+</div>
+<h3 style="margin: 0; font-family: 'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size: 24px; line-height: 32px; font-weight: 700">Đã nhận yêu cầu của anh/chị {{shownName}}</h3>
+<div style="background: #d9f1ed; color: #0f766e; border-radius: 12px; padding: 16px 20px; font-weight: 600; width: 100%; box-sizing: border-box">Chúng tôi sẽ gọi lại số {{shownPhone}} trong vòng 15 phút để xác nhận giờ kỹ thuật viên đến.</div>
+<dl style="margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; font-size: 15px">
+<dt style="color: #5a6069">Thiết bị</dt><dd style="margin: 0; font-weight: 600">{{device}}</dd>
+<dt style="color: #5a6069">Giờ làm việc</dt><dd style="margin: 0; font-weight: 600">7:00 – 21:00 mỗi ngày</dd>
+</dl>
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #5a6069">Ngoài giờ làm việc, chúng tôi gọi lại ngay đầu giờ sáng hôm sau. Cần gấp, anh/chị gọi <a href="tel:0989041641" style="color: #b85200; font-weight: 700">0989.041.641</a>.</p>
+<button type="button" onClick="{{reset}}" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1.5px solid #8a9099; background: #ffffff; color: #0e2843; font: inherit; font-weight: 700; cursor: pointer">Gửi yêu cầu khác</button>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"previewSuccess":{"editor":"boolean","default":false},"$preview":{"width":560,"height":860}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { name: '', phone: '', device: 'Bếp từ', addr: '', desc: '', tried: false, sent: false };
+  }
+  renderVals() {
+    var s = this.state;
+    var self = this;
+    var nameOk = s.name.trim().length > 1;
+    var phoneOk = /^0\d{9}$/.test(s.phone.replace(/[\s.]/g, ''));
+    var success = s.sent || this.props.previewSuccess === true;
+    return {
+      name: s.name, phone: s.phone, device: s.device, addr: s.addr, desc: s.desc,
+      errName: s.tried && !nameOk,
+      errPhone: s.tried && !phoneOk,
+      nameBorder: (s.tried && !nameOk) ? '#b42318' : '#8a9099',
+      phoneBorder: (s.tried && !phoneOk) ? '#b42318' : '#8a9099',
+      showForm: !success,
+      showSuccess: success,
+      shownName: s.name.trim() || '[Họ tên]',
+      shownPhone: s.phone.trim() || '09xx xxx xxx',
+      onName: function (e) { self.setState({ name: e.target.value }); },
+      onPhone: function (e) { self.setState({ phone: e.target.value }); },
+      onDevice: function (e) { self.setState({ device: e.target.value }); },
+      onAddr: function (e) { self.setState({ addr: e.target.value }); },
+      onDesc: function (e) { self.setState({ desc: e.target.value }); },
+      submit: function (e) {
+        e.preventDefault();
+        if (nameOk && phoneOk) { self.setState({ sent: true }); } else { self.setState({ tried: true }); }
+      },
+      reset: function () { self.setState({ name: '', phone: '', addr: '', desc: '', tried: false, sent: false }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

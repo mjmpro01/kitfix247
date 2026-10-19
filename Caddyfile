@@ -1,0 +1,31 @@
+# Một tên miền: /api/* và /uploads/* vào NestJS, còn lại vào Next.js. Caddy tự xin chứng chỉ HTTPS (Let's Encrypt).
+{$DOMAIN} {
+	encode zstd gzip
+
+	# API quản trị chỉ được gọi nội bộ từ container web (server action) — không mở ra Internet.
+	handle /api/admin* {
+		respond 404
+	}
+	# Form đặt lịch trên trình duyệt gọi /api/bookings → API nhận /bookings.
+	handle_path /api/* {
+		reverse_proxy api:4000
+	}
+	# Logo hãng, ảnh bài viết do admin tải lên.
+	handle /uploads/* {
+		reverse_proxy api:4000
+	}
+	handle {
+		reverse_proxy web:3000
+	}
+
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+	}
+}
+
+www.{$DOMAIN} {
+	redir https://{$DOMAIN}{uri} permanent
+}

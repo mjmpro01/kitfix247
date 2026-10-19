@@ -1,0 +1,78 @@
+# Production trên VPS — chỉ kéo image từ Oracle Container Registry, không build.
+# Trên VPS cần đúng 4 file: docker-compose.prod.yml, Caddyfile, deploy.sh, .env.production (xem DEPLOY.md).
+name: kitfix247
+
+services:
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?}
+      MYSQL_DATABASE: kitfix247
+      MYSQL_USER: kitfix
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?}
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      # Qua TCP 127.0.0.1: lần khởi tạo đầu MySQL chạy một server tạm không mở mạng — tránh báo "healthy" quá sớm.
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD"]
+      interval: 5s
+      start_period: 60s
+      retries: 30
+
+  api:
+    image: ${REGISTRY:?}/api:${TAG:-latest}
+    restart: unless-stopped
+    depends_on:
+      mysql: { condition: service_healthy }
+    environment:
+      DATABASE_URL: mysql://kitfix:${MYSQL_PASSWORD}@mysql:3306/kitfix247
+      API_PORT: 4000
+      WEB_ORIGIN: https://${DOMAIN:?}
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET phải có ít nhất 32 ký tự}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:?}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?}
+      UPLOAD_DIR: /data/uploads
+      PUBLIC_UPLOAD_URL: https://${DOMAIN}/uploads
+      TRUST_PROXY: 1
+    volumes:
+      - uploads:/data/uploads
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:4000/categories').then(r=>process.exit(r.ok?0:1),()=>process.exit(1))"]
+      interval: 5s
+      retries: 30
+
+  web:
+    image: ${REGISTRY}/web:${TAG:-latest}
+    restart: unless-stopped
+    depends_on:
+      api: { condition: service_healthy }
+    environment:
+      API_URL: http://api:4000
+      SITE_URL: https://${DOMAIN}
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000/robots.txt').then(r=>process.exit(r.ok?0:1),()=>process.exit(1))"]
+      interval: 5s
+      retries: 30
+
+  caddy:
+    image: caddy:2.8
+    restart: unless-stopped
+    depends_on: [web, api]
+    environment:
+      DOMAIN: ${DOMAIN}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+
+volumes:
+  mysql-data:
+  uploads:
+  caddy-data:
+  caddy-config:

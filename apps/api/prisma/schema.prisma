@@ -1,0 +1,287 @@
+// Mô hình dữ liệu KitFix247 — SPEC mục 5.
+// Bổ sung so với SPEC: services.short_name, card_text, device, faults_title (để dựng tab, thẻ trang chủ và tiêu đề trang dịch vụ);
+// products.icon (icon tạm khi chưa có ảnh).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Setting {
+  key   String @id @db.VarChar(64)
+  value Json
+
+  @@map("settings")
+}
+
+model Service {
+  id          Int            @id @default(autoincrement())
+  slug        String         @unique @db.VarChar(120)
+  name        String         @db.VarChar(160)
+  shortName   String         @map("short_name") @db.VarChar(80)
+  shortHint   String         @map("short_hint") @db.VarChar(160)
+  cardText    String         @map("card_text") @db.VarChar(255)
+  lead        String         @db.Text
+  device      String         @db.VarChar(80)
+  faultsTitle String         @map("faults_title") @db.VarChar(160)
+  icon        String         @db.VarChar(40)
+  sort        Int            @default(0)
+  showHome    Boolean        @default(true) @map("show_home")
+  seoTitle    String?        @map("seo_title") @db.VarChar(160)
+  seoDesc     String?        @map("seo_desc") @db.VarChar(320)
+  faults      ServiceFault[]
+  faqs        ServiceFaq[]
+  priceItems  PriceItem[]
+
+  @@map("services")
+}
+
+model ServiceFault {
+  id        Int     @id @default(autoincrement())
+  serviceId Int     @map("service_id")
+  service   Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  title     String  @db.VarChar(160)
+  code      String  @db.VarChar(40)
+  cause     String  @db.Text
+  priceFrom Int     @map("price_from")
+  priceTo   Int     @map("price_to")
+  sort      Int     @default(0)
+
+  @@index([serviceId])
+  @@map("service_faults")
+}
+
+model ServiceFaq {
+  id        Int     @id @default(autoincrement())
+  serviceId Int     @map("service_id")
+  service   Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  question  String  @db.VarChar(255)
+  answer    String  @db.Text
+  sort      Int     @default(0)
+
+  @@index([serviceId])
+  @@map("service_faqs")
+}
+
+model PriceGroup {
+  id       Int         @id @default(autoincrement())
+  name     String      @db.VarChar(120)
+  sort     Int         @default(0)
+  showHome Boolean     @default(false) @map("show_home")
+  items    PriceItem[]
+
+  @@map("price_groups")
+}
+
+model PriceItem {
+  id        Int        @id @default(autoincrement())
+  groupId   Int        @map("group_id")
+  group     PriceGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  serviceId Int?       @map("service_id")
+  service   Service?   @relation(fields: [serviceId], references: [id], onDelete: SetNull)
+  name      String     @db.VarChar(160)
+  duration  String     @db.VarChar(60)
+  priceFrom Int        @map("price_from")
+  priceTo   Int        @map("price_to")
+  sort      Int        @default(0)
+
+  @@map("price_items")
+}
+
+model ProcessStep {
+  id          Int    @id @default(autoincrement())
+  n           Int
+  title       String @db.VarChar(120)
+  description String @db.Text
+
+  @@map("process_steps")
+}
+
+enum ReviewStatus {
+  pending
+  approved
+  hidden
+}
+
+model Review {
+  id           Int          @id @default(autoincrement())
+  customerName String       @map("customer_name") @db.VarChar(120)
+  area         String       @db.VarChar(120)
+  device       String       @db.VarChar(120)
+  rating       Int
+  content      String       @db.Text
+  status       ReviewStatus @default(pending)
+  showHome     Boolean      @default(false) @map("show_home")
+  createdAt    DateTime     @default(now()) @map("created_at")
+
+  @@map("reviews")
+}
+
+enum LogoStyle {
+  gray
+  color
+}
+
+model Brand {
+  id          Int        @id @default(autoincrement())
+  slug        String     @unique @db.VarChar(80)
+  name        String     @db.VarChar(80)
+  logoUrl     String?    @map("logo_url") @db.VarChar(512)
+  logoStyle   LogoStyle  @default(gray) @map("logo_style")
+  description String?    @db.Text
+  devices     Json?
+  sort        Int        @default(0)
+  showHome    Boolean    @default(true) @map("show_home")
+  seoTitle    String?    @map("seo_title") @db.VarChar(160)
+  seoDesc     String?    @map("seo_desc") @db.VarChar(320)
+  posts       PostBrand[]
+
+  @@map("brands")
+}
+
+model Category {
+  id    Int    @id @default(autoincrement())
+  slug  String @unique @db.VarChar(80)
+  name  String @db.VarChar(80)
+  posts Post[]
+
+  @@map("categories")
+}
+
+enum PostStatus {
+  draft
+  published
+}
+
+model Post {
+  id           Int         @id @default(autoincrement())
+  slug         String      @unique @db.VarChar(200)
+  title        String      @db.VarChar(255)
+  excerpt      String      @db.Text
+  contentMd    String      @map("content_md") @db.LongText
+  coverUrl     String?     @map("cover_url") @db.VarChar(512)
+  coverAlt     String?     @map("cover_alt") @db.VarChar(255)
+  categoryId   Int         @map("category_id")
+  category     Category    @relation(fields: [categoryId], references: [id])
+  device       String?     @db.VarChar(80)
+  status       PostStatus  @default(draft)
+  focusKeyword String?     @map("focus_keyword") @db.VarChar(120)
+  metaTitle    String?     @map("meta_title") @db.VarChar(160)
+  metaDesc     String?     @map("meta_desc") @db.VarChar(320)
+  seoScore     Int         @default(0) @map("seo_score")
+  readMinutes  Int         @default(1) @map("read_minutes")
+  author       String      @db.VarChar(120)
+  publishedAt  DateTime?   @map("published_at")
+  updatedAt    DateTime    @updatedAt @map("updated_at")
+  brands       PostBrand[]
+
+  @@index([categoryId])
+  @@map("posts")
+}
+
+model PostBrand {
+  postId  Int   @map("post_id")
+  brandId Int   @map("brand_id")
+  post    Post  @relation(fields: [postId], references: [id], onDelete: Cascade)
+  brand   Brand @relation(fields: [brandId], references: [id], onDelete: Cascade)
+
+  @@id([postId, brandId])
+  @@map("post_brands")
+}
+
+enum BookingStatus {
+  new
+  called
+  assigned
+  done
+  cancelled
+}
+
+enum BookingSource {
+  form
+  call
+  zalo
+}
+
+model Booking {
+  id          Int           @id @default(autoincrement())
+  name        String        @db.VarChar(120)
+  phone       String        @db.VarChar(20)
+  device      String        @db.VarChar(80)
+  address     String        @db.VarChar(255)
+  description String        @db.Text
+  status      BookingStatus @default(new)
+  technician  String?       @db.VarChar(120)
+  source      BookingSource @default(form)
+  ip          String?       @db.VarChar(64)
+  createdAt   DateTime      @default(now()) @map("created_at")
+  calledAt    DateTime?     @map("called_at")
+
+  @@index([phone, createdAt])
+  @@map("bookings")
+}
+
+model Product {
+  id          Int         @id @default(autoincrement())
+  sku         String      @unique @db.VarChar(64)
+  name        String      @db.VarChar(200)
+  category    String      @db.VarChar(80)
+  description String?     @db.Text
+  price       Int?
+  stock       Int         @default(0)
+  imageUrl    String?     @map("image_url") @db.VarChar(512)
+  icon        String      @default("wrench") @db.VarChar(40)
+  status      String      @default("active") @db.VarChar(20)
+  orderItems  OrderItem[]
+
+  @@map("products")
+}
+
+enum PaymentMethod {
+  cod
+  bank
+  momo
+  zalopay
+}
+
+model Order {
+  id           Int           @id @default(autoincrement())
+  code         String        @unique @db.VarChar(32)
+  customerName String        @map("customer_name") @db.VarChar(120)
+  phone        String        @db.VarChar(20)
+  address      String        @db.VarChar(255)
+  payment      PaymentMethod
+  status       String        @default("new") @db.VarChar(20)
+  subtotal     Int
+  shippingFee  Int           @map("shipping_fee")
+  total        Int
+  createdAt    DateTime      @default(now()) @map("created_at")
+  items        OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  orderId   Int     @map("order_id")
+  productId Int     @map("product_id")
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id])
+  qty       Int
+  unitPrice Int     @map("unit_price")
+
+  @@id([orderId, productId])
+  @@map("order_items")
+}
+
+model AdminUser {
+  id           Int    @id @default(autoincrement())
+  email        String @unique @db.VarChar(191)
+  passwordHash String @map("password_hash") @db.VarChar(255)
+  role         String @default("admin") @db.VarChar(20)
+
+  @@map("admin_users")
+}

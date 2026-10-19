@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Đặt lịch sửa tại nhà — KitFix247</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&amp;family=Chakra+Petch:ital,wght@0,600;0,700;1,700&amp;display=swap">
+<style>
+body{margin:0;background:#faf8f5}
+@container (max-width: 640px){
+.kf-h1{font-size:30px !important;line-height:38px !important}
+.kf-hero-in{padding-top:32px !important}
+.kf-btns > a{flex:1 1 100%;justify-content:center}
+.kf-pt0{padding-top:0 !important}
+}
+a{color:#b85200}a:hover{color:#9a4300}
+.kf-brand:hover{background:#ff9a3d !important}
+.kf-dark:hover{background:rgba(244,241,236,0.08) !important}
+</style>
+</helmet>
+<div style="font-family: 'Be Vietnam Pro','Segoe UI',system-ui,sans-serif; color: #0e2843; background: #faf8f5; font-size: 16px; line-height: 24px; container-type: inline-size">
+
+<dc-import name="SiteHeader" active="lh" hint-size="100%,73px"></dc-import>
+
+<section style="background: #0e2843; color: #f4f1ec">
+<div class="kf-hero-in" style="max-width: 1160px; margin: 0 auto; padding: 48px 16px 120px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+<h1 class="kf-h1" style="margin: 0; font-family: 'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-style: italic; font-size: 40px; line-height: 48px; font-weight: 700; letter-spacing: -0.02em">Đặt lịch sửa tại nhà</h1>
+<p style="margin: 0; font-size: 18px; line-height: 28px; color: #aebbd0; max-width: 640px">Điền thông tin bên dưới, chúng tôi gọi lại trong 15 phút để xác nhận giờ kỹ thuật viên đến.</p>
+<div class="kf-btns" style="display: flex; flex-wrap: wrap; gap: 12px">
+<a class="kf-brand" href="tel:0989041641" style="display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 20px; border-radius: 12px; background: #f57a0a; color: #0e2843; font-weight: 700; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"></path></svg>Gọi 0989.041.641</a>
+<a class="kf-dark" href="https://zalo.me/0989041641" style="display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1.5px solid #aebbd0; color: #f4f1ec; font-weight: 700; text-decoration: none">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg>Nhắn Zalo</a>
+</div>
+</div>
+</section>
+
+<section style="padding: 0 0 80px">
+<div style="max-width: 1160px; margin: -88px auto 0; padding: 0 16px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start">
+<div style="flex: 1 1 480px; min-width: 0; display: flex">
+<dc-import name="BookingForm" hint-size="100%,820px"></dc-import>
+</div>
+<div class="kf-pt0" style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 16px; padding-top: 104px">
+<div style="background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-size: 18px; line-height: 26px; font-weight: 600">Cam kết của chúng tôi</h2>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px">
+<sc-for list="{{promises}}" as="p" hint-placeholder-count="5">
+<li style="display: flex; gap: 10px; align-items: flex-start">
+<span style="width: 24px; height: 24px; border-radius: 999px; background: #d9f1ed; color: #0f766e; display: flex; align-items: center; justify-content: center; flex: none">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+<span><strong style="font-weight: 600">{{p.t}}</strong> <span style="color: #5a6069">{{p.d}}</span></span>
+</li>
+</sc-for>
+</ul>
+</div>
+<div style="background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-size: 18px; line-height: 26px; font-weight: 600">Liên hệ trực tiếp</h2>
+<div style="font-size: 15px"><span style="color: #5a6069">Hotline:</span> <a href="tel:0989041641" style="font-weight: 700; text-decoration: none">0989.041.641</a></div>
+<div style="font-size: 15px"><span style="color: #5a6069">Địa chỉ:</span> 2 Bạch Đằng, P. Tân Sơn Hòa, TP.HCM</div>
+<div style="font-size: 15px"><span style="color: #5a6069">Giờ làm việc:</span> 7:00 – 21:00, tất cả các ngày</div>
+<div style="height: 160px; border-radius: 12px; background: #f1ede6; display: flex; align-items: center; justify-content: center; color: #5a6069; font-size: 13px">[Bản đồ Google Maps]</div>
+</div>
+</div>
+</div>
+</section>
+
+<dc-import name="SiteFooter" hint-size="100%,460px"></dc-import>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2000}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      promises: [
+        { t: 'Có mặt trong 60 phút.', d: 'Kỹ thuật viên gọi trước khi đến.' },
+        { t: 'Chẩn đoán miễn phí.', d: 'Không sửa không mất phí.' },
+        { t: 'Báo giá trước.', d: 'Anh/chị đồng ý mới sửa.' },
+        { t: 'Bảo hành 12 tháng.', d: 'Có phiếu bảo hành ghi rõ hạng mục.' },
+        { t: '20 năm kinh nghiệm.', d: 'Đánh giá 4.9/5 từ hơn 500 khách.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

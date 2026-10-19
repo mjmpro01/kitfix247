@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Linh kiện & dụng cụ — KitFix247</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&amp;family=Chakra+Petch:ital,wght@0,600;0,700;1,700&amp;display=swap">
+<style>
+body{margin:0;background:#faf8f5}
+a{color:#b85200}a:hover{color:#9a4300}
+button:focus-visible,a:focus-visible,select:focus-visible{outline:2px solid #b85200;outline-offset:2px}
+.kf-brand:hover{background:#ff9a3d !important}
+.kf-sec:hover{background:#f1ede6 !important}
+.kf-card:hover{box-shadow:0 1px 2px rgba(28,32,38,0.06),0 4px 16px rgba(28,32,38,0.06)}
+</style>
+</helmet>
+<div style="font-family: 'Be Vietnam Pro','Segoe UI',system-ui,sans-serif; color: #0e2843; background: #faf8f5; font-size: 16px; line-height: 24px; container-type: inline-size">
+
+<dc-import name="SiteHeader" active="sp" cart="{{count}}" hint-size="100%,73px"></dc-import>
+
+<section style="background: #f1ede6; border-bottom: 1px solid #ddd6cc">
+<div style="max-width: 1160px; margin: 0 auto; padding: 40px 16px; box-sizing: border-box; display: flex; flex-direction: column; gap: 12px">
+<nav aria-label="Breadcrumb" style="font-size: 14px; color: #5a6069; display: flex; gap: 8px"><a href="Main.dc.html" style="color: #5a6069">Trang chủ</a><span aria-hidden="true">/</span><span>Sản phẩm</span></nav>
+<h1 style="margin: 0; font-family: 'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size: 32px; line-height: 40px; font-weight: 700">Linh kiện & dụng cụ sửa bếp</h1>
+<p style="margin: 0; color: #5a6069; max-width: 640px">Linh kiện và dụng cụ chúng tôi dùng hằng ngày khi sửa tại nhà. Giao trong TP.HCM, thanh toán tiền mặt, chuyển khoản, MoMo hoặc ZaloPay.</p>
+</div>
+</section>
+
+<section style="padding: 40px 0 80px">
+<div style="max-width: 1160px; margin: 0 auto; padding: 0 16px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start">
+
+<div style="flex: 999 1 600px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px">
+<div role="group" aria-label="Lọc theo nhóm" style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{cats}}" as="c" hint-placeholder-count="5">
+<button type="button" onClick="{{c.pick}}" aria-pressed="{{c.on}}" style="min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid {{c.border}}; background: {{c.bg}}; color: {{c.fg}}; font: inherit; font-weight: 600; font-size: 14px; cursor: pointer">{{c.name}}</button>
+</sc-for>
+</div>
+<label style="display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: #5a6069">Sắp xếp
+<select style="min-height: 40px; padding: 0 10px; border: 1.5px solid #8a9099; border-radius: 6px; font: inherit; color: #0e2843; background: #ffffff">
+<option>Mới nhất</option><option>Giá thấp đến cao</option><option>Giá cao đến thấp</option>
+</select></label>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px">
+<sc-for list="{{items}}" as="p" hint-placeholder-count="4">
+<article class="kf-card" style="background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column">
+<div style="height: 200px; background: #f1ede6; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #8a9099; font-size: 13px">
+<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{p.icon}}"></path></svg>[Ảnh sản phẩm]</div>
+<div style="padding: 20px; display: flex; flex-direction: column; gap: 8px; flex-grow: 1">
+<div style="font-size: 13px; color: #5a6069">{{p.cat}}</div>
+<h2 style="margin: 0; font-size: 17px; line-height: 24px; font-weight: 600">{{p.name}}</h2>
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #5a6069; flex-grow: 1">{{p.d}}</p>
+<div style="font-weight: 700; color: #b85200; font-size: 18px">[Giá] ₫</div>
+<button type="button" class="kf-brand" onClick="{{p.add}}" style="min-height: 44px; border: 0; border-radius: 12px; background: #f57a0a; color: #0e2843; font: inherit; font-weight: 700; font-size: 15px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2.5l2.2 11h10.6L20.5 7H6.5 M9 19.5h.01 M17 19.5h.01"></path></svg>{{p.label}}</button>
+</div>
+</article>
+</sc-for>
+</div>
+</div>
+
+<aside aria-label="Giỏ hàng" style="flex: 1 1 280px; min-width: 0; background: #ffffff; border: 1px solid #ddd6cc; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 16px; box-shadow: 0 1px 2px rgba(28,32,38,0.06), 0 4px 16px rgba(28,32,38,0.06)">
+<h2 style="margin: 0; font-size: 18px; line-height: 26px; font-weight: 600; display: flex; justify-content: space-between">Giỏ hàng <span style="color: #5a6069; font-weight: 400">{{count}} sản phẩm</span></h2>
+<sc-if value="{{empty}}" hint-placeholder-val="{{ false }}">
+<p style="margin: 0; color: #5a6069; font-size: 14px">Chưa có sản phẩm. Bấm “Thêm vào giỏ” để chọn.</p>
+</sc-if>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px">
+<sc-for list="{{lines}}" as="l" hint-placeholder-count="2">
+<li style="display: flex; justify-content: space-between; gap: 12px; font-size: 14px; line-height: 20px; padding-bottom: 12px; border-bottom: 1px solid #ddd6cc">
+<span>{{l.name}} <span style="color: #5a6069">× {{l.qty}}</span></span>
+<span style="font-weight: 700; color: #b85200; white-space: nowrap">[Giá] ₫</span>
+</li>
+</sc-for>
+</ul>
+<div style="display: flex; justify-content: space-between; font-weight: 700"><span>Tạm tính</span><span style="color: #b85200">[Tổng] ₫</span></div>
+<a class="kf-brand" href="GioHang.dc.html" style="display: inline-flex; align-items: center; justify-content: center; min-height: 48px; border-radius: 12px; background: #f57a0a; color: #0e2843; font-weight: 700; text-decoration: none">Xem giỏ hàng & thanh toán</a>
+<p style="margin: 0; font-size: 13px; line-height: 18px; color: #5a6069">Cần kỹ thuật viên lắp giúp? Gọi <a href="tel:0989041641" style="font-weight: 700">0989.041.641</a>.</p>
+</aside>
+</div>
+</section>
+
+<dc-import name="SiteFooter" hint-size="100%,460px"></dc-import>
+
+<div style="position: sticky; bottom: 0; height: 0; z-index: 50">
+<div style="position: absolute; right: 20px; bottom: 20px">
+<dc-import name="ChatBubbles" book-href="DatLich.dc.html" hint-size="64px,200px"></dc-import>
+</div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1900}}'>
+var PRODUCTS = [
+  { id: 'vit', name: 'Bộ tua vít sửa chữa đa năng', cat: 'Dụng cụ', d: 'Nhiều đầu vít, phù hợp mở vỏ bếp từ, lò vi sóng, máy hút mùi.', icon: 'M9 3h6l-1 4h-4z M12 7v14 M9 11h6 M9 15h6' },
+  { id: 'keo', name: 'Keo tản nhiệt', cat: 'Vật tư', d: 'Bôi giữa sò công suất và tấm tản nhiệt khi thay IGBT.', icon: 'M8 3h8v5H8z M7 8h10l-1 13H8z M12 12v5' },
+  { id: 'cauchi', name: 'Cầu chì thay thế', cat: 'Linh kiện', d: 'Cầu chì ống cho bếp điện, lò vi sóng. Chọn đúng dòng định mức.', icon: 'M3 12h3 M18 12h3 M6 9h12v6H6z M9 9v6 M15 9v6' },
+  { id: 'day', name: 'Dây nguồn bếp từ', cat: 'Dây & phụ kiện', d: 'Dây nguồn chịu tải cho bếp từ, bếp hồng ngoại.', icon: 'M9 3v5 M15 3v5 M6 8h12v3a6 6 0 0 1-12 0z M12 17v4' }
+];
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { cat: 'Tất cả', cart: { vit: 1, keo: 1 } };
+  }
+  renderVals() {
+    var self = this;
+    var s = this.state;
+    var catNames = ['Tất cả', 'Dụng cụ', 'Vật tư', 'Linh kiện', 'Dây & phụ kiện'];
+    var count = 0;
+    var lines = [];
+    PRODUCTS.forEach(function (p) { var q = s.cart[p.id] || 0; if (q) { count += q; lines.push({ name: p.name, qty: q }); } });
+    return {
+      count: count,
+      empty: count === 0,
+      lines: lines,
+      cats: catNames.map(function (c) {
+        var on = s.cat === c;
+        return { name: c, on: on ? 'true' : 'false', bg: on ? '#0e2843' : '#ffffff', fg: on ? '#f4f1ec' : '#0e2843', border: on ? '#0e2843' : '#8a9099', pick: function () { self.setState({ cat: c }); } };
+      }),
+      items: PRODUCTS.filter(function (p) { return s.cat === 'Tất cả' || p.cat === s.cat; }).map(function (p) {
+        var q = s.cart[p.id] || 0;
+        return Object.assign({}, p, {
+          label: q ? 'Thêm nữa (' + q + ' trong giỏ)' : 'Thêm vào giỏ',
+          add: function () { var c = Object.assign({}, self.state.cart); c[p.id] = (c[p.id] || 0) + 1; self.setState({ cart: c }); }
+        });
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

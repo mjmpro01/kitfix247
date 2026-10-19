@@ -1,0 +1,533 @@
+/* ---------- Hero ---------- */
+.hero {
+  background: var(--glass);
+  color: var(--on-glass);
+  position: relative;
+  container-type: inline-size;
+}
+.bannerWrap {
+  position: relative;
+}
+.banner {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* Toạ độ đo trên ảnh 1024×310 (SPEC mục 4) */
+.ov {
+  position: absolute;
+  top: 77.1%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7cqw;
+  white-space: nowrap;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.ovIcon {
+  width: 1.5cqw;
+  height: 1.5cqw;
+  flex: none;
+}
+.ovCall {
+  left: 6.45%;
+  width: 20.8%;
+  height: 13.9%;
+  border-radius: var(--radius-full);
+  background: var(--brand);
+  color: var(--on-brand);
+  font-weight: 800;
+  font-size: 1.3cqw;
+  box-shadow: 0 0.3cqw 1.2cqw rgba(0, 0, 0, 0.25);
+}
+.ovCall:hover {
+  background: var(--brand-hover);
+  color: var(--on-brand);
+}
+.ovBook {
+  left: 27.83%;
+  width: 16.9%;
+  height: 14.2%;
+  border-radius: 0.9cqw;
+  background: var(--glass-deep);
+  border: 1.5px solid var(--on-glass-muted);
+  color: var(--on-glass);
+  font-weight: 700;
+  font-size: 1.2cqw;
+}
+.ovBook:hover {
+  background: var(--glass-hover);
+  color: var(--on-glass);
+}
+.heroMobile {
+  display: none;
+  padding: 20px 16px 28px;
+  flex-direction: column;
+  gap: 14px;
+}
+.heroTitle {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+}
+.heroL1 {
+  font-size: 20px;
+  line-height: 28px;
+}
+.heroL2 {
+  font-size: 32px;
+  line-height: 40px;
+  color: var(--brand);
+}
+.heroLead {
+  margin: 0;
+  font-size: 15px;
+  line-height: 22px;
+  color: var(--on-glass-muted);
+}
+.heroBtnCall {
+  min-height: 52px;
+  border-radius: var(--radius-full);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.heroBtnBook {
+  min-height: 52px;
+  text-transform: uppercase;
+}
+@container (max-width: 640px) {
+  .ov {
+    display: none;
+  }
+  .banner {
+    height: 220px;
+    object-fit: cover;
+    object-position: 88% center;
+  }
+  .heroMobile {
+    display: flex;
+  }
+}
+
+/* ---------- Dải hãng ---------- */
+.brands {
+  background: var(--surface-raised);
+  border-bottom: 1px solid var(--line);
+}
+.brandList {
+  list-style: none;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: 14px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+}
+.brandBtn {
+  width: 112px;
+  height: 52px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--ink-muted);
+}
+.brandBtn:hover {
+  color: var(--ink);
+  background: var(--surface-sunken);
+}
+.brandName {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.brandLogo,
+.brandLogoGray {
+  max-width: 100%;
+  max-height: 36px;
+  display: block;
+}
+.brandLogoGray {
+  filter: grayscale(1);
+  opacity: 0.8;
+}
+.brandBtn:hover .brandLogoGray {
+  filter: none;
+  opacity: 1;
+}
+.brandMore {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  text-decoration: none;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ---------- Cam kết ---------- */
+.features {
+  background: var(--surface-sunken);
+}
+.featGrid {
+  padding-top: 28px;
+  padding-bottom: 28px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+.feat {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.feat + .feat {
+  border-left: 1px solid var(--line);
+  padding-left: 20px;
+}
+.featIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--heat-soft);
+  color: var(--heat-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+.featText {
+  display: flex;
+  flex-direction: column;
+}
+.featT {
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 22px;
+}
+.featD {
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--ink-muted);
+}
+
+/* ---------- Thẻ chung ---------- */
+.h3 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 700;
+}
+.cardText {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--ink-muted);
+  flex-grow: 1;
+}
+/* Link phủ cả thẻ: một điểm dừng tab, cả thẻ bấm được */
+.cardLink {
+  color: var(--ink);
+  text-decoration: none;
+}
+.cardLink::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+.cardLink:hover {
+  color: var(--ink);
+}
+.cardLink:focus-visible {
+  outline: none;
+}
+.cardLink:focus-visible::after {
+  outline: 2px solid var(--heat);
+  outline-offset: 2px;
+}
+.more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--heat);
+}
+
+/* ---------- Dịch vụ ---------- */
+.svcHead {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+}
+.svcAll {
+  justify-self: end;
+}
+.svcGrid {
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+.svcCard {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.svcImg {
+  height: 160px;
+}
+.svcBody {
+  padding: 18px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-grow: 1;
+}
+
+/* ---------- Quy trình ---------- */
+.steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.step {
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.step .h3 {
+  font-weight: 600;
+}
+.stepN {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: var(--brand);
+  color: var(--on-brand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+/* ---------- Đánh giá ---------- */
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.ratingNum {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 48px;
+  font-variant-numeric: tabular-nums;
+}
+.ratingNum span {
+  font-size: 22px;
+  color: var(--ink-muted);
+}
+.ratingSide {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.stars {
+  display: flex;
+  gap: 2px;
+  color: var(--star);
+}
+.reviews {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+.review {
+  margin: 0;
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.revTop {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--star);
+  font-weight: 700;
+  font-size: 14px;
+}
+.revDevice {
+  color: var(--ink-muted);
+  font-weight: 600;
+}
+.quote {
+  margin: 0;
+  font-size: 15px;
+  line-height: 23px;
+  flex-grow: 1;
+}
+.revBy {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--glass);
+  color: var(--on-glass);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex: none;
+}
+.revWho {
+  display: flex;
+  flex-direction: column;
+}
+.revName {
+  font-weight: 600;
+  font-size: 15px;
+}
+.revArea {
+  font-size: 13px;
+  color: var(--ink-muted);
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+
+/* ---------- Linh kiện ---------- */
+.products {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.product {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.productImg {
+  height: 170px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--line-strong);
+  font-size: 13px;
+}
+.productBody {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-grow: 1;
+}
+.productName {
+  margin: 0;
+  font-size: 17px;
+  line-height: 24px;
+  font-weight: 600;
+  flex-grow: 1;
+}
+.price {
+  font-weight: 700;
+  color: var(--heat);
+  font-size: 17px;
+}
+.cartBtn {
+  min-height: 44px;
+  font-size: 15px;
+  margin-top: 8px;
+}
+
+/* ---------- Kiến thức ---------- */
+.posts {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+.post {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.postImg {
+  height: 190px;
+  font-size: 13px;
+}
+.postBody {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-grow: 1;
+}
+.postMeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+.post .h3 {
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .brandList {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 4px;
+  }
+  .brandBtn {
+    width: 100%;
+  }
+  .brandName {
+    font-size: 15px;
+  }
+  .brandList > li:last-child {
+    grid-column: 1 / -1;
+    justify-self: center;
+  }
+  .svcHead {
+    grid-template-columns: 1fr;
+  }
+  .svcHead > span:first-child {
+    display: none;
+  }
+  .feat + .feat {
+    border-left: 0;
+    padding-left: 0;
+  }
+  .posts {
+    grid-template-columns: 1fr;
+  }
+}

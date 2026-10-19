@@ -1,0 +1,12 @@
+**/node_modules
+**/.next
+**/.next-build
+**/dist
+**/*.tsbuildinfo
+**/.env
+**/.env.*
+!.env.production.example
+apps/api/uploads
+design
+.claude
+coverage

@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>KitFix247 Admin — Tổng quan</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&amp;family=Chakra+Petch:ital,wght@0,600;0,700;1,700&amp;display=swap">
+<style>
+body{margin:0;background:#faf8f5}
+@container (max-width: 640px){.kf-pad{padding-left:16px !important;padding-right:16px !important}}
+a{color:#b85200}a:hover{color:#9a4300}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #b85200;outline-offset:2px}
+.kf-brand:hover{background:#ff9a3d !important}
+.kf-sec:hover{background:#f1ede6 !important}
+.kf-mod:hover{border-color:#8a9099 !important}
+</style>
+</helmet>
+<div style="font-family: 'Be Vietnam Pro','Segoe UI',system-ui,sans-serif; color: #0e2843; background: #faf8f5; font-size: 15px; line-height: 22px; display: flex; flex-wrap: wrap; align-items: stretch; container-type: inline-size">
+
+<div style="flex: 1 1 248px; min-width: 0; display: flex; flex-direction: column">
+<dc-import name="AdminSidebar" active="tongquan" hint-size="100%,900px"></dc-import>
+</div>
+
+<main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+<div class="kf-pad" style="background: #ffffff; border-bottom: 1px solid #ddd6cc; padding: 12px 32px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center">
+<label style="flex: 1 1 280px; display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 12px; border: 1.5px solid #8a9099; border-radius: 6px; color: #5a6069">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14z M20 20l-4-4"></path></svg>
+<span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Tìm kiếm</span>
+<input type="search" placeholder="Tìm lịch hẹn, đơn hàng, bài viết…" style="flex: 1; border: 0; outline: none; font: inherit; color: #0e2843; background: transparent; min-width: 0"></label>
+<a class="kf-brand" href="AdminBaiViet.dc.html" style="display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px; border-radius: 12px; background: #f57a0a; color: #0e2843; font-weight: 700; text-decoration: none">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14 M5 12h14"></path></svg>Viết bài mới</a>
+<div style="width: 40px; height: 40px; border-radius: 999px; background: #fdead8; color: #9a4300; display: flex; align-items: center; justify-content: center; font-weight: 700" aria-label="Tài khoản quản trị">QT</div>
+</div>
+
+<div class="kf-pad" style="padding: 32px; display: flex; flex-direction: column; gap: 24px; max-width: 1200px; box-sizing: border-box; width: 100%">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h1 style="margin: 0; font-family: 'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size: 28px; line-height: 36px; font-weight: 700">Tổng quan</h1>
+<p style="margin: 0; color: #5a6069">Số liệu trong màn hình này là dữ liệu mẫu.</p>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px">
+<sc-for list="{{kpis}}" as="k" hint-placeholder-count="4">
+<div style="background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 13px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase; color: #5a6069">{{k.l}}</div>
+<div style="font-family: 'Chakra Petch',system-ui,sans-serif; font-style: italic; font-weight: 700; font-size: 32px; line-height: 40px; font-variant-numeric: tabular-nums">{{k.v}}</div>
+<div style="font-size: 13px; color: {{k.c}}; font-weight: 600">{{k.s}}</div>
+</div>
+</sc-for>
+</div>
+
+<!-- Lịch hẹn -->
+<section style="background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; overflow: hidden">
+<div style="padding: 20px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; border-bottom: 1px solid #ddd6cc">
+<div>
+<h2 style="margin: 0; font-size: 18px; line-height: 26px; font-weight: 600">Lịch hẹn từ form đặt lịch</h2>
+<p style="margin: 0; font-size: 13px; color: #5a6069">Cam kết gọi lại trong 15 phút — yêu cầu quá hạn được tô đỏ.</p>
+</div>
+<div role="group" aria-label="Lọc trạng thái" style="display: flex; flex-wrap: wrap; gap: 6px">
+<sc-for list="{{filters}}" as="f" hint-placeholder-count="4">
+<button type="button" onClick="{{f.pick}}" aria-pressed="{{f.on}}" style="min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1.5px solid {{f.border}}; background: {{f.bg}}; color: {{f.fg}}; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer">{{f.name}} ({{f.n}})</button>
+</sc-for>
+</div>
+</div>
+<div style="overflow-x: auto">
+<table style="width: 100%; border-collapse: collapse; min-width: 860px; font-size: 14px">
+<thead><tr style="background: #f1ede6; text-align: left">
+<th scope="col" style="padding: 12px 24px; font-size: 12px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Khách hàng</th>
+<th scope="col" style="padding: 12px 16px; font-size: 12px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Thiết bị · lỗi</th>
+<th scope="col" style="padding: 12px 16px; font-size: 12px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Địa chỉ</th>
+<th scope="col" style="padding: 12px 16px; font-size: 12px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Đã gửi</th>
+<th scope="col" style="padding: 12px 16px; font-size: 12px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase">Trạng thái</th>
+<th scope="col" style="padding: 12px 24px; font-size: 12px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase; text-align: right">Thao tác</th>
+</tr></thead>
+<tbody>
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="5">
+<tr style="border-top: 1px solid #ddd6cc">
+<td style="padding: 14px 24px"><div style="font-weight: 600">{{r.name}}</div><a href="tel:{{r.tel}}" style="font-size: 13px; text-decoration: none">{{r.phone}}</a></td>
+<td style="padding: 14px 16px"><div style="font-weight: 600">{{r.device}}</div><div style="font-size: 13px; color: #5a6069">{{r.issue}}</div></td>
+<td style="padding: 14px 16px; color: #5a6069">{{r.addr}}</td>
+<td style="padding: 14px 16px; color: {{r.ageColor}}; font-weight: {{r.ageWeight}}; white-space: nowrap">{{r.age}}</td>
+<td style="padding: 14px 16px"><span style="display: inline-flex; border-radius: 999px; padding: 3px 10px; font-size: 13px; font-weight: 600; background: {{r.sbg}}; color: {{r.sfg}}; white-space: nowrap">{{r.status}}</span></td>
+<td style="padding: 14px 24px; text-align: right; white-space: nowrap">
+<sc-if value="{{r.canCall}}" hint-placeholder-val="{{ true }}">
+<button type="button" class="kf-sec" onClick="{{r.markCalled}}" style="min-height: 36px; padding: 0 12px; border-radius: 8px; border: 1.5px solid #8a9099; background: #ffffff; color: #0e2843; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer">Đánh dấu đã gọi</button>
+</sc-if>
+<sc-if value="{{r.canAssign}}" hint-placeholder-val="{{ false }}">
+<button type="button" class="kf-sec" onClick="{{r.assign}}" style="min-height: 36px; padding: 0 12px; border-radius: 8px; border: 1.5px solid #8a9099; background: #ffffff; color: #0e2843; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer">Giao KTV</button>
+</sc-if>
+</td>
+</tr>
+</sc-for>
+</tbody>
+</table>
+</div>
+</section>
+
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+<!-- Đơn hàng -->
+<section style="flex: 1 1 380px; min-width: 0; background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; padding: 20px 24px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; justify-content: space-between; align-items: center"><h2 style="margin: 0; font-size: 18px; line-height: 26px; font-weight: 600">Đơn hàng Shop mới</h2><a href="#" style="font-weight: 700; font-size: 14px; text-decoration: none">Tất cả đơn</a></div>
+<sc-for list="{{orders}}" as="o" hint-placeholder-count="3">
+<div style="display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-top: 1px solid #ddd6cc">
+<div><div style="font-weight: 600">{{o.id}} · {{o.name}}</div><div style="font-size: 13px; color: #5a6069">{{o.items}}</div></div>
+<div style="text-align: right"><div style="font-size: 13px; font-weight: 600">{{o.pay}}</div><div style="font-size: 13px; color: {{o.c}}; font-weight: 600">{{o.st}}</div></div>
+</div>
+</sc-for>
+</section>
+
+<!-- SEO -->
+<section style="flex: 1 1 380px; min-width: 0; background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; padding: 20px 24px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; justify-content: space-between; align-items: center"><h2 style="margin: 0; font-size: 18px; line-height: 26px; font-weight: 600">Bài viết & SEO</h2><a href="AdminBaiViet.dc.html" style="font-weight: 700; font-size: 14px; text-decoration: none">Mở trình soạn</a></div>
+<sc-for list="{{posts}}" as="p" hint-placeholder-count="3">
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #ddd6cc">
+<div style="width: 44px; height: 44px; border-radius: 999px; border: 3px solid {{p.c}}; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; color: {{p.c}}; flex: none; box-sizing: border-box">{{p.score}}</div>
+<div style="flex: 1; min-width: 0"><div style="font-weight: 600">{{p.t}}</div><div style="font-size: 13px; color: #5a6069">{{p.meta}}</div></div>
+</div>
+</sc-for>
+</section>
+</div>
+
+<!-- Modules -->
+<section style="display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-size: 18px; line-height: 26px; font-weight: 600">Quản lý nội dung website</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px">
+<sc-for list="{{modules}}" as="m" hint-placeholder-count="8">
+<a class="kf-mod" href="{{m.href}}" style="background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; padding: 16px 20px; text-decoration: none; color: #0e2843; display: flex; flex-direction: column; gap: 4px">
+<span style="font-weight: 700">{{m.t}}</span>
+<span style="font-size: 13px; line-height: 18px; color: #5a6069">{{m.d}}</span>
+</a>
+</sc-for>
+</div>
+</section>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
+var ST = {
+  moi: { name: 'Mới — chờ gọi', bg: '#fdead8', fg: '#9a4300' },
+  dagoi: { name: 'Đã gọi xác nhận', bg: '#e6ecf3', fg: '#0e2843' },
+  dangsua: { name: 'KTV đang đến / sửa', bg: '#0e2843', fg: '#f4f1ec' },
+  xong: { name: 'Hoàn tất', bg: '#d9f1ed', fg: '#0f766e' }
+};
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      filter: 'all',
+      rows: [
+        { id: 1, name: 'Nguyễn Văn A', phone: '0901.234.567', device: 'Bếp từ', issue: 'Báo lỗi E1, không nhận nồi', addr: 'Tân Bình', min: 18, st: 'moi' },
+        { id: 2, name: 'Trần Thị B', phone: '0912.345.678', device: 'Lò vi sóng', issue: 'Chạy nhưng không nóng', addr: 'Quận 7', min: 6, st: 'moi' },
+        { id: 3, name: 'Lê Văn C', phone: '0987.654.321', device: 'Máy hút mùi', issue: 'Hút yếu, kêu to', addr: 'Bình Thạnh', min: 42, st: 'dagoi' },
+        { id: 4, name: 'Phạm Thị D', phone: '0938.111.222', device: 'Máy rửa chén', issue: 'Không xả nước', addr: 'Thủ Đức', min: 75, st: 'dangsua' },
+        { id: 5, name: 'Hoàng Văn E', phone: '0977.333.444', device: 'Bếp hồng ngoại', issue: 'Mâm nhiệt không đỏ', addr: 'Phú Nhuận', min: 190, st: 'xong' }
+      ]
+    };
+  }
+  setRow(id, st) {
+    this.setState({ rows: this.state.rows.map(function (r) { return r.id === id ? Object.assign({}, r, { st: st }) : r; }) });
+  }
+  renderVals() {
+    var self = this;
+    var s = this.state;
+    var count = function (k) { return s.rows.filter(function (r) { return k === 'all' || r.st === k; }).length; };
+    var F = [{ k: 'all', name: 'Tất cả' }, { k: 'moi', name: 'Chờ gọi' }, { k: 'dagoi', name: 'Đã gọi' }, { k: 'dangsua', name: 'Đang sửa' }, { k: 'xong', name: 'Hoàn tất' }];
+    var waiting = s.rows.filter(function (r) { return r.st === 'moi'; });
+    var late = waiting.filter(function (r) { return r.min > 15; }).length;
+    return {
+      kpis: [
+        { l: 'Lịch hẹn hôm nay', v: String(s.rows.length), s: '+2 so với hôm qua', c: '#0f766e' },
+        { l: 'Đang chờ gọi lại', v: String(waiting.length), s: late ? late + ' yêu cầu quá 15 phút' : 'Không có yêu cầu quá hạn', c: late ? '#b42318' : '#0f766e' },
+        { l: 'Đơn hàng Shop mới', v: '2', s: '1 chờ xác nhận chuyển khoản', c: '#5a6069' },
+        { l: 'Bài viết đã đăng', v: '12', s: '2 bài cần cải thiện SEO', c: '#b85200' }
+      ],
+      filters: F.map(function (f) {
+        var on = s.filter === f.k;
+        return { name: f.name, n: count(f.k), on: on ? 'true' : 'false', bg: on ? '#0e2843' : '#ffffff', fg: on ? '#f4f1ec' : '#0e2843', border: on ? '#0e2843' : '#8a9099', pick: function () { self.setState({ filter: f.k }); } };
+      }),
+      rows: s.rows.filter(function (r) { return s.filter === 'all' || r.st === s.filter; }).map(function (r) {
+        var st = ST[r.st];
+        var isLate = r.st === 'moi' && r.min > 15;
+        var age = r.min < 60 ? r.min + ' phút trước' : Math.floor(r.min / 60) + ' giờ trước';
+        return Object.assign({}, r, {
+          tel: r.phone.replace(/\./g, ''),
+          age: isLate ? age + ' · quá hạn' : age,
+          ageColor: isLate ? '#b42318' : '#5a6069',
+          ageWeight: isLate ? '700' : '400',
+          status: st.name, sbg: st.bg, sfg: st.fg,
+          canCall: r.st === 'moi',
+          canAssign: r.st === 'dagoi',
+          markCalled: function () { self.setRow(r.id, 'dagoi'); },
+          assign: function () { self.setRow(r.id, 'dangsua'); }
+        });
+      }),
+      orders: [
+        { id: '#1024', name: 'Võ Thị F', items: 'Keo tản nhiệt × 2, Bộ tua vít × 1', pay: 'Chuyển khoản', st: 'Chờ xác nhận thanh toán', c: '#b85200' },
+        { id: '#1023', name: 'Đặng Văn G', items: 'Dây nguồn bếp từ × 1', pay: 'Tiền mặt (COD)', st: 'Đang giao', c: '#5a6069' },
+        { id: '#1022', name: 'Bùi Thị H', items: 'Cầu chì thay thế × 4', pay: 'MoMo', st: 'Đã giao', c: '#0f766e' }
+      ],
+      posts: [
+        { t: 'Bếp từ báo lỗi E1, E4: nguyên nhân và cách xử lý', meta: 'Đang soạn · từ khóa “bếp từ báo lỗi”', score: '64', c: '#b85200' },
+        { t: '5 thói quen làm giảm tuổi thọ bếp từ', meta: 'Đã đăng 06/10/2026', score: '88', c: '#0f766e' },
+        { t: 'Lò vi sóng chạy nhưng không nóng', meta: 'Đã đăng 01/10/2026 · thiếu mô tả meta', score: '45', c: '#b42318' }
+      ],
+      modules: [
+        { t: 'Trang chủ & Hero', d: 'Tiêu đề, đoạn dẫn, 5 cam kết, ảnh Hero', href: '#' },
+        { t: 'Dịch vụ (7)', d: 'Trang dịch vụ, lỗi thường gặp, FAQ', href: 'AdminDichVu.dc.html' },
+        { t: 'Bảng giá (3 nhóm)', d: 'Hạng mục và khoảng giá, ghi chú VAT', href: 'AdminDichVu.dc.html' },
+        { t: 'Quy trình 4 bước', d: 'Tiêu đề và mô tả từng bước', href: '#' },
+        { t: 'Đánh giá khách hàng', d: 'Duyệt, ẩn/hiện, chọn 4 đánh giá trang chủ', href: '#' },
+        { t: 'Sản phẩm & đơn hàng', d: 'Đồng bộ WooCommerce: sản phẩm, tồn kho, đơn', href: '#' },
+        { t: 'Bài viết & SEO', d: 'Soạn bài, chuyên mục, chấm điểm SEO', href: 'AdminBaiViet.dc.html' },
+        { t: 'Menu điều hướng', d: 'Thứ tự menu, dropdown Dịch vụ', href: '#' },
+        { t: 'Hotline, Zalo, thanh CTA', d: 'Số gọi, link Zalo, nút hiện ở header/hero/form', href: '#' },
+        { t: 'Form đặt lịch', d: 'Danh sách thiết bị, lời nhắn thành công', href: '#' },
+        { t: 'Footer & thanh toán', d: 'Địa chỉ, giờ làm, phương thức thanh toán', href: '#' },
+        { t: 'Chính sách bảo hành', d: 'Nội dung trang chính sách', href: '#' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

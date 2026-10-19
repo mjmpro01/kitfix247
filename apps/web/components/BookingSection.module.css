@@ -1,0 +1,75 @@
+.row {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap;
+  gap: 48px !important;
+  align-items: flex-start;
+}
+.text {
+  flex: 1 1 380px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.formCol {
+  flex: 1 1 460px;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+}
+.contacts {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.contacts li {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.ic {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--glass);
+  color: var(--brand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+.small {
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+.hot {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  text-decoration: none;
+}
+.zalo {
+  font-weight: 700;
+  font-size: 17px;
+  text-decoration: none;
+}
+.hours {
+  font-weight: 600;
+}
+.inlineHot {
+  font-weight: 700;
+  text-decoration: none;
+}
+@media (max-width: 640px) {
+  .row {
+    gap: 32px !important;
+  }
+  .text,
+  .formCol {
+    flex-basis: 100%;
+  }
+}

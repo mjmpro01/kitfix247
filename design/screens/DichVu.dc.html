@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Sửa bếp từ tận nhà — KitFix247</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&amp;family=Chakra+Petch:ital,wght@0,600;0,700;1,700&amp;display=swap">
+<style>
+body{margin:0;background:#faf8f5}
+@container (max-width: 640px){
+section[style*="padding: 80px"]{padding-top:48px !important;padding-bottom:48px !important}
+section h2{font-size:22px !important;line-height:30px !important}
+.kf-h1{font-size:30px !important;line-height:38px !important}
+.kf-hero-in{padding-top:32px !important;padding-bottom:40px !important}
+.kf-btns > a{flex:1 1 100%;justify-content:center}
+}
+a{color:#b85200}a:hover{color:#9a4300}
+.kf-brand:hover{background:#ff9a3d !important}
+.kf-dark:hover{background:rgba(244,241,236,0.08) !important}
+.kf-pill:hover{border-color:#0e2843 !important}
+.kf-card:hover{box-shadow:0 1px 2px rgba(28,32,38,0.06),0 4px 16px rgba(28,32,38,0.06)}
+details summary{list-style:none;cursor:pointer}
+details summary::-webkit-details-marker{display:none}
+details[open] .kf-chev{transform:rotate(180deg)}
+</style>
+</helmet>
+<div style="font-family: 'Be Vietnam Pro','Segoe UI',system-ui,sans-serif; color: #0e2843; background: #faf8f5; font-size: 16px; line-height: 24px; container-type: inline-size">
+
+<dc-import name="SiteHeader" active="dv" hint-size="100%,73px"></dc-import>
+
+<!-- Tabs dịch vụ -->
+<div style="background: #ffffff; border-bottom: 1px solid #ddd6cc">
+<div style="max-width: 1160px; margin: 0 auto; padding: 12px 16px; box-sizing: border-box; display: flex; gap: 8px; overflow-x: auto">
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="7">
+<a class="kf-pill" href="DichVu.dc.html" style="flex: none; display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid {{t.border}}; background: {{t.bg}}; color: #0e2843; font-weight: 600; font-size: 14px; text-decoration: none; white-space: nowrap">{{t.name}}</a>
+</sc-for>
+</div>
+</div>
+
+<!-- Hero dịch vụ -->
+<section style="background: #0e2843; color: #f4f1ec">
+<div class="kf-hero-in" style="max-width: 1160px; margin: 0 auto; padding: 48px 16px 64px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
+<nav aria-label="Breadcrumb" style="font-size: 14px; color: #aebbd0; display: flex; gap: 8px; flex-wrap: wrap">
+<a href="Main.dc.html" style="color: #aebbd0">Trang chủ</a><span aria-hidden="true">/</span><a href="DichVu.dc.html" style="color: #aebbd0">Dịch vụ</a><span aria-hidden="true">/</span><span style="color: #f4f1ec">Sửa bếp từ</span>
+</nav>
+<h1 class="kf-h1" style="margin: 0; font-family: 'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-style: italic; font-size: 40px; line-height: 48px; font-weight: 700; letter-spacing: -0.02em; max-width: 760px">Sửa bếp từ tận nhà tại TP.HCM</h1>
+<p style="margin: 0; font-size: 18px; line-height: 28px; color: #aebbd0; max-width: 680px">Bếp không nhận nồi, báo lỗi, tự tắt hay nứt mặt kính — kỹ thuật viên có mặt trong 60 phút, kiểm tra miễn phí và sửa ngay tại nhà anh/chị.</p>
+<div class="kf-btns" style="display: flex; flex-wrap: wrap; gap: 12px">
+<a class="kf-brand" href="tel:0989041641" style="display: inline-flex; align-items: center; gap: 8px; min-height: 52px; padding: 12px 22px; border-radius: 12px; background: #f57a0a; color: #0e2843; font-weight: 700; font-size: 17px; text-decoration: none; box-sizing: border-box">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ic.phone}}"></path></svg>Gọi ngay 0989.041.641</a>
+<a class="kf-dark" href="https://zalo.me/0989041641" style="display: inline-flex; align-items: center; gap: 8px; min-height: 52px; padding: 12px 22px; border-radius: 12px; border: 1.5px solid #aebbd0; color: #f4f1ec; font-weight: 700; font-size: 17px; text-decoration: none; box-sizing: border-box">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ic.chat}}"></path></svg>Gửi ảnh lỗi qua Zalo</a>
+</div>
+<ul style="margin: 8px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 15px">
+<sc-for list="{{promises}}" as="p" hint-placeholder-count="4">
+<li style="display: inline-flex; align-items: center; gap: 8px; color: #f4f1ec">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f2a70e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ic.check}}"></path></svg>{{p}}</li>
+</sc-for>
+</ul>
+</div>
+</section>
+
+<!-- Lỗi thường gặp -->
+<section style="padding: 80px 0">
+<div style="max-width: 1160px; margin: 0 auto; padding: 0 16px; box-sizing: border-box; display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-size: 13px; line-height: 16px; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase; color: #b85200">Lỗi thường gặp</div>
+<h2 style="margin: 0; font-family: 'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size: 26px; line-height: 34px; font-weight: 700">Bếp từ nhà anh/chị đang bị gì?</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px">
+<sc-for list="{{faults}}" as="f" hint-placeholder-count="6">
+<article class="kf-card" style="background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px">
+<h3 style="margin: 0; font-size: 18px; line-height: 26px; font-weight: 600">{{f.t}}</h3>
+<span style="background: #fdead8; color: #9a4300; border-radius: 6px; padding: 2px 8px; font-weight: 700; font-size: 13px; white-space: nowrap">{{f.code}}</span>
+</div>
+<p style="margin: 0; font-size: 14px; line-height: 20px; color: #5a6069; flex-grow: 1"><strong style="color: #0e2843; font-weight: 600">Nguyên nhân thường gặp:</strong> {{f.c}}</p>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-top: 12px; border-top: 1px solid #ddd6cc">
+<span style="font-size: 14px; color: #5a6069">Giá tham khảo</span>
+<span style="font-weight: 700; color: #b85200">[giá từ] – [giá đến] ₫</span>
+</div>
+</article>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- FAQ -->
+<section style="background: #f1ede6; padding: 80px 0">
+<div style="max-width: 820px; margin: 0 auto; padding: 0 16px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
+<h2 style="margin: 0; font-family: 'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size: 26px; line-height: 34px; font-weight: 700">Câu hỏi thường gặp</h2>
+<div style="display: flex; flex-direction: column; gap: 12px">
+<sc-for list="{{faq}}" as="q" hint-placeholder-count="4">
+<details style="background: #ffffff; border: 1px solid #ddd6cc; border-radius: 12px; padding: 0 24px">
+<summary style="min-height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-weight: 600; font-size: 17px">{{q.q}}
+<svg class="kf-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M6 9l6 6 6-6"></path></svg></summary>
+<p style="margin: 0 0 20px; color: #5a6069">{{q.a}}</p>
+</details>
+</sc-for>
+</div>
+</div>
+</section>
+
+<!-- Đặt lịch -->
+<section id="dat-lich" style="padding: 80px 0">
+<div style="max-width: 1160px; margin: 0 auto; padding: 0 16px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<h2 style="margin: 0; font-family: 'Chakra Petch','Be Vietnam Pro',system-ui,sans-serif; font-size: 26px; line-height: 34px; font-weight: 700">Đặt lịch sửa bếp từ</h2>
+<p style="margin: 0; font-size: 18px; line-height: 28px; color: #5a6069">Gửi thông tin, chúng tôi gọi lại trong 15 phút. Cần gấp, gọi ngay <a href="tel:0989041641" style="font-weight: 700; text-decoration: none">0989.041.641</a>.</p>
+</div>
+<div style="flex: 1 1 460px; min-width: 0; display: flex; justify-content: center">
+<dc-import name="BookingForm" hint-size="100%,820px"></dc-import>
+</div>
+</div>
+</section>
+
+<dc-import name="SiteFooter" hint-size="100%,460px"></dc-import>
+
+<div style="position: sticky; bottom: 0; height: 0; z-index: 50">
+<div style="position: absolute; right: 20px; bottom: 20px">
+<dc-import name="ChatBubbles" book-href="#dat-lich" hint-size="64px,200px"></dc-import>
+</div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var names = ['Sửa bếp từ', 'Bếp hồng ngoại', 'Máy hút mùi', 'Lò nướng', 'Lò vi sóng', 'Máy rửa chén', 'Lắp đặt', 'Bảo dưỡng'];
+    return {
+      ic: {
+        phone: 'M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2',
+        chat: 'M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z',
+        calendar: 'M4 6h16v14H4z M4 10h16 M8 3v4 M16 3v4',
+        check: 'M5 12.5l4.5 4.5L19 7.5',
+        shield: 'M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z M8.5 12l2.5 2.5 4.5-5'
+      },
+      tabs: names.map(function (n, i) { return { name: n, bg: i === 0 ? '#fdead8' : '#ffffff', border: i === 0 ? '#b85200' : '#ddd6cc' }; }),
+      promises: ['Có mặt trong 60 phút', 'Chẩn đoán miễn phí', 'Báo giá trước khi sửa', 'Bảo hành 12 tháng'],
+      faults: [
+        { t: 'Bếp không nhận nồi', code: 'E1 / E0', c: 'nồi không đúng đáy từ, cuộn dây hoặc cảm biến nồi lỗi, bo mạch hỏng.' },
+        { t: 'Báo lỗi quá nhiệt', code: 'E4 / E5', c: 'quạt tản nhiệt yếu hoặc bám bụi, cảm biến nhiệt hỏng.' },
+        { t: 'Bếp tự tắt khi đang nấu', code: 'Tự ngắt', c: 'quá nhiệt, nguồn điện chập chờn, tụ hoặc sò công suất xuống cấp.' },
+        { t: 'Bật bếp là nhảy aptomat', code: 'Chập', c: 'chập sò công suất (IGBT), cầu diode hoặc dây nguồn hỏng.' },
+        { t: 'Cảm ứng không nhạy, liệt phím', code: 'Phím', c: 'mặt kính bẩn hoặc ẩm, bo phím điều khiển hỏng.' },
+        { t: 'Mặt kính nứt, vỡ', code: 'Kính', c: 'va đập, sốc nhiệt — cần thay kính để đảm bảo an toàn điện.' }
+      ],
+      rows: [
+        { n: 'Kiểm tra, chẩn đoán lỗi', time: '15–30 phút' },
+        { n: 'Vệ sinh, thay quạt tản nhiệt', time: '30–45 phút' },
+        { n: 'Thay sò công suất (IGBT)', time: '45–60 phút' },
+        { n: 'Sửa / thay bo mạch công suất', time: '1–2 giờ' },
+        { n: 'Thay bo phím cảm ứng', time: '45–60 phút' },
+        { n: 'Thay mặt kính', time: '1–2 giờ' }
+      ],
+      faq: [
+        { q: 'Kiểm tra lỗi có mất phí không?', a: 'Không. Chúng tôi chẩn đoán miễn phí và báo giá trước; anh/chị đồng ý mới bắt đầu sửa.' },
+        { q: 'Bao lâu kỹ thuật viên đến nơi?', a: 'Trong khu vực nội thành TP.HCM, kỹ thuật viên có mặt trong 60 phút kể từ khi xác nhận lịch.' },
+        { q: 'Bảo hành như thế nào?', a: 'Linh kiện thay mới và công sửa được bảo hành 12 tháng, có phiếu bảo hành ghi rõ hạng mục.' },
+        { q: 'Thanh toán bằng cách nào?', a: 'Tiền mặt, chuyển khoản, MoMo hoặc ZaloPay sau khi bàn giao và chạy thử.' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>
