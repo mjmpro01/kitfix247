@@ -12,7 +12,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
   const [me, stats] = await Promise.all([adminGet<AdminUserInfo>('/admin/auth/me'), adminGet<AdminStats>('/admin/stats')]);
   return (
     <div className={s.shell}>
-      <AdminSidebar waiting={stats.waiting} />
+      <AdminSidebar waiting={stats.waiting} newOrders={stats.newOrders} />
       <div className={s.main}>
         <div className={s.topbar}>
           <form action="/admin/lich-hen" method="get" role="search" className={s.search}>

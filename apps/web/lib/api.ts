@@ -9,6 +9,7 @@ import type {
   PostPage,
   ProcessStep,
   Product,
+  ProductSort,
   Review,
   ServiceDetail,
   ServiceSummary,
@@ -45,7 +46,11 @@ export const getService = (slug: string) => get<ServiceDetail>(`/services/${enco
 export const getProcessSteps = () => must<ProcessStep[]>('/process-steps', 'process');
 export const getHomeBrands = () => must<Brand[]>('/brands?home=1', 'brands');
 export const getHomeReviews = () => must<Review[]>('/reviews?home=1', 'reviews');
-export const getProducts = (limit: number) => must<Product[]>(`/products?limit=${limit}`, 'products');
+export function getProducts(q: { category?: string; sort?: ProductSort; limit?: number } = {}) {
+  const qs = new URLSearchParams();
+  for (const [k, v] of Object.entries(q)) if (v !== undefined && v !== '') qs.set(k, String(v));
+  return must<Product[]>(`/products?${qs}`, 'products');
+}
 export const getBrands = () => must<Brand[]>('/brands', 'brands');
 export const getBrand = (slug: string) => get<BrandDetail>(`/brands/${encodeURIComponent(slug)}`, 'brands');
 export const getCategories = () => must<Category[]>('/categories', 'posts');

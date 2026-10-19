@@ -1,6 +1,8 @@
 // Mô hình dữ liệu KitFix247 — SPEC mục 5.
 // Bổ sung so với SPEC: services.short_name, card_text, device, faults_title (để dựng tab, thẻ trang chủ và tiêu đề trang dịch vụ);
 // products.icon (icon tạm khi chưa có ảnh).
+// Shop: giá sản phẩm có thể chưa có (null = "Giá liên hệ") nên tiền trong đơn cũng có thể null = chờ báo giá khi gọi xác nhận;
+// order_items.product_name lưu tên lúc đặt (sản phẩm có thể đổi tên sau); orders.ip để chống spam như bookings.
 
 generator client {
   provider = "prisma-client-js"
@@ -127,17 +129,17 @@ enum LogoStyle {
 }
 
 model Brand {
-  id          Int        @id @default(autoincrement())
-  slug        String     @unique @db.VarChar(80)
-  name        String     @db.VarChar(80)
-  logoUrl     String?    @map("logo_url") @db.VarChar(512)
-  logoStyle   LogoStyle  @default(gray) @map("logo_style")
-  description String?    @db.Text
+  id          Int         @id @default(autoincrement())
+  slug        String      @unique @db.VarChar(80)
+  name        String      @db.VarChar(80)
+  logoUrl     String?     @map("logo_url") @db.VarChar(512)
+  logoStyle   LogoStyle   @default(gray) @map("logo_style")
+  description String?     @db.Text
   devices     Json?
-  sort        Int        @default(0)
-  showHome    Boolean    @default(true) @map("show_home")
-  seoTitle    String?    @map("seo_title") @db.VarChar(160)
-  seoDesc     String?    @map("seo_desc") @db.VarChar(320)
+  sort        Int         @default(0)
+  showHome    Boolean     @default(true) @map("show_home")
+  seoTitle    String?     @map("seo_title") @db.VarChar(160)
+  seoDesc     String?     @map("seo_desc") @db.VarChar(320)
   posts       PostBrand[]
 
   @@map("brands")
@@ -256,22 +258,26 @@ model Order {
   address      String        @db.VarChar(255)
   payment      PaymentMethod
   status       String        @default("new") @db.VarChar(20)
-  subtotal     Int
-  shippingFee  Int           @map("shipping_fee")
-  total        Int
+  subtotal     Int?
+  shippingFee  Int?          @map("shipping_fee")
+  total        Int?
+  ip           String?       @db.VarChar(64)
   createdAt    DateTime      @default(now()) @map("created_at")
   items        OrderItem[]
 
+  @@index([phone, createdAt])
+  @@index([status, createdAt])
   @@map("orders")
 }
 
 model OrderItem {
-  orderId   Int     @map("order_id")
-  productId Int     @map("product_id")
-  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  product   Product @relation(fields: [productId], references: [id])
-  qty       Int
-  unitPrice Int     @map("unit_price")
+  orderId     Int     @map("order_id")
+  productId   Int     @map("product_id")
+  order       Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product     Product @relation(fields: [productId], references: [id])
+  productName String  @map("product_name") @db.VarChar(200)
+  qty         Int
+  unitPrice   Int?    @map("unit_price")
 
   @@id([orderId, productId])
   @@map("order_items")

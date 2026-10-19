@@ -15,7 +15,7 @@ interface Item {
   badge?: number;
 }
 
-export function AdminSidebar({ waiting }: { waiting: number }) {
+export function AdminSidebar({ waiting, newOrders }: { waiting: number; newOrders: number }) {
   const path = usePathname();
   const groups: { title: string; items: Item[] }[] = [
     {
@@ -23,7 +23,7 @@ export function AdminSidebar({ waiting }: { waiting: number }) {
       items: [
         { name: 'Tổng quan', icon: 'grid', href: '/admin', match: (p) => p === '/admin' },
         { name: 'Lịch hẹn', icon: 'cal', href: '/admin/lich-hen', badge: waiting },
-        { name: 'Đơn hàng', icon: 'bag' },
+        { name: 'Đơn hàng', icon: 'bag', href: '/admin/don-hang', badge: newOrders },
       ],
     },
     {
@@ -31,7 +31,7 @@ export function AdminSidebar({ waiting }: { waiting: number }) {
       items: [
         { name: 'Dịch vụ', icon: 'wrench', href: '/admin/dich-vu' },
         { name: 'Bảng giá', icon: 'tag', href: '/admin/dich-vu#bang-gia', match: () => false },
-        { name: 'Sản phẩm (Shop)', icon: 'box' },
+        { name: 'Sản phẩm (Shop)', icon: 'box', href: '/admin/san-pham' },
         { name: 'Bài viết & SEO', icon: 'doc', href: '/admin/bai-viet' },
         { name: 'Thương hiệu', icon: 'tag', href: '/admin/thuong-hieu' },
         { name: 'Đánh giá khách hàng', icon: 'star', href: '/admin/danh-gia' },

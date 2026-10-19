@@ -3,6 +3,10 @@
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { redirect, unstable_rethrow } from 'next/navigation';
 import type {
+  AdminOrder,
+  AdminProduct,
+  AdminProductInput,
+  OrderStatus,
   AdminBooking,
   AdminBrand,
   AdminBrandInput,
@@ -157,7 +161,8 @@ export async function saveBrands(changes: BrandChange[], order: string[] | null)
 
 /** Tải file lên API (logo hãng / ảnh bài viết), trả URL công khai. */
 export async function uploadFile(form: FormData): Promise<ActionResult<UploadResult>> {
-  const folder = form.get('folder') === 'brands' ? 'brands' : 'posts';
+  const f = form.get('folder');
+  const folder = f === 'brands' || f === 'products' ? f : 'posts';
   const file = form.get('file');
   if (!(file instanceof File) || file.size === 0) return { ok: false, error: 'Chưa chọn file.' };
   const body = new FormData();
@@ -218,10 +223,38 @@ export async function saveSettings(_prev: SettingsState, form: FormData): Promis
     .split('\n')
     .map((s) => s.trim())
     .filter(Boolean);
-  const values = Object.fromEntries([...SETTING_FIELDS, 'payments'].map((k) => [k, String(form.get(k) ?? '')]));
+  // Phí giao: để trống = chưa chốt (báo khi gọi xác nhận đơn).
+  const feeRaw = String(form.get('shippingFee') ?? '').replace(/[^\d]/g, '');
+  data.shop = { shippingFee: feeRaw ? Number(feeRaw) : null };
+  const values = Object.fromEntries([...SETTING_FIELDS, 'payments', 'shippingFee'].map((k) => [k, String(form.get(k) ?? '')]));
   const res = await run(async () => {
     await adminSend<Settings>('PUT', '/admin/settings', data);
     refresh('settings');
   });
   return res.ok ? { ok: true, values } : { error: res.error, errors: res.errors, values };
+}
+
+// ---------- Shop: sản phẩm, đơn hàng ----------
+
+export async function saveProduct(id: number | null, data: AdminProductInput) {
+  return run(async () => {
+    const p = id ? await adminSend<AdminProduct>('PATCH', `/admin/products/${id}`, data) : await adminSend<AdminProduct>('POST', '/admin/products', data);
+    refresh('products');
+    return p;
+  }, id ? 'Đã lưu sản phẩm' : 'Đã thêm sản phẩm');
+}
+
+export async function deleteProduct(id: number) {
+  return run(async () => {
+    await adminSend('DELETE', `/admin/products/${id}`);
+    refresh('products');
+  }, 'Đã xoá sản phẩm');
+}
+
+export async function setOrderStatus(id: number, status: OrderStatus) {
+  return run(async () => {
+    const o = await adminSend<AdminOrder>('PATCH', `/admin/orders/${id}/status`, { status });
+    refresh();
+    return o;
+  });
 }

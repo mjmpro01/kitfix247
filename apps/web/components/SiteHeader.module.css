@@ -135,6 +135,37 @@
   margin-left: auto;
   flex: none;
 }
+.cartLink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  color: var(--ink);
+  flex: none;
+}
+.cartLink:hover {
+  background: var(--surface-sunken);
+  color: var(--ink);
+}
+.cartBadge {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  box-sizing: border-box;
+  border-radius: 999px;
+  background: var(--brand);
+  color: var(--on-brand);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+}
 .hotline {
   display: inline-flex;
   align-items: center;
