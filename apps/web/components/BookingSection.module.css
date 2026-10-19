@@ -57,6 +57,11 @@
   font-size: 17px;
   text-decoration: none;
 }
+/* Khối đặt lịch nằm trên nền sunken: cam --heat chỉ đạt 4,2:1 → --heat-strong. */
+.zalo,
+.inlineHot {
+  color: var(--heat-strong);
+}
 .hours {
   font-weight: 600;
 }

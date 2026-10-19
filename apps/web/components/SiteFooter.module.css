@@ -54,6 +54,9 @@
   color: var(--on-glass-muted);
 }
 .footer .hot {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 700;
@@ -83,11 +86,13 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0;
 }
+/* Vùng chạm ≥ 44px (CLAUDE.md) — khoảng cách giữa các dòng nằm trong chính link. */
 .list a {
-  display: inline-block;
-  padding: 2px 0;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 .info {
   display: flex;

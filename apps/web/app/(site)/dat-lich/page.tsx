@@ -40,7 +40,7 @@ export default async function BookingPage() {
       <section className={s.body}>
         <div className={`container ${s.row}`}>
           <div id="dat-lich" className={s.formCol}>
-            <BookingForm settings={settings} />
+            <BookingForm settings={settings} headingLevel={2} />
           </div>
           <div className={s.side}>
             <div className={s.box}>

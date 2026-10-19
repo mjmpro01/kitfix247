@@ -64,8 +64,8 @@ export function SiteHeader({ settings, services }: Props) {
             className={s.logo}
             src="/images/kitfix247-logo-1000.png"
             alt="KitFix247 — Sửa chuyên nghiệp. Dùng bền lâu."
-            width={1000}
-            height={331}
+            width={145}
+            height={48}
             priority
           />
         </Link>

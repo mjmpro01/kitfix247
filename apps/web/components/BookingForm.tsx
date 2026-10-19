@@ -13,11 +13,14 @@ type Status = 'idle' | 'sending' | 'sent';
 interface Props {
   settings: Pick<Settings, 'hotline' | 'hotlineTel' | 'zaloUrl' | 'hours'>;
   defaultDevice?: string;
+  /** Cấp tiêu đề của form: h3 khi nằm trong section có h2 (mặc định), h2 khi đứng ngay sau h1 (/dat-lich). */
+  headingLevel?: 2 | 3;
 }
 
 const ORDER: (keyof BookingErrors)[] = ['name', 'phone', 'device', 'address', 'description'];
 
-export function BookingForm({ settings, defaultDevice = 'Bếp từ' }: Props) {
+export function BookingForm({ settings, defaultDevice = 'Bếp từ', headingLevel = 3 }: Props) {
+  const H = headingLevel === 2 ? 'h2' : 'h3';
   const uid = useId();
   const id = (k: string) => `${uid}-${k}`;
   const empty: Fields = { name: '', phone: '', device: defaultDevice, address: '', description: '', website: '' };
@@ -95,9 +98,9 @@ export function BookingForm({ settings, defaultDevice = 'Bếp từ' }: Props) {
           <div className={s.doneIcon}>
             <Icon name="check" size={30} strokeWidth={2} />
           </div>
-          <h3 ref={doneRef} tabIndex={-1} className={s.title}>
+          <H ref={doneRef} tabIndex={-1} className={s.title}>
             Đã nhận yêu cầu của anh/chị {sent.name}
-          </h3>
+          </H>
           <div className={s.doneBox}>Chúng tôi sẽ gọi lại số {sent.phone} trong vòng 15 phút để xác nhận giờ kỹ thuật viên đến.</div>
           <dl className={s.dl}>
             <dt>Thiết bị</dt>
@@ -137,9 +140,9 @@ export function BookingForm({ settings, defaultDevice = 'Bếp từ' }: Props) {
     <div className={s.form}>
       <form ref={formRef} onSubmit={submit} noValidate className={s.fields} aria-labelledby={id('title')}>
         <div className={s.head}>
-          <h3 id={id('title')} className={s.title}>
+          <H id={id('title')} className={s.title}>
             Đặt lịch sửa tại nhà
-          </h3>
+          </H>
           <p className="note">Chẩn đoán miễn phí. Chúng tôi gọi lại trong 15 phút.</p>
         </div>
 
