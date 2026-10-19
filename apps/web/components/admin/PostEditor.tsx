@@ -4,8 +4,9 @@ import Link from 'next/link';
 import { useMemo, useRef, useState, useTransition } from 'react';
 import { BOOKING_DEVICES, type AdminBrand, type AdminPost, type Category, type PostStatus, type ServiceSummary } from '@kitfix/types';
 import { checkSeo, countWords, googlePreview, markdownToText, SEO_LIMITS, slugifyVi, type SeoCheckId } from '@kitfix/ui';
-import { deletePost, savePost, uploadFile } from '@/app/admin/actions';
+import { deletePost, savePost } from '@/app/admin/actions';
 import s from '@/app/admin/admin.module.css';
+import { uploadImage } from './upload';
 
 /** Gợi ý cho từng tiêu chí SEO (AdminBaiViet). */
 const HINTS: Record<SeoCheckId, (kwSlug: string) => string> = {
@@ -95,11 +96,8 @@ export function PostEditor({ post, categories, brands, services, hotline, justCr
   };
 
   const upload = async (file: File, folder: 'posts') => {
-    const fd = new FormData();
-    fd.set('file', file);
-    fd.set('folder', folder);
     setUploading(true);
-    const r = await uploadFile(fd);
+    const r = await uploadImage(file, folder);
     setUploading(false);
     if (!r.ok) {
       setNotice({ ok: false, text: r.error });

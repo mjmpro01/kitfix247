@@ -4,8 +4,9 @@ import { useMemo, useRef, useState, useTransition } from 'react';
 import type { AdminProduct, AdminProductInput } from '@kitfix/types';
 import { ICONS } from '@kitfix/ui';
 import { Icon } from '@/components/Icon';
-import { deleteProduct, saveProduct, uploadFile } from '@/app/admin/actions';
+import { deleteProduct, saveProduct } from '@/app/admin/actions';
 import s from '@/app/admin/admin.module.css';
+import { uploadImage } from './upload';
 import { parsePrice, showPrice } from './price';
 
 interface Draft {
@@ -121,11 +122,8 @@ export function ProductManager({ initial }: { initial: AdminProduct[] }) {
   };
 
   const upload = async (file: File) => {
-    const fd = new FormData();
-    fd.set('file', file);
-    fd.set('folder', 'products');
     setUploading(true);
-    const r = await uploadFile(fd);
+    const r = await uploadImage(file, 'products');
     setUploading(false);
     if (!r.ok) return setNotice({ ok: false, text: r.error });
     set('imageUrl', r.data.url);

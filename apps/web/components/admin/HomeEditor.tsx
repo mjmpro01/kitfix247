@@ -4,8 +4,9 @@ import { useMemo, useRef, useState, useTransition } from 'react';
 import type { HeroSettings, ProcessStep, Settings } from '@kitfix/types';
 import { ICONS } from '@kitfix/ui';
 import { Icon } from '@/components/Icon';
-import { saveHome, uploadFile } from '@/app/admin/actions';
+import { saveHome } from '@/app/admin/actions';
 import s from '@/app/admin/admin.module.css';
+import { uploadImage } from './upload';
 
 type HomeSettings = Pick<Settings, 'hero' | 'features' | 'commitments' | 'promises' | 'rating' | 'tagline' | 'about'>;
 
@@ -85,11 +86,8 @@ export function HomeEditor({ settings, steps }: { settings: HomeSettings; steps:
   const removeRow = (k: 'features' | 'steps' | 'commitments' | 'promises', i: number) => patch((x) => ({ ...x, [k]: (x[k] as unknown[]).filter((_, j) => j !== i) }));
 
   const upload = async (file: File) => {
-    const fd = new FormData();
-    fd.set('file', file);
-    fd.set('folder', 'hero');
     setUploading(true);
-    const r = await uploadFile(fd);
+    const r = await uploadImage(file, 'hero');
     setUploading(false);
     if (!r.ok) return setNotice({ ok: false, text: r.error });
     setHero('imageUrl', r.data.url);
