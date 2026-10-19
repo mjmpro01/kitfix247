@@ -71,6 +71,9 @@ export interface ServiceSummary {
   icon: string;
   /** Thiết bị (khớp BOOKING_DEVICES) — dùng để gợi ý dịch vụ liên quan cho bài viết. */
   device: string;
+  /** Ảnh thẻ dịch vụ (admin tải lên); null = hiện icon + placeholder. */
+  imageUrl: string | null;
+  imageAlt: string | null;
   sort: number;
   showHome: boolean;
 }

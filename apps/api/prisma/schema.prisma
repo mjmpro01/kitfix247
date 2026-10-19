@@ -31,6 +31,9 @@ model Service {
   device      String         @db.VarChar(80)
   faultsTitle String         @map("faults_title") @db.VarChar(160)
   icon        String         @db.VarChar(40)
+  /// Ảnh thẻ dịch vụ ở trang chủ (admin tải lên); trống thì hiện icon + placeholder.
+  imageUrl    String?        @map("image_url") @db.VarChar(512)
+  imageAlt    String?        @map("image_alt") @db.VarChar(255)
   sort        Int            @default(0)
   showHome    Boolean        @default(true) @map("show_home")
   seoTitle    String?        @map("seo_title") @db.VarChar(160)

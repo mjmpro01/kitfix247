@@ -366,6 +366,14 @@
 .svcImg {
   height: 160px;
 }
+.svcImgHas {
+  position: relative;
+  background: var(--surface-sunken);
+  overflow: hidden;
+}
+.svcImgHas img {
+  object-fit: cover;
+}
 .svcBody {
   padding: 18px 20px 16px;
   display: flex;

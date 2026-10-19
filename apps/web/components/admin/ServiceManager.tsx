@@ -1,9 +1,10 @@
 'use client';
 
-import { useMemo, useState, useTransition } from 'react';
+import { useMemo, useRef, useState, useTransition } from 'react';
 import { BOOKING_DEVICES, type AdminPriceGroup, type AdminService } from '@kitfix/types';
 import { PRICE_NOTE } from '@kitfix/ui';
-import { createPriceGroup, createService, deleteService, reorder, saveService } from '@/app/admin/actions';
+import { createPriceGroup, createService, deleteService, reorder, saveService, uploadFile } from '@/app/admin/actions';
+import { Icon } from '@/components/Icon';
 import s from '@/app/admin/admin.module.css';
 import { AdminIcon } from './AdminIcon';
 import { parsePrice, showPrice } from './price';
@@ -36,6 +37,8 @@ interface Draft {
   showHome: boolean;
   seoTitle: string;
   seoDesc: string;
+  imageUrl: string | null;
+  imageAlt: string;
   faults: FaultDraft[];
   faqs: FaqDraft[];
   items: ItemDraft[];
@@ -52,6 +55,8 @@ function toDraft(sv: AdminService): Draft {
     showHome: sv.showHome,
     seoTitle: sv.seoTitle ?? '',
     seoDesc: sv.seoDesc ?? '',
+    imageUrl: sv.imageUrl,
+    imageAlt: sv.imageAlt ?? '',
     faults: sv.faults.map((f) => ({ id: f.id, title: f.title, code: f.code, cause: f.cause, from: showPrice(f.priceFrom), to: showPrice(f.priceTo) })),
     faqs: sv.faqs.map((q) => ({ id: q.id, question: q.question, answer: q.answer })),
     items: sv.priceItems.map((p) => ({ id: p.id, name: p.name, duration: p.duration, from: showPrice(p.priceFrom), to: showPrice(p.priceTo) })),
@@ -84,6 +89,8 @@ export function ServiceManager({ initial, groups: initialGroups }: { initial: Ad
   const [adding, setAdding] = useState(false);
   const [newName, setNewName] = useState('');
   const [newDevice, setNewDevice] = useState<string>(BOOKING_DEVICES[0].value);
+  const [uploading, setUploading] = useState(false);
+  const imageInput = useRef<HTMLInputElement>(null);
 
   const dirty = useMemo(() => JSON.stringify(draft) !== baseline, [draft, baseline]);
 
@@ -116,6 +123,17 @@ export function ServiceManager({ initial, groups: initialGroups }: { initial: Ad
     patch((d) => ({ ...d, [k]: d[k].map((r, j) => (j === i ? { ...r, ...v } : r)) }));
   const removeRow = (k: 'faults' | 'faqs' | 'items', i: number) => patch((d) => ({ ...d, [k]: d[k].filter((_, j) => j !== i) }));
 
+  const uploadImage = async (file: File) => {
+    const fd = new FormData();
+    fd.set('file', file);
+    fd.set('folder', 'services');
+    setUploading(true);
+    const r = await uploadFile(fd);
+    setUploading(false);
+    if (!r.ok) return setNotice({ ok: false, text: r.error });
+    patch((d) => ({ ...d, imageUrl: r.data.url, imageAlt: d.imageAlt || d.name }));
+  };
+
   const save = () => {
     if (!draft || !current) return;
     const errs = [
@@ -147,6 +165,8 @@ export function ServiceManager({ initial, groups: initialGroups }: { initial: Ad
           showHome: draft.showHome,
           seoTitle: draft.seoTitle.trim() || null,
           seoDesc: draft.seoDesc.trim() || null,
+          imageUrl: draft.imageUrl,
+          imageAlt: draft.imageUrl ? draft.imageAlt.trim() || draft.name.trim() : null,
         },
         faults: draft.faults.map((f) => ({ id: f.id, title: f.title, code: f.code, cause: f.cause, priceFrom: parsePrice(f.from)!, priceTo: parsePrice(f.to)! })),
         faqs: draft.faqs.map((q) => ({ id: q.id, question: q.question, answer: q.answer })),
@@ -323,6 +343,55 @@ export function ServiceManager({ initial, groups: initialGroups }: { initial: Ad
                   <span className={s.labelText}>Đoạn dẫn (Hero trang dịch vụ)</span>
                   <textarea className={s.textarea} rows={3} value={draft.lead} onChange={(e) => set('lead', e.target.value)} maxLength={2000} />
                 </label>
+                <div className={s.fieldRow} style={{ alignItems: 'flex-start' }}>
+                  <div className={s.stack} style={{ flex: '0 1 240px' }}>
+                    <span className={s.labelText}>Ảnh thẻ dịch vụ</span>
+                    <div className={s.cover} style={{ width: '100%', aspectRatio: '4 / 3', height: 'auto', background: 'var(--surface-sunken)', color: 'var(--ink-muted)' }}>
+                      {/* eslint-disable-next-line @next/next/no-img-element -- xem trước ảnh admin tải lên */}
+                      {draft.imageUrl ? <img src={draft.imageUrl} alt="" /> : <Icon name={current.icon} size={44} strokeWidth={1.25} />}
+                    </div>
+                    <div className={s.chips}>
+                      <button type="button" className={`${s.btn} ${s.btnSm}`} onClick={() => imageInput.current?.click()} disabled={uploading}>
+                        {uploading ? 'Đang tải…' : draft.imageUrl ? 'Đổi ảnh' : 'Tải ảnh lên'}
+                      </button>
+                      {draft.imageUrl ? (
+                        <button type="button" className={`${s.btn} ${s.btnSm} ${s.btnDanger}`} onClick={() => set('imageUrl', null)}>
+                          Gỡ ảnh
+                        </button>
+                      ) : null}
+                    </div>
+                    <input
+                      ref={imageInput}
+                      type="file"
+                      accept="image/png,image/jpeg,image/webp"
+                      className="visually-hidden"
+                      tabIndex={-1}
+                      aria-label={`Chọn ảnh cho ${draft.name}`}
+                      onChange={(e) => {
+                        const f = e.target.files?.[0];
+                        e.target.value = '';
+                        if (f) void uploadImage(f);
+                      }}
+                    />
+                  </div>
+                  <div className={s.stack} style={{ flex: '1 1 260px' }}>
+                    <label className={s.label}>
+                      <span className={s.labelText}>Mô tả ảnh (alt)</span>
+                      <input
+                        className={s.input}
+                        value={draft.imageAlt}
+                        onChange={(e) => set('imageAlt', e.target.value)}
+                        placeholder={`vd Kỹ thuật viên ${draft.name.toLocaleLowerCase('vi')} tại nhà khách`}
+                        maxLength={255}
+                        disabled={!draft.imageUrl}
+                      />
+                    </label>
+                    <p className={s.sub}>
+                      Ảnh thật của kỹ thuật viên đang làm dịch vụ này, khổ ngang 4:3, rộng tối thiểu 800px, JPG/PNG/WebP dưới 2 MB. Hiện trên thẻ dịch vụ ở trang chủ và làm ảnh chia sẻ
+                      khi gửi link trang dịch vụ. Chưa có ảnh thì thẻ hiện icon.
+                    </p>
+                  </div>
+                </div>
                 <div className={s.fieldRow}>
                   <label className={s.label}>
                     <span className={s.labelText}>Mô tả trên card trang chủ</span>

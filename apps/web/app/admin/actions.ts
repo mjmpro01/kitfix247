@@ -165,7 +165,7 @@ export async function saveBrands(changes: BrandChange[], order: string[] | null)
 /** Tải file lên API (logo hãng / ảnh bài viết), trả URL công khai. */
 export async function uploadFile(form: FormData): Promise<ActionResult<UploadResult>> {
   const f = form.get('folder');
-  const folder = f === 'brands' || f === 'products' || f === 'hero' ? f : 'posts';
+  const folder = f === 'brands' || f === 'products' || f === 'hero' || f === 'services' ? f : 'posts';
   const file = form.get('file');
   if (!(file instanceof File) || file.size === 0) return { ok: false, error: 'Chưa chọn file.' };
   const body = new FormData();

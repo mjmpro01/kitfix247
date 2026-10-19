@@ -42,6 +42,8 @@ function toAdminService(s: ServiceRow): AdminService {
     showHome: s.showHome,
     seoTitle: s.seoTitle,
     seoDesc: s.seoDesc,
+    imageUrl: s.imageUrl,
+    imageAlt: s.imageAlt,
     faults: s.faults.map((f) => ({ id: f.id, title: f.title, code: f.code, cause: f.cause, priceFrom: f.priceFrom, priceTo: f.priceTo })),
     faqs: s.faqs.map((q) => ({ id: q.id, question: q.question, answer: q.answer })),
     priceItems: s.priceItems.map(priceItemOut),
@@ -63,9 +65,12 @@ function serviceFields(body: unknown, creating: boolean) {
     showHome: c.bool('showHome', 'Hiện ở trang chủ'),
     seoTitle: c.optStr('seoTitle', 'Tiêu đề SEO', 160),
     seoDesc: c.optStr('seoDesc', 'Mô tả SEO', 320),
+    imageUrl: c.optStr('imageUrl', 'Ảnh dịch vụ', 512),
+    imageAlt: c.optStr('imageAlt', 'Mô tả ảnh', 255),
     slug: c.has('slug') ? slugifyVi(c.str('slug', 'Đường dẫn', { max: 120, required: true }) ?? '') : undefined,
   });
   if (c.has('slug') && !data.slug) c.errors.slug = 'Đường dẫn không hợp lệ.';
+  if (data.imageUrl && !/^(\/(?!\/)|https?:\/\/)/.test(data.imageUrl)) c.errors.imageUrl = 'Ảnh dịch vụ phải là URL ảnh đã tải lên.';
   if (c.has('name') && data.name === '') c.errors.name = 'Tên dịch vụ là bắt buộc.';
   c.done();
   return data;
