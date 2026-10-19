@@ -1,5 +1,6 @@
 // DTO dùng chung web ↔ api. Giữ đúng hợp đồng SPEC mục 6.
 import type { PagesSettings } from './pages';
+import type { MenuItem } from './menu';
 
 export interface Settings {
   hotline: string; // dạng hiển thị: 0989.041.641
@@ -17,11 +18,28 @@ export interface Settings {
   features: { title: string; detail: string; icon: string }[];
   promises: string[];
   payments: string[];
-  hero: { imageUrl: string; imageAlt: string; h1: string; mobileLine1: string; mobileLine2: string; mobileLead: string };
+  hero: HeroSettings;
+  /** Menu header; thiếu khoá = DEFAULT_MENU. */
+  menu?: MenuItem[];
   /** Shop: phí giao (₫) — null = chưa chốt, báo khi gọi xác nhận đơn. Thiếu khoá cũng hiểu là null. */
   shop?: ShopSettings;
   /** Thân bài Markdown các trang nội dung (Giới thiệu, chính sách) — xem pages.ts. */
   pages?: PagesSettings;
+}
+
+export interface HeroSettings {
+  imageUrl: string;
+  imageAlt: string;
+  /** H1 của trang chủ (SEO). Kiểu "clean" hiện H1 này trên ảnh; kiểu "overlay" ẩn đi vì chữ đã nằm trong ảnh. */
+  h1: string;
+  mobileLine1: string;
+  mobileLine2: string;
+  mobileLead: string;
+  /**
+   * "overlay" (mặc định): ảnh banner có sẵn chữ, 2 nút HTML phủ đúng vị trí nút trong ảnh (SPEC mục 4).
+   * "clean": ảnh không chữ — tiêu đề, đoạn dẫn, nút là chữ thật đặt trên ảnh.
+   */
+  layout?: 'overlay' | 'clean';
 }
 
 export interface ShopSettings {
@@ -249,4 +267,5 @@ export interface BookingCreated {
 }
 export * from './admin';
 export * from './order';
+export * from './menu';
 export * from './pages';

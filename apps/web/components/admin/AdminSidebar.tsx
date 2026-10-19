@@ -35,13 +35,13 @@ export function AdminSidebar({ waiting, newOrders }: { waiting: number; newOrder
         { name: 'Bài viết & SEO', icon: 'doc', href: '/admin/bai-viet' },
         { name: 'Thương hiệu', icon: 'tag', href: '/admin/thuong-hieu' },
         { name: 'Đánh giá khách hàng', icon: 'star', href: '/admin/danh-gia' },
-        { name: 'Trang chủ & Hero', icon: 'home' },
+        { name: 'Trang chủ & Hero', icon: 'home', href: '/admin/trang-chu' },
       ],
     },
     {
       title: 'Cài đặt',
       items: [
-        { name: 'Menu điều hướng', icon: 'menu' },
+        { name: 'Menu điều hướng', icon: 'menu', href: '/admin/menu' },
         { name: 'Hotline, Zalo, CTA', icon: 'phone', href: '/admin/cai-dat' },
         { name: 'Footer & thanh toán', icon: 'card', href: '/admin/cai-dat#thanh-toan', match: () => false },
         { name: 'Giới thiệu & chính sách', icon: 'shield', href: '/admin/trang-noi-dung' },

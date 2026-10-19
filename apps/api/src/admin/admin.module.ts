@@ -9,6 +9,7 @@ import { BookingsAdminController } from './bookings.admin.controller';
 import { BrandsAdminController } from './brands.admin.controller';
 import { OrdersAdminController } from './orders.admin.controller';
 import { PostsAdminController } from './posts.admin.controller';
+import { ProcessStepsAdminController } from './process-steps.admin.controller';
 import { ProductsAdminController } from './products.admin.controller';
 import { PrismaErrorsFilter } from './prisma-errors.filter';
 import { ReviewsAdminController } from './reviews.admin.controller';
@@ -33,6 +34,7 @@ import { UploadsController } from './uploads/uploads.controller';
     SettingsAdminController,
     ProductsAdminController,
     OrdersAdminController,
+    ProcessStepsAdminController,
   ],
   providers: [
     SettingsService,

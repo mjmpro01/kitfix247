@@ -4,6 +4,7 @@ import { revalidatePath, revalidateTag } from 'next/cache';
 import { redirect, unstable_rethrow } from 'next/navigation';
 import { CONTENT_PAGES } from '@kitfix/types';
 import type {
+  MenuItem,
   AdminOrder,
   AdminProduct,
   AdminProductInput,
@@ -164,7 +165,7 @@ export async function saveBrands(changes: BrandChange[], order: string[] | null)
 /** Tải file lên API (logo hãng / ảnh bài viết), trả URL công khai. */
 export async function uploadFile(form: FormData): Promise<ActionResult<UploadResult>> {
   const f = form.get('folder');
-  const folder = f === 'brands' || f === 'products' ? f : 'posts';
+  const folder = f === 'brands' || f === 'products' || f === 'hero' ? f : 'posts';
   const file = form.get('file');
   if (!(file instanceof File) || file.size === 0) return { ok: false, error: 'Chưa chọn file.' };
   const body = new FormData();
@@ -289,4 +290,26 @@ export async function setOrderStatus(id: number, status: OrderStatus) {
     refresh();
     return o;
   });
+}
+
+// ---------- Trang chủ & Hero, Menu điều hướng ----------
+
+export interface HomeSave {
+  settings: Pick<Settings, 'hero' | 'features' | 'commitments' | 'promises' | 'rating' | 'tagline' | 'about'>;
+  steps: { title: string; description: string }[];
+}
+
+export async function saveHome(data: HomeSave) {
+  return run(async () => {
+    await adminSend<Settings>('PUT', '/admin/settings', data.settings);
+    await adminSend('PUT', '/admin/process-steps', { steps: data.steps });
+    refresh('settings', 'process');
+  }, 'Đã lưu — trang chủ đã cập nhật');
+}
+
+export async function saveMenu(menu: MenuItem[]) {
+  return run(async () => {
+    await adminSend<Settings>('PUT', '/admin/settings', { menu });
+    refresh('settings');
+  }, 'Đã lưu menu — website đã cập nhật');
 }

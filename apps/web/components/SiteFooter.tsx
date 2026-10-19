@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import type { ServiceSummary, Settings } from '@kitfix/types';
+import { DEFAULT_MENU, type ServiceSummary, type Settings } from '@kitfix/types';
 import { Icon } from './Icon';
-import { SHOW_PRICE_PAGE, serviceHref } from '@/lib/site';
+import { serviceHref } from '@/lib/site';
 import s from './SiteFooter.module.css';
 
 interface Props {
@@ -15,6 +15,8 @@ export function SiteFooter({ settings, services }: Props) {
   const induction = services.find((x) => x.slug === 'sua-bep-tu');
   const rest = services.filter((x) => x.slug !== 'sua-bep-tu' && x.slug !== 'sua-bep-hong-ngoai');
   const year = new Date().getFullYear();
+  // Bảng giá chỉ hiện ở footer khi admin bật mục /bang-gia trong Menu điều hướng.
+  const showPricePage = (settings.menu?.length ? settings.menu : DEFAULT_MENU).some((m) => m.visible && m.href === '/bang-gia');
 
   return (
     <footer className={s.footer}>
@@ -52,7 +54,7 @@ export function SiteFooter({ settings, services }: Props) {
               <li>
                 <Link href="/chinh-sach-bao-hanh">Chính sách bảo hành</Link>
               </li>
-              {SHOW_PRICE_PAGE && (
+              {showPricePage && (
                 <li>
                   <Link href="/bang-gia">Bảng giá</Link>
                 </li>

@@ -1,9 +1,6 @@
 /** Server đọc SITE_URL lúc chạy (image Docker dùng được cho mọi tên miền); dev dùng NEXT_PUBLIC_SITE_URL trong .env.local. */
 export const SITE_URL = (process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000').replace(/\/$/, '');
 
-/** /bang-gia tạm ẩn khỏi menu cho tới khi chủ quyết định (SPEC mục 4). */
-export const SHOW_PRICE_PAGE = false;
-
 export const serviceHref = (slug: string) => `/dich-vu/${slug}`;
 
 /** "Sửa bếp từ" → "sửa bếp từ" (chỉ hạ chữ đầu, giữ nguyên phần còn lại). */
