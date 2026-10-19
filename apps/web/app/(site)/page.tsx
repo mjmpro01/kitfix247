@@ -186,9 +186,21 @@ export default async function HomePage() {
           <div className={`grid ${s.svcGrid}`}>
             {homeServices.map((sv) => (
               <article key={sv.slug} className={`card ${s.svcCard}`}>
-                <div className={`placeholder-img ${s.svcImg}`}>
-                  <Icon name={sv.icon} size={44} strokeWidth={1.25} />[Ảnh {sv.shortName.toLocaleLowerCase('vi')}]
-                </div>
+                {sv.imageUrl ? (
+                  <div className={`${s.svcImg} ${s.svcImgHas}`}>
+                    <Image
+                      src={sv.imageUrl}
+                      alt={sv.imageAlt ?? sv.name}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
+                      unoptimized={/^https?:\/\//.test(sv.imageUrl)}
+                    />
+                  </div>
+                ) : (
+                  <div className={`placeholder-img ${s.svcImg}`}>
+                    <Icon name={sv.icon} size={44} strokeWidth={1.25} />[Ảnh {sv.shortName.toLocaleLowerCase('vi')}]
+                  </div>
+                )}
                 <div className={s.svcBody}>
                   <h3 className={s.h3}>
                     <Link href={serviceHref(sv.slug)} className={s.cardLink}>

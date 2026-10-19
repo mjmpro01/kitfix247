@@ -8,7 +8,7 @@ export const MAX_UPLOAD_BYTES = 2 * 1024 * 1024;
 export const MIN_LOGO_HEIGHT = 80;
 
 const TYPES: Record<string, string> = { 'image/png': 'png', 'image/svg+xml': 'svg', 'image/jpeg': 'jpg', 'image/webp': 'webp' };
-const FOLDERS = ['brands', 'posts', 'products', 'hero'] as const;
+const FOLDERS = ['brands', 'posts', 'products', 'hero', 'services'] as const;
 
 /** Đọc chiều cao ảnh PNG từ header IHDR (byte 20–23). */
 export function pngHeight(buf: Buffer): number | null {
@@ -31,7 +31,7 @@ export function sniffType(buf: Buffer): string | null {
 export class UploadsController {
   constructor(private readonly storage: FileStorage) {}
 
-  /** multipart/form-data, trường `file`; `?folder=brands|posts|products|hero`. Logo PNG phải cao ≥ 80px. */
+  /** multipart/form-data, trường `file`; `?folder=brands|posts|products|hero|services`. Logo PNG phải cao ≥ 80px. */
   @Post()
   @UseInterceptors(FileInterceptor('file', { limits: { fileSize: MAX_UPLOAD_BYTES, files: 1 } }))
   async upload(@UploadedFile() file: Express.Multer.File | undefined, @Query('folder') folder?: string): Promise<UploadResult> {

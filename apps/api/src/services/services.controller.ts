@@ -13,6 +13,8 @@ function toSummary(s: Service): ServiceSummary {
     cardText: s.cardText,
     icon: s.icon,
     device: s.device,
+    imageUrl: s.imageUrl,
+    imageAlt: s.imageAlt,
     sort: s.sort,
     showHome: s.showHome,
   };

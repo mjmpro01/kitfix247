@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     title: { absolute: `${title} | KitFix247` },
     description,
     alternates: { canonical: serviceHref(sv.slug) },
-    openGraph: { title, description, url: serviceHref(sv.slug), type: 'website' },
+    openGraph: { title, description, url: serviceHref(sv.slug), type: 'website', ...(sv.imageUrl ? { images: [{ url: sv.imageUrl, alt: sv.imageAlt ?? sv.name }] } : {}) },
   };
 }
 
@@ -45,6 +45,7 @@ export default async function ServicePage({ params }: { params: Params }) {
       serviceType: sv.name,
       description: sv.seoDesc ?? sv.lead,
       url,
+      ...(sv.imageUrl ? { image: /^https?:\/\//.test(sv.imageUrl) ? sv.imageUrl : `${SITE_URL}${sv.imageUrl}` } : {}),
       areaServed: { '@type': 'City', name: 'TP. Hồ Chí Minh' },
       provider: {
         '@type': 'HomeAndConstructionBusiness',

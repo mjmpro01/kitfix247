@@ -131,6 +131,8 @@ export interface AdminServiceFields {
   showHome: boolean;
   seoTitle: string | null;
   seoDesc: string | null;
+  imageUrl: string | null;
+  imageAlt: string | null;
 }
 
 export interface AdminService extends AdminServiceFields {
