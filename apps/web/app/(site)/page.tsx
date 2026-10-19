@@ -303,10 +303,22 @@ export default async function HomePage() {
             <div className={`grid ${s.products}`}>
               {products.map((p) => (
                 <article key={p.id} className={`card ${s.product}`}>
-                  <div className={s.productImg}>
-                    <Icon name={p.icon} size={40} strokeWidth={1.5} />
-                    [Ảnh sản phẩm]
-                  </div>
+                  {p.imageUrl ? (
+                    <div className={`${s.productImg} ${s.productImgHas}`}>
+                      <Image
+                        src={p.imageUrl}
+                        alt={p.name}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 280px"
+                        unoptimized={/^https?:\/\//.test(p.imageUrl)}
+                      />
+                    </div>
+                  ) : (
+                    <div className={s.productImg}>
+                      <Icon name={p.icon} size={40} strokeWidth={1.5} />
+                      [Ảnh sản phẩm]
+                    </div>
+                  )}
                   <div className={s.productBody}>
                     <div className="note">{p.category}</div>
                     <h3 className={s.productName}>{p.name}</h3>

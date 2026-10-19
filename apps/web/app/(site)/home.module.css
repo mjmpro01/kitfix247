@@ -529,6 +529,13 @@
   color: var(--ink-muted);
   font-size: 13px;
 }
+.productImgHas {
+  position: relative;
+  overflow: hidden;
+}
+.productImgHas img {
+  object-fit: cover;
+}
 .productBody {
   padding: 20px;
   display: flex;
