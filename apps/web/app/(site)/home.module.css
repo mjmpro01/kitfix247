@@ -113,6 +113,82 @@
   }
 }
 
+/* ---------- Hero ảnh sạch (layout "clean") ---------- */
+.clean {
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.cleanImg {
+  object-fit: cover;
+  object-position: center;
+}
+/* Phủ navy bên trái để chữ trắng đủ tương phản trên mọi ảnh. */
+.clean::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(14, 40, 67, 0.94) 0%, rgba(14, 40, 67, 0.82) 45%, rgba(14, 40, 67, 0.2) 80%);
+}
+.cleanIn {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding-top: 64px;
+  padding-bottom: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+.cleanH1 {
+  margin: 0;
+  max-width: 640px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 54px;
+  letter-spacing: -0.01em;
+}
+.cleanLead {
+  margin: 0;
+  max-width: 560px;
+  font-size: 18px;
+  line-height: 28px;
+  color: var(--on-glass-muted);
+}
+.cleanBtns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+@container (max-width: 640px) {
+  .clean {
+    min-height: 0;
+  }
+  .clean::after {
+    background: rgba(14, 40, 67, 0.86);
+  }
+  .cleanIn {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    gap: 16px;
+  }
+  .cleanH1 {
+    font-size: 30px;
+    line-height: 38px;
+  }
+  .cleanLead {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .cleanBtns > a {
+    flex: 1 1 100%;
+  }
+}
+
 /* ---------- Dải hãng ---------- */
 .brands {
   background: var(--surface-raised);

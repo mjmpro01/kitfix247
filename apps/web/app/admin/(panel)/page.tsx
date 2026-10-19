@@ -53,6 +53,8 @@ export default async function AdminOverview() {
 
   const modules = [
     { t: 'Lịch hẹn', d: 'Danh sách đầy đủ, tìm theo tên, số điện thoại', href: '/admin/lich-hen' },
+    { t: 'Trang chủ & Hero', d: 'Ảnh, tiêu đề Hero, cam kết, quy trình, điểm đánh giá', href: '/admin/trang-chu' },
+    { t: 'Menu điều hướng', d: 'Thứ tự, tên, ẩn/hiện các mục menu', href: '/admin/menu' },
     { t: `Dịch vụ (${services.length})`, d: 'Trang dịch vụ, lỗi thường gặp, FAQ', href: '/admin/dich-vu' },
     { t: `Bảng giá (${groups.length} nhóm)`, d: 'Hạng mục và khoảng giá, ghi chú VAT', href: '/admin/dich-vu#bang-gia' },
     { t: 'Bài viết & SEO', d: 'Soạn bài, chuyên mục, chấm điểm SEO', href: '/admin/bai-viet' },

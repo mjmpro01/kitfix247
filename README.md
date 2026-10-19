@@ -50,7 +50,7 @@ design/         bàn giao thiết kế (không sửa)
   (`services`, `brands`, `posts`, `reviews`, `settings`) để trang công khai cập nhật ngay khi lưu.
 - `/admin` có `noindex` (metadata + header `X-Robots-Tag` trong `middleware.ts`) và bị chặn trong robots.txt.
 - Màn hình: Tổng quan, Lịch hẹn (tìm kiếm), Dịch vụ & bảng giá, Bài viết & SEO (chấm điểm trực tiếp + xem trước Google),
-  Thương hiệu (upload logo), Đánh giá, Cài đặt liên hệ & thanh toán. Trang chủ & Hero, Menu, Chính sách bảo hành hiện "Sắp có".
+  Thương hiệu (upload logo), Đánh giá, Cài đặt liên hệ & thanh toán. Trang chủ & Hero (ảnh, kiểu hero banner/ảnh sạch, cam kết, quy trình, điểm đánh giá) và Menu điều hướng (sắp xếp, ẩn/hiện, thêm link) soạn được trong admin.
 - Upload: `POST /admin/uploads?folder=brands|posts` lưu vào `UPLOAD_DIR` (mặc định `apps/api/uploads`) qua interface
   `FileStorage` (`apps/api/src/admin/uploads/storage.ts`) — thay bằng S3/Azure chỉ cần viết lớp mới và đổi provider.
 
@@ -69,7 +69,7 @@ design/         bàn giao thiết kế (không sửa)
 
 Xem SPEC mục 9. Trong dữ liệu mẫu: giá lỗi đều là `150.000 – 450.000 ₫`, đánh giá và tên khách là `[...]`,
 lỗi bếp hồng ngoại do chúng tôi soạn theo mô tả thẻ dịch vụ (cần kỹ thuật viên duyệt), chưa có logo hãng.
-`/bang-gia` đang ẩn khỏi menu (`SHOW_PRICE_PAGE` trong `apps/web/lib/site.ts`).
+`/bang-gia` đang ẩn khỏi menu (bật/tắt ở Admin › Menu điều hướng; trang này chưa làm).
 
 ## Deploy
 

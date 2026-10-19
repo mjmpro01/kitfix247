@@ -3,19 +3,24 @@ import type { Prisma } from '@prisma/client';
 import { type Settings, validatePages } from '@kitfix/types';
 import { PrismaService } from '../prisma/prisma.service';
 import { SettingsService } from '../settings/settings.service';
+import { HOME_VALIDATORS } from './settings.validate';
 import { asBody } from './validate';
 
-/** Khoá dạng chuỗi kiểm tra kỹ; khoá dạng object/mảng chỉ kiểm tra kiểu. */
+/** Khoá dạng chuỗi kiểm tra kỹ; khoá nội dung trang chủ có hàm kiểm tra riêng (settings.validate.ts). */
 const STRING_KEYS = ['hotline', 'hotlineTel', 'zaloUrl', 'address', 'hours', 'hoursNote', 'siteUrl', 'tagline', 'about'] as const;
-const ARRAY_KEYS = ['commitments', 'features', 'promises', 'payments'] as const;
-const OBJECT_KEYS = ['rating', 'hero', 'shop', 'pages'] as const;
+const ARRAY_KEYS = ['payments'] as const;
+const OBJECT_KEYS = ['shop', 'pages'] as const;
 
 export function validateSettings(body: unknown): Partial<Settings> {
   const b = asBody(body);
   const errors: Record<string, string> = {};
   const out: Record<string, unknown> = {};
   for (const [k, v] of Object.entries(b)) {
-    if ((STRING_KEYS as readonly string[]).includes(k)) {
+    if (HOME_VALIDATORS[k]) {
+      const r = HOME_VALIDATORS[k](v);
+      if (r.ok) out[k] = r.data;
+      else errors[k] = r.error;
+    } else if ((STRING_KEYS as readonly string[]).includes(k)) {
       if (typeof v !== 'string' || !v.trim() || v.length > 500) errors[k] = 'Cần là chữ, 1–500 ký tự.';
       else out[k] = v.trim();
     } else if ((ARRAY_KEYS as readonly string[]).includes(k)) {

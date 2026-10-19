@@ -31,6 +31,7 @@ export default async function HomePage() {
     getLatestPosts(3),
   ]);
   const tel = `tel:${settings.hotlineTel}`;
+  const heroLayout = settings.hero.layout ?? 'overlay';
   const homeServices = services.filter((x) => x.showHome);
 
   const jsonLd = {
@@ -40,7 +41,7 @@ export default async function HomePage() {
     slogan: settings.tagline,
     url: settings.siteUrl,
     logo: `${SITE_URL}/images/kitfix247-logo-1000.png`,
-    image: `${SITE_URL}${settings.hero.imageUrl}`,
+    image: /^https?:\/\//.test(settings.hero.imageUrl) ? settings.hero.imageUrl : `${SITE_URL}${settings.hero.imageUrl}`,
     telephone: `+84${settings.hotlineTel.replace(/^0/, '')}`,
     address: { '@type': 'PostalAddress', streetAddress: settings.address, addressLocality: 'TP. Hồ Chí Minh', addressCountry: 'VN' },
     areaServed: 'TP. Hồ Chí Minh',
@@ -58,44 +59,76 @@ export default async function HomePage() {
     <>
       <JsonLd data={jsonLd} />
 
-      {/* HERO: ảnh banner + 2 nút HTML phủ đúng vị trí nút trong ảnh (ảnh ghi sai số) */}
-      <section aria-label="Giới thiệu dịch vụ" className={s.hero}>
-        <h1 className="visually-hidden">{settings.hero.h1}</h1>
-        <div className={s.bannerWrap}>
+      {heroLayout === 'clean' ? (
+        /* HERO ảnh sạch (không chữ): tiêu đề, đoạn dẫn, nút là chữ thật đặt trên ảnh */
+        <section aria-labelledby="hero-title" className={`${s.hero} ${s.clean}`}>
           <Image
-            className={s.banner}
+            className={s.cleanImg}
             src={settings.hero.imageUrl}
             alt={settings.hero.imageAlt}
-            width={1024}
-            height={310}
+            fill
             sizes="100vw"
             priority
+            unoptimized={/^https?:\/\//.test(settings.hero.imageUrl)}
           />
-          <a href={tel} className={`${s.ov} ${s.ovCall}`}>
-            <Icon name="phone" strokeWidth={2} className={s.ovIcon} />
-            Gọi ngay {settings.hotline}
-          </a>
-          <a href="#dat-lich" className={`${s.ov} ${s.ovBook}`}>
-            <Icon name="calendar" className={s.ovIcon} />
-            Đặt lịch sửa chữa
-          </a>
-        </div>
-        <div className={s.heroMobile}>
-          <div className={s.heroTitle} aria-hidden="true">
-            <span className={s.heroL1}>{settings.hero.mobileLine1}</span>
-            <span className={s.heroL2}>{settings.hero.mobileLine2}</span>
+          <div className={`container ${s.cleanIn}`}>
+            <h1 id="hero-title" className={s.cleanH1}>
+              {settings.hero.h1}
+            </h1>
+            <p className={s.cleanLead}>{settings.hero.mobileLead}</p>
+            <div className={s.cleanBtns}>
+              <a href={tel} className={`btn btn--brand ${s.heroBtnCall}`}>
+                <Icon name="phone" strokeWidth={2} />
+                Gọi ngay {settings.hotline}
+              </a>
+              <a href="#dat-lich" className={`btn btn--dark ${s.heroBtnBook}`}>
+                <Icon name="calendar" />
+                Đặt lịch sửa chữa
+              </a>
+            </div>
           </div>
-          <p className={s.heroLead}>{settings.hero.mobileLead}</p>
-          <a href={tel} className={`btn btn--brand ${s.heroBtnCall}`}>
-            <Icon name="phone" strokeWidth={2} />
-            Gọi ngay {settings.hotline}
-          </a>
-          <a href="#dat-lich" className={`btn btn--dark ${s.heroBtnBook}`}>
-            <Icon name="calendar" />
-            Đặt lịch sửa chữa
-          </a>
-        </div>
-      </section>
+        </section>
+      ) : (
+        // HERO banner có chữ sẵn: 2 nút HTML phủ đúng vị trí nút trong ảnh (ảnh ghi sai số).
+        <section aria-label="Giới thiệu dịch vụ" className={s.hero}>
+          <h1 className="visually-hidden">{settings.hero.h1}</h1>
+          <div className={s.bannerWrap}>
+            <Image
+              className={s.banner}
+              src={settings.hero.imageUrl}
+              alt={settings.hero.imageAlt}
+              width={1024}
+              height={310}
+              sizes="100vw"
+              priority
+              unoptimized={/^https?:\/\//.test(settings.hero.imageUrl)}
+            />
+            <a href={tel} className={`${s.ov} ${s.ovCall}`}>
+              <Icon name="phone" strokeWidth={2} className={s.ovIcon} />
+              Gọi ngay {settings.hotline}
+            </a>
+            <a href="#dat-lich" className={`${s.ov} ${s.ovBook}`}>
+              <Icon name="calendar" className={s.ovIcon} />
+              Đặt lịch sửa chữa
+            </a>
+          </div>
+          <div className={s.heroMobile}>
+            <div className={s.heroTitle} aria-hidden="true">
+              <span className={s.heroL1}>{settings.hero.mobileLine1}</span>
+              <span className={s.heroL2}>{settings.hero.mobileLine2}</span>
+            </div>
+            <p className={s.heroLead}>{settings.hero.mobileLead}</p>
+            <a href={tel} className={`btn btn--brand ${s.heroBtnCall}`}>
+              <Icon name="phone" strokeWidth={2} />
+              Gọi ngay {settings.hotline}
+            </a>
+            <a href="#dat-lich" className={`btn btn--dark ${s.heroBtnBook}`}>
+              <Icon name="calendar" />
+              Đặt lịch sửa chữa
+            </a>
+          </div>
+        </section>
+      )}
 
       {/* DẢI HÃNG — chỉ dùng logo chủ tải lên; chưa có thì hiện tên bằng chữ */}
       <section aria-label="Các hãng chúng tôi sửa" className={s.brands}>

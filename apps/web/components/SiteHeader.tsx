@@ -4,42 +4,38 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import type { ServiceSummary, Settings } from '@kitfix/types';
+import { DEFAULT_MENU, isMenuActive, type MenuItem, type ServiceSummary, type Settings } from '@kitfix/types';
 import { Icon } from './Icon';
 import { CartLink } from './cart/CartLink';
-import { SHOW_PRICE_PAGE, serviceHref } from '@/lib/site';
+import { serviceHref } from '@/lib/site';
 import s from './SiteHeader.module.css';
 
-type Key = 'home' | 'about' | 'dv' | 'gia' | 'kt' | 'lh';
-
-const NAV: { key: Key; label: string; href: string }[] = [
-  { key: 'home', label: 'Trang chủ', href: '/' },
-  { key: 'about', label: 'Giới thiệu', href: '/gioi-thieu' },
-  { key: 'dv', label: 'Dịch vụ', href: '/#dich-vu' },
-  { key: 'gia', label: 'Bảng giá', href: '/bang-gia' },
-  { key: 'kt', label: 'Kiến thức', href: '/kien-thuc' },
-  { key: 'lh', label: 'Liên hệ', href: '/dat-lich' },
-];
-const VISIBLE_NAV = NAV.filter((n) => n.key !== 'gia' || SHOW_PRICE_PAGE);
-
-function activeKey(path: string): Key | null {
-  if (path === '/') return 'home';
-  if (path.startsWith('/gioi-thieu')) return 'about';
-  if (path.startsWith('/dich-vu')) return 'dv';
-  if (path.startsWith('/bang-gia')) return 'gia';
-  if (path.startsWith('/kien-thuc')) return 'kt';
-  if (path.startsWith('/dat-lich')) return 'lh';
-  return null;
+interface Props {
+  settings: Pick<Settings, 'hotline' | 'hotlineTel' | 'zaloUrl' | 'hours' | 'address' | 'menu'>;
+  services: ServiceSummary[];
 }
 
-interface Props {
-  settings: Pick<Settings, 'hotline' | 'hotlineTel' | 'zaloUrl' | 'hours' | 'address'>;
-  services: ServiceSummary[];
+/** Link nội bộ dùng next/link; link ngoài (https://) dùng thẻ a thường. */
+function NavLink({ item, className, active }: { item: MenuItem; className: string; active: boolean }) {
+  const props = { className, 'data-active': active, 'aria-current': active ? ('page' as const) : undefined };
+  return item.href.startsWith('/') ? (
+    <Link href={item.href} {...props}>
+      {item.label}
+    </Link>
+  ) : (
+    <a href={item.href} rel="noopener" {...props}>
+      {item.label}
+    </a>
+  );
 }
 
 export function SiteHeader({ settings, services }: Props) {
   const pathname = usePathname() ?? '/';
-  const active = activeKey(pathname);
+  // Menu do admin sắp xếp (Admin › Menu điều hướng); chưa lưu thì dùng menu mặc định.
+  const menu = (settings.menu?.length ? settings.menu : DEFAULT_MENU).filter((m) => m.visible);
+  // Mục Dịch vụ xổ các dịch vụ bật "Hiện card ở trang chủ & menu".
+  const menuServices = services.filter((sv) => sv.showHome);
+  const isActive = (m: MenuItem) => (m.kind === 'services' ? pathname.startsWith('/dich-vu') : isMenuActive(m.href, pathname));
   const [open, setOpen] = useState(false);
   const tel = `tel:${settings.hotlineTel}`;
 
@@ -72,15 +68,15 @@ export function SiteHeader({ settings, services }: Props) {
 
         <nav className={s.navDesktop} aria-label="Menu chính">
           <ul className={s.navList}>
-            {VISIBLE_NAV.map((n) =>
-              n.key === 'dv' ? (
-                <li key={n.key} className={s.dd}>
-                  <Link href={n.href} className={s.navLink} data-active={active === n.key} aria-haspopup="true">
+            {menu.map((n) =>
+              n.kind === 'services' ? (
+                <li key={`${n.label}-${n.href}`} className={s.dd}>
+                  <Link href={n.href} className={s.navLink} data-active={isActive(n)} aria-haspopup="true">
                     {n.label}
                     <Icon name="chevron" size={16} strokeWidth={2} />
                   </Link>
                   <div className={s.ddMenu}>
-                    {services.map((sv) => (
+                    {menuServices.map((sv) => (
                       <Link key={sv.slug} href={serviceHref(sv.slug)} className={s.ddItem} aria-current={pathname === serviceHref(sv.slug) ? 'page' : undefined}>
                         <span className={s.ddIcon}>
                           <Icon name={sv.icon} size={20} />
@@ -94,10 +90,8 @@ export function SiteHeader({ settings, services }: Props) {
                   </div>
                 </li>
               ) : (
-                <li key={n.key}>
-                  <Link href={n.href} className={s.navLink} data-active={active === n.key} aria-current={active === n.key ? 'page' : undefined}>
-                    {n.label}
-                  </Link>
+                <li key={`${n.label}-${n.href}`}>
+                  <NavLink item={n} className={s.navLink} active={isActive(n)} />
                 </li>
               ),
             )}
@@ -136,15 +130,15 @@ export function SiteHeader({ settings, services }: Props) {
 
       {open && (
         <nav id="kf-mobile-menu" className={s.mpanel} aria-label="Menu">
-          {VISIBLE_NAV.map((n) =>
-            n.key === 'dv' ? (
-              <details key={n.key} className={s.mDetails} open={active === 'dv'}>
-                <summary className={s.mLink} data-active={active === n.key}>
+          {menu.map((n) =>
+            n.kind === 'services' ? (
+              <details key={`${n.label}-${n.href}`} className={s.mDetails} open={isActive(n)}>
+                <summary className={s.mLink} data-active={isActive(n)}>
                   {n.label}
                   <Icon name="chevron" size={20} className={s.chev} />
                 </summary>
                 <div className={s.mSub}>
-                  {services.map((sv) => (
+                  {menuServices.map((sv) => (
                     <Link key={sv.slug} href={serviceHref(sv.slug)} className={s.mSubLink} aria-current={pathname === serviceHref(sv.slug) ? 'page' : undefined}>
                       <Icon name={sv.icon} size={20} style={{ color: 'var(--heat-strong)' }} />
                       {sv.name}
@@ -153,9 +147,7 @@ export function SiteHeader({ settings, services }: Props) {
                 </div>
               </details>
             ) : (
-              <Link key={n.key} href={n.href} className={s.mLink} data-active={active === n.key} aria-current={active === n.key ? 'page' : undefined}>
-                {n.label}
-              </Link>
+              <NavLink key={`${n.label}-${n.href}`} item={n} className={s.mLink} active={isActive(n)} />
             ),
           )}
           <div className={s.mBtns}>
