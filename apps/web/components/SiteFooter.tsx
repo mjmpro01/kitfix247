@@ -22,7 +22,7 @@ export function SiteFooter({ settings, services }: Props) {
         <div className={s.cols}>
           <div className={s.brandCol}>
             <Link href="/" className={s.logoPlate} aria-label="KitFix247 — Trang chủ">
-              <Image src="/images/kitfix247-logo-1000.png" alt="KitFix247 — Sửa chuyên nghiệp. Dùng bền lâu." width={1000} height={331} className={s.logo} />
+              <Image src="/images/kitfix247-logo-1000.png" alt="KitFix247 — Sửa chuyên nghiệp. Dùng bền lâu." width={133} height={44} className={s.logo} />
             </Link>
             <p className={s.muted}>{settings.about}</p>
             <a href={`tel:${settings.hotlineTel}`} className={s.hot}>

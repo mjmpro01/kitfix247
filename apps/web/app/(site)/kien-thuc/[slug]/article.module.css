@@ -373,6 +373,10 @@
   .cta {
     padding: 24px;
   }
+  .ctaTitle {
+    font-size: 22px;
+    line-height: 30px;
+  }
   .related {
     padding: 48px 0;
   }

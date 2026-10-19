@@ -77,7 +77,8 @@
   gap: 1px;
   background: var(--glass);
   color: var(--on-glass);
-  box-shadow: 0 4px 14px rgba(14, 40, 67, 0.3);
+  /* Viền sáng để bong bóng navy vẫn thấy được khi nằm trên footer / hero navy. */
+  box-shadow: 0 0 0 2px var(--on-glass-muted), 0 4px 14px rgba(14, 40, 67, 0.3);
 }
 .zaloText {
   font-size: 10px;

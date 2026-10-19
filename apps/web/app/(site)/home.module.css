@@ -442,7 +442,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  color: var(--line-strong);
+  color: var(--ink-muted);
   font-size: 13px;
 }
 .productBody {

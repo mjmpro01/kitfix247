@@ -240,6 +240,10 @@ img {
 .link-arrow--ink {
   color: var(--ink);
 }
+/* Trên nền sunken (#f1ede6) cam --heat chỉ đạt 4,2:1 với chữ 14px → dùng --heat-strong. */
+.section--sunken .link-arrow:not(.link-arrow--ink) {
+  color: var(--heat-strong);
+}
 
 /* ---------- Thẻ ---------- */
 .card {
@@ -275,7 +279,7 @@ img {
 
 .placeholder-img {
   background: var(--surface-sunken);
-  color: var(--line-strong);
+  color: var(--ink-muted);
   display: flex;
   flex-direction: column;
   align-items: center;
