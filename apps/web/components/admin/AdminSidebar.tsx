@@ -44,7 +44,7 @@ export function AdminSidebar({ waiting, newOrders }: { waiting: number; newOrder
         { name: 'Menu điều hướng', icon: 'menu' },
         { name: 'Hotline, Zalo, CTA', icon: 'phone', href: '/admin/cai-dat' },
         { name: 'Footer & thanh toán', icon: 'card', href: '/admin/cai-dat#thanh-toan', match: () => false },
-        { name: 'Chính sách bảo hành', icon: 'shield' },
+        { name: 'Giới thiệu & chính sách', icon: 'shield', href: '/admin/trang-noi-dung' },
       ],
     },
   ];

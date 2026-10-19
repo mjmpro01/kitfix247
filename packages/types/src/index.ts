@@ -1,4 +1,5 @@
 // DTO dùng chung web ↔ api. Giữ đúng hợp đồng SPEC mục 6.
+import type { PagesSettings } from './pages';
 
 export interface Settings {
   hotline: string; // dạng hiển thị: 0989.041.641
@@ -19,6 +20,8 @@ export interface Settings {
   hero: { imageUrl: string; imageAlt: string; h1: string; mobileLine1: string; mobileLine2: string; mobileLead: string };
   /** Shop: phí giao (₫) — null = chưa chốt, báo khi gọi xác nhận đơn. Thiếu khoá cũng hiểu là null. */
   shop?: ShopSettings;
+  /** Thân bài Markdown các trang nội dung (Giới thiệu, chính sách) — xem pages.ts. */
+  pages?: PagesSettings;
 }
 
 export interface ShopSettings {
@@ -246,3 +249,4 @@ export interface BookingCreated {
 }
 export * from './admin';
 export * from './order';
+export * from './pages';
