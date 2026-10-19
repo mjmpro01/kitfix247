@@ -2,6 +2,7 @@
 
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { redirect, unstable_rethrow } from 'next/navigation';
+import { CONTENT_PAGES } from '@kitfix/types';
 import type {
   AdminOrder,
   AdminProduct,
@@ -21,6 +22,7 @@ import type {
   AdminService,
   AdminServiceFields,
   BookingStatus,
+  PagesSettings,
   SeoCheckResponse,
   Settings,
   UploadResult,
@@ -244,6 +246,21 @@ export async function saveSettings(_prev: SettingsState, form: FormData): Promis
   const values = Object.fromEntries([...SETTING_FIELDS, 'payments', 'shippingFee'].map((k) => [k, String(form.get(k) ?? '')]));
   const res = await run(async () => {
     await adminSend<Settings>('PUT', '/admin/settings', data);
+    refresh('settings');
+  });
+  return res.ok ? { ok: true, values } : { error: res.error, errors: res.errors, values };
+}
+
+/** Trang nội dung (Giới thiệu, chính sách): gửi cả khoá `pages` một lần vì API ghi đè nguyên khoá. */
+export async function savePages(_prev: SettingsState, form: FormData): Promise<SettingsState> {
+  const pages: PagesSettings = {};
+  const values: Record<string, string> = {};
+  for (const p of CONTENT_PAGES) {
+    values[p.key] = String(form.get(p.key) ?? '');
+    pages[p.key] = values[p.key];
+  }
+  const res = await run(async () => {
+    await adminSend<Settings>('PUT', '/admin/settings', { pages });
     refresh('settings');
   });
   return res.ok ? { ok: true, values } : { error: res.error, errors: res.errors, values };

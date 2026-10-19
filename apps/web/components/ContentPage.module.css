@@ -1,0 +1,38 @@
+/* Trang nội dung không có ảnh bìa: bớt khoảng trên so với bài viết. */
+.layout {
+  padding-top: 8px;
+}
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 15px;
+  line-height: 22px;
+}
+.contact {
+  margin: 0;
+  font-size: 15px;
+  line-height: 22px;
+}
+.contact dt {
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin-top: 10px;
+}
+.contact dt:first-child {
+  margin-top: 0;
+}
+.contact dd {
+  margin: 0;
+  overflow-wrap: break-word;
+}
+.tel {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 700;
+  color: var(--heat-strong);
+}

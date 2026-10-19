@@ -1,6 +1,6 @@
 import { BadRequestException, Body, Controller, Get, Put } from '@nestjs/common';
 import type { Prisma } from '@prisma/client';
-import type { Settings } from '@kitfix/types';
+import { type Settings, validatePages } from '@kitfix/types';
 import { PrismaService } from '../prisma/prisma.service';
 import { SettingsService } from '../settings/settings.service';
 import { asBody } from './validate';
@@ -8,7 +8,7 @@ import { asBody } from './validate';
 /** Khoá dạng chuỗi kiểm tra kỹ; khoá dạng object/mảng chỉ kiểm tra kiểu. */
 const STRING_KEYS = ['hotline', 'hotlineTel', 'zaloUrl', 'address', 'hours', 'hoursNote', 'siteUrl', 'tagline', 'about'] as const;
 const ARRAY_KEYS = ['commitments', 'features', 'promises', 'payments'] as const;
-const OBJECT_KEYS = ['rating', 'hero', 'shop'] as const;
+const OBJECT_KEYS = ['rating', 'hero', 'shop', 'pages'] as const;
 
 export function validateSettings(body: unknown): Partial<Settings> {
   const b = asBody(body);
@@ -31,6 +31,11 @@ export function validateSettings(body: unknown): Partial<Settings> {
     const fee = (out.shop as { shippingFee?: unknown }).shippingFee;
     if (fee !== null && !(Number.isInteger(fee) && (fee as number) >= 0 && (fee as number) <= 10_000_000)) errors.shop = 'Phí giao là số nguyên ≥ 0, hoặc để trống.';
     else out.shop = { shippingFee: fee };
+  }
+  if ('pages' in out) {
+    const r = validatePages(out.pages);
+    if (r.ok) out.pages = r.data;
+    else errors.pages = r.error;
   }
   if (typeof out.zaloUrl === 'string' && !/^https:\/\/zalo\.me\//.test(out.zaloUrl)) errors.zaloUrl = 'Link Zalo dạng https://zalo.me/…';
   if (Object.keys(errors).length) throw new BadRequestException({ message: 'Thông tin chưa hợp lệ', errors });
