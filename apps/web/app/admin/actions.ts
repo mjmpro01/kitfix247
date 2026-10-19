@@ -17,10 +17,10 @@ import type {
   AdminPriceGroup,
   AdminPriceItem,
   AdminReview,
+  AdminReviewInput,
   AdminService,
   AdminServiceFields,
   BookingStatus,
-  ReviewStatus,
   SeoCheckResponse,
   Settings,
   UploadResult,
@@ -195,11 +195,26 @@ export async function deletePost(id: number) {
 
 // ---------- Đánh giá ----------
 
-export async function updateReview(id: number, data: { status?: ReviewStatus; showHome?: boolean }) {
+export async function updateReview(id: number, data: AdminReviewInput) {
   return run(async () => {
     const r = await adminSend<AdminReview>('PATCH', `/admin/reviews/${id}`, data);
     refresh('reviews');
     return r;
+  });
+}
+
+export async function createReview(data: AdminReviewInput) {
+  return run(async () => {
+    const r = await adminSend<AdminReview>('POST', '/admin/reviews', data);
+    refresh('reviews');
+    return r;
+  }, 'Đã thêm đánh giá');
+}
+
+export async function deleteReview(id: number) {
+  return run(async () => {
+    await adminSend('DELETE', `/admin/reviews/${id}`);
+    refresh('reviews');
   });
 }
 
