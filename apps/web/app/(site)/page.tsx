@@ -15,6 +15,7 @@ import {
   getSettings,
 } from '@/lib/api';
 import { SITE_URL, formatDateVi, serviceHref } from '@/lib/site';
+import { AddToCartButton } from '@/components/cart/AddToCartButton';
 import s from './home.module.css';
 
 export const revalidate = 300;
@@ -26,7 +27,7 @@ export default async function HomePage() {
     getProcessSteps(),
     getHomeBrands(),
     getHomeReviews(),
-    getProducts(4),
+    getProducts({ limit: 4 }),
     getLatestPosts(3),
   ]);
   const tel = `tel:${settings.hotlineTel}`;
@@ -265,10 +266,7 @@ export default async function HomePage() {
                     <div className="note">{p.category}</div>
                     <h3 className={s.productName}>{p.name}</h3>
                     <div className={s.price}>{p.price != null ? formatPrice(p.price) : 'Giá: liên hệ'}</div>
-                    <Link href="/gio-hang" className={`btn btn--sec ${s.cartBtn}`}>
-                      <Icon name="cart" size={18} />
-                      Thêm vào giỏ
-                    </Link>
+                    <AddToCartButton productId={p.id} productName={p.name} className={`btn btn--sec ${s.cartBtn}`} />
                   </div>
                 </article>
               ))}

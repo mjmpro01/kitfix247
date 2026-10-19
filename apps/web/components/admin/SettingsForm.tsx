@@ -60,6 +60,26 @@ export function SettingsForm({ settings }: { settings: Settings }) {
           </span>
           <textarea className={s.textarea} name="payments" rows={4} defaultValue={state.values?.payments ?? settings.payments.join('\n')} />
         </label>
+        <label className={s.label}>
+          <span className={s.labelText}>
+            Phí giao hàng Shop (₫) <span className={s.labelHint}>để trống = báo khi gọi xác nhận đơn</span>
+          </span>
+          <input
+            className={`${s.input} ${err('shop') ? s.inputError : ''}`}
+            name="shippingFee"
+            inputMode="numeric"
+            placeholder="vd 30.000"
+            defaultValue={state.values?.shippingFee ?? (settings.shop?.shippingFee != null ? new Intl.NumberFormat('vi-VN').format(settings.shop.shippingFee) : '')}
+            aria-invalid={err('shop') ? true : undefined}
+            aria-describedby={err('shop') ? 'err-shop' : undefined}
+            style={{ maxWidth: 240 }}
+          />
+          {err('shop') ? (
+            <span id="err-shop" className={s.fieldError}>
+              {err('shop')}
+            </span>
+          ) : null}
+        </label>
       </section>
 
       <div className={s.headActions}>

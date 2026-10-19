@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { seoRating } from '@kitfix/ui';
-import type { AdminBookingPage, AdminBrand, AdminPostSummary, AdminPriceGroup, AdminService, AdminStats } from '@kitfix/types';
+import { formatPrice, seoRating } from '@kitfix/ui';
+import { ORDER_STATUS_LABELS, paymentLabel, type AdminBookingPage, type AdminBrand, type AdminOrderPage, type AdminPostSummary, type AdminPriceGroup, type AdminService, type AdminStats } from '@kitfix/types';
 import { BookingsTable } from '@/components/admin/BookingsTable';
 import { adminGet } from '@/lib/admin/api';
 import { formatDateVi } from '@/lib/site';
@@ -12,13 +12,14 @@ export const metadata: Metadata = { title: 'Tổng quan' };
 const ratingClass = (score: number) => ({ good: s.good, ok: s.warn, poor: s.bad })[seoRating(score).rating];
 
 export default async function AdminOverview() {
-  const [stats, bookings, posts, services, groups, brands] = await Promise.all([
+  const [stats, bookings, posts, services, groups, brands, orders] = await Promise.all([
     adminGet<AdminStats>('/admin/stats'),
     adminGet<AdminBookingPage>('/admin/bookings?limit=50'),
     adminGet<AdminPostSummary[]>('/admin/posts'),
     adminGet<AdminService[]>('/admin/services'),
     adminGet<AdminPriceGroup[]>('/admin/price-groups'),
     adminGet<AdminBrand[]>('/admin/brands'),
+    adminGet<AdminOrderPage>('/admin/orders?limit=3'),
   ]);
   const now = Date.now();
   const diff = stats.bookingsToday - stats.bookingsYesterday;
@@ -55,6 +56,7 @@ export default async function AdminOverview() {
     { t: `Dịch vụ (${services.length})`, d: 'Trang dịch vụ, lỗi thường gặp, FAQ', href: '/admin/dich-vu' },
     { t: `Bảng giá (${groups.length} nhóm)`, d: 'Hạng mục và khoảng giá, ghi chú VAT', href: '/admin/dich-vu#bang-gia' },
     { t: 'Bài viết & SEO', d: 'Soạn bài, chuyên mục, chấm điểm SEO', href: '/admin/bai-viet' },
+    { t: 'Sản phẩm & đơn hàng', d: 'Giá, ảnh, tồn kho; xác nhận và giao đơn', href: '/admin/san-pham' },
     { t: `Thương hiệu (${brands.length})`, d: 'Logo dải hãng, trang Kiến thức theo hãng', href: '/admin/thuong-hieu' },
     { t: 'Đánh giá khách hàng', d: 'Duyệt, ẩn/hiện, chọn đánh giá trang chủ', href: '/admin/danh-gia' },
     { t: 'Hotline, Zalo, thanh CTA', d: 'Số gọi, link Zalo, địa chỉ, giờ làm', href: '/admin/cai-dat' },
@@ -89,12 +91,30 @@ export default async function AdminOverview() {
             <h2 id="orders-title" className={s.h2}>
               Đơn hàng Shop mới
             </h2>
+            <Link href="/admin/don-hang" className={s.linkStrong}>
+              Tất cả đơn
+            </Link>
           </div>
-          <p className={s.muted}>
-            {stats.newOrders
-              ? `${stats.newOrders} đơn mới đang chờ xử lý. Màn quản lý đơn hàng sẽ có ở bước Shop.`
-              : 'Chưa có đơn hàng mới. Màn quản lý đơn hàng sẽ có ở bước Shop.'}
-          </p>
+          <div className={s.list}>
+            {orders.items.map((o) => (
+              <div key={o.id} className={s.listRow} style={{ justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div>
+                  <div className={s.strong}>
+                    {o.code} · {o.customerName}
+                  </div>
+                  <div className={`${s.small} ${s.muted}`}>{o.items.map((i) => `${i.name} × ${i.qty}`).join(', ')}</div>
+                </div>
+                <div style={{ textAlign: 'right' }}>
+                  <div className={`${s.small} ${s.strong}`}>{paymentLabel(o.payment)}</div>
+                  <div className={`${s.small} ${s.strong} ${o.status === 'delivered' ? s.good : o.status === 'new' ? s.warn : s.muted}`}>
+                    {o.payment === 'bank' && o.status === 'new' ? 'Chờ xác nhận thanh toán' : ORDER_STATUS_LABELS[o.status]}
+                  </div>
+                  <div className={`${s.small} ${s.muted}`}>{o.total !== null ? formatPrice(o.total) : 'Cần báo giá'}</div>
+                </div>
+              </div>
+            ))}
+            {orders.items.length === 0 ? <p className={s.muted}>Chưa có đơn hàng.</p> : null}
+          </div>
         </section>
 
         <section className={`${s.card} ${s.half}`} aria-labelledby="seo-title">

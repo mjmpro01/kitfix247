@@ -8,7 +8,7 @@ import { asBody } from './validate';
 /** Khoá dạng chuỗi kiểm tra kỹ; khoá dạng object/mảng chỉ kiểm tra kiểu. */
 const STRING_KEYS = ['hotline', 'hotlineTel', 'zaloUrl', 'address', 'hours', 'hoursNote', 'siteUrl', 'tagline', 'about'] as const;
 const ARRAY_KEYS = ['commitments', 'features', 'promises', 'payments'] as const;
-const OBJECT_KEYS = ['rating', 'hero'] as const;
+const OBJECT_KEYS = ['rating', 'hero', 'shop'] as const;
 
 export function validateSettings(body: unknown): Partial<Settings> {
   const b = asBody(body);
@@ -27,6 +27,11 @@ export function validateSettings(body: unknown): Partial<Settings> {
     } else errors[k] = 'Khoá cài đặt không được hỗ trợ.';
   }
   if (typeof out.hotlineTel === 'string' && !/^0\d{9}$/.test(out.hotlineTel)) errors.hotlineTel = 'Số gọi cần 10 chữ số, bắt đầu bằng 0.';
+  if (out.shop) {
+    const fee = (out.shop as { shippingFee?: unknown }).shippingFee;
+    if (fee !== null && !(Number.isInteger(fee) && (fee as number) >= 0 && (fee as number) <= 10_000_000)) errors.shop = 'Phí giao là số nguyên ≥ 0, hoặc để trống.';
+    else out.shop = { shippingFee: fee };
+  }
   if (typeof out.zaloUrl === 'string' && !/^https:\/\/zalo\.me\//.test(out.zaloUrl)) errors.zaloUrl = 'Link Zalo dạng https://zalo.me/…';
   if (Object.keys(errors).length) throw new BadRequestException({ message: 'Thông tin chưa hợp lệ', errors });
   return out as Partial<Settings>;

@@ -38,6 +38,8 @@ const settings: Settings = {
   ],
   promises: ['Có mặt trong 60 phút', 'Chẩn đoán miễn phí', 'Báo giá trước khi sửa', 'Bảo hành 12 tháng'],
   payments: ['Tiền mặt', 'Chuyển khoản', 'MoMo', 'ZaloPay'],
+  // Phí giao chưa chốt — nhân viên báo khi gọi xác nhận đơn (SPEC mục 9).
+  shop: { shippingFee: null },
   hero: {
     imageUrl: '/images/hero-banner.png',
     imageAlt:
@@ -283,10 +285,10 @@ const posts = [
 ];
 
 const products = [
-  { sku: 'DC-TUAVIT-01', name: 'Bộ tua vít sửa chữa đa năng', category: 'Dụng cụ', icon: 'screw' },
-  { sku: 'VT-KEO-01', name: 'Keo tản nhiệt cho bo mạch bếp từ', category: 'Vật tư', icon: 'paste' },
-  { sku: 'LK-CAUCHI-01', name: 'Cầu chì thay thế cho bếp điện', category: 'Linh kiện', icon: 'fuse' },
-  { sku: 'PK-DAYNGUON-01', name: 'Dây nguồn bếp từ chịu tải cao', category: 'Dây & phụ kiện', icon: 'plug' },
+  { sku: 'DC-TUAVIT-01', name: 'Bộ tua vít sửa chữa đa năng', category: 'Dụng cụ', icon: 'screw', description: 'Nhiều đầu vít, phù hợp mở vỏ bếp từ, lò vi sóng, máy hút mùi.' },
+  { sku: 'VT-KEO-01', name: 'Keo tản nhiệt cho bo mạch bếp từ', category: 'Vật tư', icon: 'paste', description: 'Bôi giữa sò công suất và tấm tản nhiệt khi thay IGBT.' },
+  { sku: 'LK-CAUCHI-01', name: 'Cầu chì thay thế cho bếp điện', category: 'Linh kiện', icon: 'fuse', description: 'Cầu chì ống cho bếp điện, lò vi sóng. Chọn đúng dòng định mức.' },
+  { sku: 'PK-DAYNGUON-01', name: 'Dây nguồn bếp từ chịu tải cao', category: 'Dây & phụ kiện', icon: 'plug', description: 'Dây nguồn chịu tải cho bếp từ, bếp hồng ngoại.' },
 ];
 
 /** Tài khoản quản trị lấy từ ADMIN_EMAIL / ADMIN_PASSWORD (apps/api/.env, mẫu ở .env.example) — không hard-code. */

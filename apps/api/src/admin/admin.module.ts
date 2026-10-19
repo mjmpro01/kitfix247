@@ -7,7 +7,9 @@ import { AuthController } from './auth/auth.controller';
 import { jwtOptions } from './auth/jwt-config';
 import { BookingsAdminController } from './bookings.admin.controller';
 import { BrandsAdminController } from './brands.admin.controller';
+import { OrdersAdminController } from './orders.admin.controller';
 import { PostsAdminController } from './posts.admin.controller';
+import { ProductsAdminController } from './products.admin.controller';
 import { PrismaErrorsFilter } from './prisma-errors.filter';
 import { ReviewsAdminController } from './reviews.admin.controller';
 import { ServicesAdminController } from './services.admin.controller';
@@ -29,6 +31,8 @@ import { UploadsController } from './uploads/uploads.controller';
     PostsAdminController,
     ReviewsAdminController,
     SettingsAdminController,
+    ProductsAdminController,
+    OrdersAdminController,
   ],
   providers: [
     SettingsService,

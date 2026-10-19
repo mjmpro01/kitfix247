@@ -17,6 +17,12 @@ export interface Settings {
   promises: string[];
   payments: string[];
   hero: { imageUrl: string; imageAlt: string; h1: string; mobileLine1: string; mobileLine2: string; mobileLead: string };
+  /** Shop: phí giao (₫) — null = chưa chốt, báo khi gọi xác nhận đơn. Thiếu khoá cũng hiểu là null. */
+  shop?: ShopSettings;
+}
+
+export interface ShopSettings {
+  shippingFee: number | null;
 }
 
 export interface ServiceFault {
@@ -99,10 +105,15 @@ export interface Product {
   sku: string;
   name: string;
   category: string;
+  description: string | null;
   icon: string;
+  /** null = chưa có giá: không bán online, khách gọi hỏi giá. */
   price: number | null;
   imageUrl: string | null;
 }
+
+export const PRODUCT_SORTS = ['new', 'price_asc', 'price_desc'] as const;
+export type ProductSort = (typeof PRODUCT_SORTS)[number];
 
 export interface PostBrandRef {
   slug: string;
@@ -234,3 +245,4 @@ export interface BookingCreated {
   id: number;
 }
 export * from './admin';
+export * from './order';

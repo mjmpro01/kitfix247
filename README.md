@@ -50,10 +50,20 @@ design/         bàn giao thiết kế (không sửa)
   (`services`, `brands`, `posts`, `reviews`, `settings`) để trang công khai cập nhật ngay khi lưu.
 - `/admin` có `noindex` (metadata + header `X-Robots-Tag` trong `middleware.ts`) và bị chặn trong robots.txt.
 - Màn hình: Tổng quan, Lịch hẹn (tìm kiếm), Dịch vụ & bảng giá, Bài viết & SEO (chấm điểm trực tiếp + xem trước Google),
-  Thương hiệu (upload logo), Đánh giá, Cài đặt liên hệ & thanh toán. Đơn hàng, Sản phẩm, Trang chủ & Hero, Menu,
-  Chính sách bảo hành hiện "Sắp có".
+  Thương hiệu (upload logo), Đánh giá, Cài đặt liên hệ & thanh toán. Trang chủ & Hero, Menu, Chính sách bảo hành hiện "Sắp có".
 - Upload: `POST /admin/uploads?folder=brands|posts` lưu vào `UPLOAD_DIR` (mặc định `apps/api/uploads`) qua interface
   `FileStorage` (`apps/api/src/admin/uploads/storage.ts`) — thay bằng S3/Azure chỉ cần viết lớp mới và đổi provider.
+
+## Shop (SPEC mục 10, bước 6)
+
+- `/san-pham`: lọc theo nhóm (`?nhom=`), sắp xếp (`?sap-xep=new|price_asc|price_desc`), giỏ hàng thu gọn.
+  `/gio-hang`: số lượng ±, xoá, thông tin giao hàng, chọn COD / chuyển khoản / MoMo / ZaloPay, đặt hàng → mã đơn.
+- Giỏ hàng lưu trong trình duyệt khách (`localStorage` `kf_cart_v1`); giá luôn lấy lại từ API và `POST /orders`
+  tính lại tiền ở server (không tin giá client), lưu tên sản phẩm lúc đặt, giới hạn theo IP và SĐT, có honeypot.
+- Chưa có giá thật (SPEC mục 9): sản phẩm chưa có giá vẫn đặt được, khách thấy "Giá: liên hệ"; tạm tính/tổng để trống,
+  nhân viên báo giá khi gọi xác nhận. Phí giao đặt ở Admin › Cài đặt (để trống = báo khi xác nhận).
+- Admin: Sản phẩm (giá, ảnh, tồn kho, ẩn/hiện), Đơn hàng (xác nhận → đang giao → đã giao / huỷ), thẻ đơn mới ở Tổng quan.
+- Chưa có: thanh toán online thật (MoMo/ZaloPay chỉ ghi nhận phương thức, xác nhận thủ công), trừ tồn kho tự động.
 
 ## Còn là placeholder
 

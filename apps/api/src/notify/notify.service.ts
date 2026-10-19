@@ -9,6 +9,15 @@ export interface NewBookingEvent {
   description: string;
 }
 
+export interface NewOrderEvent {
+  code: string;
+  customerName: string;
+  phone: string;
+  payment: string;
+  total: number | null;
+  lines: string[];
+}
+
 /**
  * Báo lịch hẹn mới cho admin. Kênh (Zalo OA / Telegram / email) chưa chốt — SPEC mục 1,
  * nên tạm thời ghi log. Thay phần thân `bookingCreated` khi chọn kênh.
@@ -19,5 +28,9 @@ export class NotifyService {
 
   async bookingCreated(b: NewBookingEvent): Promise<void> {
     this.log.log(`Lịch hẹn mới #${b.id}: ${b.name} · ${b.phone} · ${b.device}${b.address ? ` · ${b.address}` : ''}`);
+  }
+
+  async orderCreated(o: NewOrderEvent): Promise<void> {
+    this.log.log(`Đơn hàng mới ${o.code}: ${o.customerName} · ${o.phone} · ${o.payment} · ${o.total === null ? 'chưa có giá' : `${o.total} ₫`} · ${o.lines.join(', ')}`);
   }
 }

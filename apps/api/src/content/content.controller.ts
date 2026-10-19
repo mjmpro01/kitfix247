@@ -1,5 +1,5 @@
 import { Controller, Get, NotFoundException, Param, Query } from '@nestjs/common';
-import type { Brand, BrandDetail, ProcessStep, Product, Review } from '@kitfix/types';
+import type { Brand, BrandDetail, ProcessStep, Review } from '@kitfix/types';
 import { PrismaService } from '../prisma/prisma.service';
 
 const isOn = (v?: string) => v === '1' || v === 'true';
@@ -49,15 +49,5 @@ export class ContentController {
       take: 12,
     });
     return rows.map((r) => ({ id: r.id, customerName: r.customerName, area: r.area, device: r.device, rating: r.rating, content: r.content }));
-  }
-
-  @Get('products')
-  async products(@Query('limit') limit?: string): Promise<Product[]> {
-    const rows = await this.prisma.product.findMany({
-      where: { status: 'active' },
-      orderBy: { id: 'asc' },
-      take: Math.min(Number(limit) || 24, 48),
-    });
-    return rows.map((p) => ({ id: p.id, sku: p.sku, name: p.name, category: p.category, icon: p.icon, price: p.price, imageUrl: p.imageUrl }));
   }
 }

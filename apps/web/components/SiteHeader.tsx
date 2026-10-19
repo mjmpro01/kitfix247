@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import type { ServiceSummary, Settings } from '@kitfix/types';
 import { Icon } from './Icon';
+import { CartLink } from './cart/CartLink';
 import { SHOW_PRICE_PAGE, serviceHref } from '@/lib/site';
 import s from './SiteHeader.module.css';
 
@@ -104,6 +105,7 @@ export function SiteHeader({ settings, services }: Props) {
         </nav>
 
         <div className={s.actions}>
+          <CartLink />
           <a className={s.hotline} href={tel}>
             <Icon name="phoneRing" size={30} style={{ color: 'var(--heat)' }} />
             <span className={s.hotText}>
