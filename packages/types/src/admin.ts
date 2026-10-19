@@ -165,6 +165,9 @@ export interface AdminBrand {
 
 export type AdminBrandInput = Partial<Omit<AdminBrand, 'id' | 'sort' | 'postCount'>>;
 
+/** Ảnh tải lên tối đa 2 MB (API chặn; web báo trước khi gửi). */
+export const UPLOAD_MAX_BYTES = 2 * 1024 * 1024;
+
 export interface UploadResult {
   url: string;
   key: string;

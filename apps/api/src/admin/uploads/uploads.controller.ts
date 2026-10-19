@@ -1,10 +1,10 @@
 import { BadRequestException, Controller, Post, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { randomBytes } from 'node:crypto';
-import type { UploadResult } from '@kitfix/types';
+import { UPLOAD_MAX_BYTES, type UploadResult } from '@kitfix/types';
 import { FileStorage } from './storage';
 
-export const MAX_UPLOAD_BYTES = 2 * 1024 * 1024;
+export const MAX_UPLOAD_BYTES = UPLOAD_MAX_BYTES;
 export const MIN_LOGO_HEIGHT = 80;
 
 const TYPES: Record<string, string> = { 'image/png': 'png', 'image/svg+xml': 'svg', 'image/jpeg': 'jpg', 'image/webp': 'webp' };

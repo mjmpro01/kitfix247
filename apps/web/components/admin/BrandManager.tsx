@@ -4,8 +4,9 @@ import Link from 'next/link';
 import { useMemo, useRef, useState, useTransition } from 'react';
 import { BOOKING_DEVICES, type AdminBrand, type AdminBrandInput } from '@kitfix/types';
 import { slugifyVi } from '@kitfix/ui';
-import { saveBrands, uploadFile, type BrandChange } from '@/app/admin/actions';
+import { saveBrands, type BrandChange } from '@/app/admin/actions';
 import s from '@/app/admin/admin.module.css';
+import { uploadImage } from './upload';
 import { AdminIcon } from './AdminIcon';
 import { move, useSortable } from './useSortable';
 
@@ -92,11 +93,8 @@ export function BrandManager({ initial }: { initial: AdminBrand[] }) {
   };
 
   const uploadLogo = async (file: File) => {
-    const fd = new FormData();
-    fd.set('file', file);
-    fd.set('folder', 'brands');
     setUploading(true);
-    const r = await uploadFile(fd);
+    const r = await uploadImage(file, 'brands');
     setUploading(false);
     if (!r.ok) return setNotice({ ok: false, text: r.error });
     patch({ logoUrl: r.data.url });

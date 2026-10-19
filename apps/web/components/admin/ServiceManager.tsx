@@ -3,9 +3,10 @@
 import { useMemo, useRef, useState, useTransition } from 'react';
 import { BOOKING_DEVICES, type AdminPriceGroup, type AdminService } from '@kitfix/types';
 import { PRICE_NOTE } from '@kitfix/ui';
-import { createPriceGroup, createService, deleteService, reorder, saveService, uploadFile } from '@/app/admin/actions';
+import { createPriceGroup, createService, deleteService, reorder, saveService } from '@/app/admin/actions';
 import { Icon } from '@/components/Icon';
 import s from '@/app/admin/admin.module.css';
+import { uploadImage } from './upload';
 import { AdminIcon } from './AdminIcon';
 import { parsePrice, showPrice } from './price';
 import { move, useSortable } from './useSortable';
@@ -123,12 +124,9 @@ export function ServiceManager({ initial, groups: initialGroups }: { initial: Ad
     patch((d) => ({ ...d, [k]: d[k].map((r, j) => (j === i ? { ...r, ...v } : r)) }));
   const removeRow = (k: 'faults' | 'faqs' | 'items', i: number) => patch((d) => ({ ...d, [k]: d[k].filter((_, j) => j !== i) }));
 
-  const uploadImage = async (file: File) => {
-    const fd = new FormData();
-    fd.set('file', file);
-    fd.set('folder', 'services');
+  const pickImage = async (file: File) => {
     setUploading(true);
-    const r = await uploadFile(fd);
+    const r = await uploadImage(file, 'services');
     setUploading(false);
     if (!r.ok) return setNotice({ ok: false, text: r.error });
     patch((d) => ({ ...d, imageUrl: r.data.url, imageAlt: d.imageAlt || d.name }));
@@ -370,7 +368,7 @@ export function ServiceManager({ initial, groups: initialGroups }: { initial: Ad
                       onChange={(e) => {
                         const f = e.target.files?.[0];
                         e.target.value = '';
-                        if (f) void uploadImage(f);
+                        if (f) void pickImage(f);
                       }}
                     />
                   </div>
