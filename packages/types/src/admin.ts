@@ -242,3 +242,5 @@ export interface AdminReview {
   showHome: boolean;
   createdAt: string;
 }
+
+export type AdminReviewInput = Partial<Pick<AdminReview, 'customerName' | 'area' | 'device' | 'rating' | 'content' | 'status' | 'showHome'>>;
