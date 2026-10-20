@@ -1,6 +1,7 @@
 // DTO dùng chung web ↔ api. Giữ đúng hợp đồng SPEC mục 6.
 import type { PagesSettings } from './pages';
 import type { MenuItem } from './menu';
+import type { AnalyticsSettings } from './analytics';
 
 export interface Settings {
   hotline: string; // dạng hiển thị: 0989.041.641
@@ -21,6 +22,8 @@ export interface Settings {
   hero: HeroSettings;
   /** Menu header; thiếu khoá = DEFAULT_MENU. */
   menu?: MenuItem[];
+  /** GA4 + xác minh Search Console; thiếu khoá = chưa gắn. */
+  analytics?: AnalyticsSettings;
   /** Shop: phí giao (₫) — null = chưa chốt, báo khi gọi xác nhận đơn. Thiếu khoá cũng hiểu là null. */
   shop?: ShopSettings;
   /** Thân bài Markdown các trang nội dung (Giới thiệu, chính sách) — xem pages.ts. */
@@ -271,4 +274,5 @@ export interface BookingCreated {
 export * from './admin';
 export * from './order';
 export * from './menu';
+export * from './analytics';
 export * from './pages';

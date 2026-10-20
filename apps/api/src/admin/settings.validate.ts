@@ -1,4 +1,4 @@
-import { validateMenu } from '@kitfix/types';
+import { validateAnalytics, validateMenu } from '@kitfix/types';
 import { ICONS } from '@kitfix/ui';
 
 /** Kiểm tra các khoá nội dung trang chủ trong bảng settings. Trả giá trị đã làm sạch hoặc thông báo lỗi. */
@@ -84,4 +84,5 @@ export const HOME_VALIDATORS: Record<string, (v: unknown) => R> = {
   promises: validatePromises,
   rating: validateRating,
   menu: (v) => validateMenu(v),
+  analytics: (v) => validateAnalytics(v),
 };

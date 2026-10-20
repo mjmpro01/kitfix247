@@ -244,7 +244,9 @@ export async function saveSettings(_prev: SettingsState, form: FormData): Promis
   // Phí giao: để trống = chưa chốt (báo khi gọi xác nhận đơn).
   const feeRaw = String(form.get('shippingFee') ?? '').replace(/[^\d]/g, '');
   data.shop = { shippingFee: feeRaw ? Number(feeRaw) : null };
-  const values = Object.fromEntries([...SETTING_FIELDS, 'payments', 'shippingFee'].map((k) => [k, String(form.get(k) ?? '')]));
+  // Google: để trống = không gắn. API chuẩn hoá và kiểm tra dạng mã (validateAnalytics).
+  data.analytics = { gaId: String(form.get('gaId') ?? '').trim() || null, googleVerification: String(form.get('googleVerification') ?? '').trim() || null };
+  const values = Object.fromEntries([...SETTING_FIELDS, 'payments', 'shippingFee', 'gaId', 'googleVerification'].map((k) => [k, String(form.get(k) ?? '')]));
   const res = await run(async () => {
     await adminSend<Settings>('PUT', '/admin/settings', data);
     refresh('settings');

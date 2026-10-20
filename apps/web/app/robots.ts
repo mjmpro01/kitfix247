@@ -6,7 +6,8 @@ export const dynamic = 'force-dynamic';
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: { userAgent: '*', allow: '/', disallow: ['/admin'] },
+    // /api/* là JSON của API (Caddy chuyển tiếp) — không cần Google thu thập.
+    rules: { userAgent: '*', allow: '/', disallow: ['/admin', '/api/'] },
     sitemap: `${SITE_URL}/sitemap.xml`,
     host: SITE_URL,
   };
