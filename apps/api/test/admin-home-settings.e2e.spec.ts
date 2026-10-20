@@ -51,6 +51,14 @@ describe('validateSettings: nội dung trang chủ và menu', () => {
     expect(() => validateSettings({ promises: [''] })).toThrow();
   });
 
+  it('analytics: mã GA4 và xác minh Search Console', () => {
+    expect(validateSettings({ analytics: { gaId: 'g-ab12cd34ef', googleVerification: '<meta name="google-site-verification" content="AbC_123-xyzXYZ0987654321" />' } }).analytics).toEqual({
+      gaId: 'G-AB12CD34EF',
+      googleVerification: 'AbC_123-xyzXYZ0987654321',
+    });
+    expect(() => validateSettings({ analytics: { gaId: 'UA-1-1' } })).toThrow();
+  });
+
   it('menu: dùng validateMenu dùng chung', () => {
     expect(validateSettings({ menu: DEFAULT_MENU }).menu).toEqual(DEFAULT_MENU);
     expect(() => validateSettings({ menu: [{ label: 'X', href: 'javascript:1', visible: true, kind: 'link' }] })).toThrow();

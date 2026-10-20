@@ -3,6 +3,7 @@
 import { useId, useRef, useState } from 'react';
 import { BOOKING_DEVICES, validateBooking, type BookingErrors, type Settings } from '@kitfix/types';
 import { Icon } from './Icon';
+import { track } from '@/lib/analytics';
 import s from './BookingForm.module.css';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
@@ -64,6 +65,7 @@ export function BookingForm({ settings, defaultDevice = 'Bếp từ', headingLev
       });
       if (res.status === 201) {
         setSent({ name: v.data.name, phone: f.phone.trim(), device: v.data.device });
+        track('generate_lead', { form: 'dat_lich', device: v.data.device });
         setStatus('sent');
         requestAnimationFrame(() => doneRef.current?.focus());
         return;

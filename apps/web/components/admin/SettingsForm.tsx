@@ -82,6 +82,52 @@ export function SettingsForm({ settings }: { settings: Settings }) {
         </label>
       </section>
 
+      <section className={s.card} id="google" aria-labelledby="set-google">
+        <h2 id="set-google" className={s.h2}>
+          Google Analytics & Search Console
+        </h2>
+        <p className={s.sub}>Để trống ô nào thì không gắn ô đó. Chỉ chạy trên website công khai, không chạy trong trang quản trị.</p>
+        <div className={s.fieldRow}>
+          <label className={s.label}>
+            <span className={s.labelText}>
+              Mã đo lường GA4 <span className={s.labelHint}>dạng G-XXXXXXXXXX</span>
+            </span>
+            <input
+              className={`${s.input} ${err('analytics') ? s.inputError : ''}`}
+              name="gaId"
+              placeholder="G-XXXXXXXXXX"
+              defaultValue={state.values?.gaId ?? settings.analytics?.gaId ?? ''}
+              aria-describedby="ga-help"
+              autoComplete="off"
+            />
+            <span id="ga-help" className={s.sub}>
+              Google Analytics › Quản trị › Luồng dữ liệu › chọn luồng web › Mã đo lường.
+            </span>
+          </label>
+          <label className={s.label}>
+            <span className={s.labelText}>
+              Mã xác minh Search Console <span className={s.labelHint}>dán cả thẻ meta cũng được</span>
+            </span>
+            <input
+              className={`${s.input} ${err('analytics') ? s.inputError : ''}`}
+              name="googleVerification"
+              placeholder='<meta name="google-site-verification" content="…" />'
+              defaultValue={state.values?.googleVerification ?? settings.analytics?.googleVerification ?? ''}
+              aria-describedby="gsc-help"
+              autoComplete="off"
+            />
+            <span id="gsc-help" className={s.sub}>
+              Search Console › Thêm thuộc tính › Tiền tố URL › Thẻ HTML. Lưu ở đây trước, rồi bấm “Xác minh” bên Google.
+            </span>
+          </label>
+        </div>
+        {err('analytics') ? (
+          <span className={s.fieldError} role="alert">
+            {err('analytics')}
+          </span>
+        ) : null}
+      </section>
+
       <div className={s.headActions}>
         <button type="submit" className={`${s.btn} ${s.btnBrand}`} disabled={pending}>
           {pending ? 'Đang lưu…' : 'Lưu cài đặt'}

@@ -6,6 +6,7 @@ import { orderTotals, PAYMENT_METHODS, paymentLabel, validateOrder, type OrderEr
 import { formatPrice } from '@kitfix/ui';
 import { Icon } from '@/components/Icon';
 import { useCart } from './CartProvider';
+import { track } from '@/lib/analytics';
 import s from './cart.module.css';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
@@ -72,6 +73,7 @@ export function CartCheckout({ products, shippingFee, hotline, hotlineTel }: Pro
       const body = await res.json().catch(() => ({}));
       if (res.status === 201 && body?.code) {
         setDone({ code: body.code, payment: paymentLabel(f.payment), phone: f.phone.trim(), needsQuote: totals.total === null });
+        track('place_order', { payment: f.payment, items: count, ...(totals.total !== null ? { value: totals.total, currency: 'VND' } : {}) });
         clear();
         requestAnimationFrame(() => doneRef.current?.focus());
       } else if (res.status === 400 && Array.isArray(body?.unavailable)) {
