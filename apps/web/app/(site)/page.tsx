@@ -16,6 +16,7 @@ import {
 } from '@/lib/api';
 import { SITE_URL, formatDateVi, serviceHref } from '@/lib/site';
 import { AddToCartButton } from '@/components/cart/AddToCartButton';
+import { PostCover } from '@/components/ArticleCard';
 import s from './home.module.css';
 
 export const revalidate = 300;
@@ -346,7 +347,7 @@ export default async function HomePage() {
             <div className={`grid ${s.posts}`}>
               {posts.map((p) => (
                 <article key={p.id} className={`card ${s.post}`}>
-                  <div className={`placeholder-img ${s.postImg}`}>[Ảnh đại diện bài viết]</div>
+                  <PostCover post={p} className={s.postImg} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px" label="[Ảnh đại diện bài viết]" iconSize={40} />
                   <div className={s.postBody}>
                     <div className={s.postMeta}>
                       <span className="chip-dark">{p.category}</span>
