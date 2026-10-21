@@ -53,19 +53,8 @@ export default async function ServicePage({ params }: { params: Params }) {
         telephone: `+84${settings.hotlineTel.replace(/^0/, '')}`,
         address: { '@type': 'PostalAddress', streetAddress: settings.address, addressLocality: 'TP. Hồ Chí Minh', addressCountry: 'VN' },
       },
-      ...(sv.faults.length
-        ? {
-            hasOfferCatalog: {
-              '@type': 'OfferCatalog',
-              name: sv.faultsTitle,
-              itemListElement: sv.faults.map((f) => ({
-                '@type': 'Offer',
-                itemOffered: { '@type': 'Service', name: f.title },
-                priceSpecification: { '@type': 'PriceSpecification', priceCurrency: 'VND', minPrice: f.priceFrom, maxPrice: f.priceTo },
-              })),
-            },
-          }
-        : {}),
+      // Không đưa danh sách lỗi kèm giá (Offer + priceSpecification) vào JSON-LD: Google coi đó là sản phẩm bán online
+      // và báo lỗi "Trang thông tin của người bán" (thiếu image, shippingDetails…). Đây là dịch vụ, và giá còn là giá mẫu.
     },
     {
       '@context': 'https://schema.org',
