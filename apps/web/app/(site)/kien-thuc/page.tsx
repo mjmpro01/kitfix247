@@ -14,7 +14,7 @@ export const revalidate = 300;
 
 const TITLE = 'Kiến thức & mẹo hay';
 const DESCRIPTION =
-  'Bảng mã lỗi, mẹo dùng bền và tư vấn sửa chữa bếp từ, máy hút mùi, lò nướng, lò vi sóng, máy rửa chén — do kỹ thuật viên KitFix247 viết.';
+  'Kinh nghiệm sửa chữa, mã lỗi và sản phẩm cho bếp từ, máy hút mùi, lò nướng, lò vi sóng, máy rửa chén — do kỹ thuật viên KitFix247 viết.';
 
 export async function generateMetadata({ searchParams }: { searchParams: SearchParams }): Promise<Metadata> {
   const f = readFilters(await searchParams);
@@ -65,7 +65,7 @@ export default async function KnowledgePage({ searchParams }: { searchParams: Se
             <h1 className={s.h1}>
               Kiến thức &amp; <span>mẹo hay</span>
             </h1>
-            <p className={s.heroLead}>Bảng mã lỗi, mẹo dùng bền và tư vấn sửa chữa thiết bị nhà bếp — do kỹ thuật viên KitFix247 viết.</p>
+            <p className={s.heroLead}>Kinh nghiệm sửa chữa, mã lỗi và sản phẩm thiết bị nhà bếp — do kỹ thuật viên KitFix247 viết.</p>
           </div>
           <form role="search" action={KNOWLEDGE_PATH} method="get" className={s.search}>
             {filters.category && <input type="hidden" name="category" value={filters.category} />}

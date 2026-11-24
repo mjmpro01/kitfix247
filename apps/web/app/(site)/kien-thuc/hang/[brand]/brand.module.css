@@ -1,4 +1,4 @@
-/* Trang hãng: mục Sửa chữa (bài giới thiệu), Lỗi (bài mã lỗi), Sản phẩm (thẻ sản phẩm). */
+/* Trang hãng: mục Sửa chữa, Lỗi, Sản phẩm (nội dung + bài viết cùng chuyên mục). */
 .repair {
   display: flex;
   flex-direction: column;
@@ -15,4 +15,15 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   gap: 16px;
+}
+.posts {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.repair > .posts {
+  margin-top: 24px;
+}
+.more {
+  align-self: flex-start;
 }
