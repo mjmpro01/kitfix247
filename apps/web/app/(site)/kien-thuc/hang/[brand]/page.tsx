@@ -1,14 +1,15 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import type { BrandDetail } from '@kitfix/types';
+import { POSTS_MAX_LIMIT, type BrandDetail, type Category } from '@kitfix/types';
+import { ArticleCard } from '@/components/ArticleCard';
 import { Icon } from '@/components/Icon';
 import { JsonLd } from '@/components/JsonLd';
 import { ProductCard } from '@/components/ProductCard';
 import a from '@/app/(site)/kien-thuc/[slug]/article.module.css';
-import { getBrand, getProducts, getSettings } from '@/lib/api';
+import { getBrand, getCategories, getPosts, getProducts, getSettings } from '@/lib/api';
 import { renderArticle } from '@/lib/markdown';
-import { SITE_URL, brandHref } from '@/lib/site';
+import { KNOWLEDGE_PATH, SITE_URL, brandHref, knowledgeHref } from '@/lib/site';
 import type { SearchParams } from '../../params';
 import k from '../../kien-thuc.module.css';
 import s from './brand.module.css';
@@ -16,11 +17,19 @@ import s from './brand.module.css';
 export const revalidate = 300;
 
 type Params = Promise<{ brand: string }>;
-type Tab = 'sua-chua' | 'san-pham';
+type Tab = 'sua-chua' | 'loi' | 'san-pham';
 
-/** Trang hãng chỉ có 2 mục: Sửa chữa (bài giới thiệu) và Sản phẩm (thẻ sản phẩm của hãng). */
-const readTab = (sp: Awaited<SearchParams>): Tab => (sp.muc === 'san-pham' ? 'san-pham' : 'sua-chua');
-const tabHref = (slug: string, tab: Tab) => (tab === 'san-pham' ? `${brandHref(slug)}?muc=san-pham` : brandHref(slug));
+/** Trang hãng có 3 mục: Sửa chữa (bài giới thiệu), Lỗi (bài "Bảng mã lỗi" gắn hãng), Sản phẩm (thẻ sản phẩm của hãng). */
+const TABS: { key: Tab; label: string }[] = [
+  { key: 'sua-chua', label: 'Sửa chữa' },
+  { key: 'loi', label: 'Lỗi' },
+  { key: 'san-pham', label: 'Sản phẩm' },
+];
+const readTab = (sp: Awaited<SearchParams>): Tab => (sp.muc === 'san-pham' || sp.muc === 'loi' ? sp.muc : 'sua-chua');
+const tabHref = (slug: string, tab: Tab) => (tab === 'sua-chua' ? brandHref(slug) : `${brandHref(slug)}?muc=${tab}`);
+
+/** Chuyên mục bài mã lỗi (admin đặt tên ở màn Viết bài; slug mặc định "bang-ma-loi"). */
+const errorCategory = (cats: Category[]) => cats.find((c) => c.slug === 'bang-ma-loi') ?? cats.find((c) => /mã lỗi/i.test(c.name));
 
 /** Mô tả mặc định khi admin chưa nhập mô tả trang hãng. */
 const brandDesc = (b: BrandDetail) =>
@@ -32,7 +41,7 @@ export async function generateMetadata({ params, searchParams }: { params: Param
   if (!b) return {};
   const tab = readTab(sp);
   const base = b.seoTitle ?? `Sửa chữa thiết bị bếp ${b.name} tại nhà TP.HCM`;
-  const title = tab === 'san-pham' ? `Sản phẩm ${b.name}` : base;
+  const title = tab === 'san-pham' ? `Sản phẩm ${b.name}` : tab === 'loi' ? `Mã lỗi thiết bị bếp ${b.name} và cách xử lý` : base;
   const description = b.seoDesc ?? brandDesc(b);
   const canonical = tabHref(b.slug, tab);
   return {
@@ -46,8 +55,16 @@ export async function generateMetadata({ params, searchParams }: { params: Param
 export default async function BrandPage({ params, searchParams }: { params: Params; searchParams: SearchParams }) {
   const [{ brand: slug }, sp] = await Promise.all([params, searchParams]);
   const tab = readTab(sp);
-  const [brand, settings, products] = await Promise.all([getBrand(slug), getSettings(), getProducts({ brand: slug, limit: 48 })]);
+  const [brand, settings, products, categories] = await Promise.all([
+    getBrand(slug),
+    getSettings(),
+    getProducts({ brand: slug, limit: 48 }),
+    getCategories(),
+  ]);
   if (!brand) notFound();
+  const errCat = errorCategory(categories);
+  const errors = await getPosts({ brand: slug, category: errCat?.slug, limit: POSTS_MAX_LIMIT });
+  const counts: Record<Tab, number | null> = { 'sua-chua': null, loi: errors.total, 'san-pham': products.length };
   const tel = `tel:${settings.hotlineTel}`;
   const repair = brand.repairMd?.trim() ? renderArticle(brand.repairMd).html : null;
 
@@ -98,12 +115,12 @@ export default async function BrandPage({ params, searchParams }: { params: Para
       <section className={k.listSection}>
         <div className={`container ${k.listIn}`}>
           <nav aria-label={`Mục của hãng ${brand.name}`} className={k.chips}>
-            <Link href={tabHref(brand.slug, 'sua-chua')} className={k.chip} data-active={tab === 'sua-chua'} aria-current={tab === 'sua-chua' ? 'page' : undefined}>
-              Sửa chữa
-            </Link>
-            <Link href={tabHref(brand.slug, 'san-pham')} className={k.chip} data-active={tab === 'san-pham'} aria-current={tab === 'san-pham' ? 'page' : undefined}>
-              Sản phẩm{products.length ? ` (${products.length})` : ''}
-            </Link>
+            {TABS.map((t) => (
+              <Link key={t.key} href={tabHref(brand.slug, t.key)} className={k.chip} data-active={tab === t.key} aria-current={tab === t.key ? 'page' : undefined}>
+                {t.label}
+                {counts[t.key] ? ` (${counts[t.key]})` : ''}
+              </Link>
+            ))}
           </nav>
 
           {tab === 'sua-chua' ? (
@@ -137,6 +154,37 @@ export default async function BrandPage({ params, searchParams }: { params: Para
                 </Link>
               </div>
             </div>
+          ) : tab === 'loi' ? (
+            errors.total ? (
+              <>
+                <h2 className="h2">Mã lỗi thiết bị bếp {brand.name}</h2>
+                <p className={k.count}>{errors.total} bài viết</p>
+                <div className={k.grid}>
+                  {errors.items.map((p) => (
+                    <ArticleCard key={p.id} post={p} brandSlug={brand.slug} />
+                  ))}
+                </div>
+                {errors.total > errors.items.length ? (
+                  <Link href={knowledgeHref(KNOWLEDGE_PATH, { brand: brand.slug, category: errCat?.slug })} className="btn btn--sec">
+                    Xem tất cả {errors.total} bài
+                  </Link>
+                ) : null}
+              </>
+            ) : (
+              <div className={k.empty}>
+                <p className={k.emptyTitle}>Chưa có bài mã lỗi {brand.name}</p>
+                <p className="muted">
+                  Thiết bị {brand.name} nhà anh/chị đang báo lỗi? Gọi{' '}
+                  <a href={tel} className={k.strong}>
+                    {settings.hotline}
+                  </a>{' '}
+                  để kỹ thuật viên tư vấn trực tiếp.
+                </p>
+                <Link href="/dat-lich" className="btn btn--sec">
+                  Đặt lịch sửa {brand.name}
+                </Link>
+              </div>
+            )
           ) : products.length ? (
             <>
               <p className={k.count}>

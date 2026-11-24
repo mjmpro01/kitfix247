@@ -1,4 +1,4 @@
-/* Trang hãng: mục Sửa chữa (bài giới thiệu) và Sản phẩm (thẻ sản phẩm). */
+/* Trang hãng: mục Sửa chữa (bài giới thiệu), Lỗi (bài mã lỗi), Sản phẩm (thẻ sản phẩm). */
 .repair {
   display: flex;
   flex-direction: column;
