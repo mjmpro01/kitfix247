@@ -271,10 +271,9 @@
 
 /* ---------- Cột phải: mục lục dính ---------- */
 .side {
+  /* Không dính: cột phải dài (bài viết mới, dịch vụ) sẽ bị cắt nếu dính. */
   flex: 1 1 300px;
   min-width: 0;
-  position: sticky;
-  top: 96px;
   display: flex;
   flex-direction: column;
   gap: 16px;

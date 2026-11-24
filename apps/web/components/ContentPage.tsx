@@ -4,6 +4,7 @@ import { fillPageTokens, type ContentPageKey } from '@kitfix/types';
 import s from '@/app/(site)/kien-thuc/[slug]/article.module.css';
 import { Icon } from '@/components/Icon';
 import { JsonLd } from '@/components/JsonLd';
+import { SideWidgets } from '@/components/SideWidgets';
 import { getSettings } from '@/lib/api';
 import { CONTENT_PAGE_INFO } from '@/lib/content-pages';
 import { renderArticle } from '@/lib/markdown';
@@ -78,7 +79,7 @@ export async function ContentPage({ pageKey }: { pageKey: ContentPageKey }) {
             </aside>
           </div>
 
-          <aside className={s.side} aria-label="Cam kết và thông tin liên hệ">
+          <aside className={s.side} aria-label="Cam kết, liên hệ, bài viết mới và dịch vụ">
             {settings.commitments.length > 0 && (
               <div className={s.box}>
                 <h2 className={s.boxTitle}>Cam kết của chúng tôi</h2>
@@ -108,6 +109,7 @@ export async function ContentPage({ pageKey }: { pageKey: ContentPageKey }) {
                 </dd>
               </dl>
             </div>
+            <SideWidgets />
           </aside>
         </div>
       </article>
