@@ -99,6 +99,24 @@
   color: var(--ink-muted);
 }
 
+/* "Xem thêm" -> trang Kiến thức */
+.more {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-full);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+}
+.more:hover {
+  border-color: var(--ink);
+}
+
 /* Dịch vụ */
 .svc {
   min-height: 44px;
