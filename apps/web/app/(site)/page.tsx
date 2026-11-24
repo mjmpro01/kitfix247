@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { formatPrice } from '@kitfix/ui';
 import { Icon } from '@/components/Icon';
 import { JsonLd } from '@/components/JsonLd';
 import { SectionTitle } from '@/components/SectionTitle';
@@ -15,8 +14,8 @@ import {
   getSettings,
 } from '@/lib/api';
 import { SITE_URL, formatDateVi, serviceHref } from '@/lib/site';
-import { AddToCartButton } from '@/components/cart/AddToCartButton';
 import { PostCover } from '@/components/ArticleCard';
+import { ProductCard } from '@/components/ProductCard';
 import s from './home.module.css';
 
 export const revalidate = 300;
@@ -303,30 +302,7 @@ export default async function HomePage() {
             </div>
             <div className={`grid ${s.products}`}>
               {products.map((p) => (
-                <article key={p.id} className={`card ${s.product}`}>
-                  {p.imageUrl ? (
-                    <div className={`${s.productImg} ${s.productImgHas}`}>
-                      <Image
-                        src={p.imageUrl}
-                        alt={p.name}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 280px"
-                        unoptimized={/^https?:\/\//.test(p.imageUrl)}
-                      />
-                    </div>
-                  ) : (
-                    <div className={s.productImg}>
-                      <Icon name={p.icon} size={40} strokeWidth={1.5} />
-                      [Ảnh sản phẩm]
-                    </div>
-                  )}
-                  <div className={s.productBody}>
-                    <div className="note">{p.category}</div>
-                    <h3 className={s.productName}>{p.name}</h3>
-                    <div className={s.price}>{p.price != null ? formatPrice(p.price) : 'Giá: liên hệ'}</div>
-                    <AddToCartButton productId={p.id} productName={p.name} className={`btn btn--sec ${s.cartBtn}`} />
-                  </div>
-                </article>
+                <ProductCard key={p.id} product={p} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 280px" />
               ))}
             </div>
           </div>

@@ -10,6 +10,7 @@ import { uploadImage } from './upload';
 import { AdminIcon } from './AdminIcon';
 import { parsePrice, showPrice } from './price';
 import { move, useSortable } from './useSortable';
+import { MarkdownField } from './MarkdownField';
 
 interface PriceRow {
   id?: number;
@@ -33,6 +34,7 @@ interface FaqDraft {
 interface Draft {
   name: string;
   lead: string;
+  introMd: string;
   cardText: string;
   shortHint: string;
   showHome: boolean;
@@ -51,6 +53,7 @@ function toDraft(sv: AdminService): Draft {
   return {
     name: sv.name,
     lead: sv.lead,
+    introMd: sv.introMd ?? '',
     cardText: sv.cardText,
     shortHint: sv.shortHint,
     showHome: sv.showHome,
@@ -158,6 +161,7 @@ export function ServiceManager({ initial, groups: initialGroups }: { initial: Ad
         fields: {
           name: draft.name,
           lead: draft.lead,
+          introMd: draft.introMd.trim() || null,
           cardText: draft.cardText,
           shortHint: draft.shortHint,
           showHome: draft.showHome,
@@ -341,6 +345,15 @@ export function ServiceManager({ initial, groups: initialGroups }: { initial: Ad
                   <span className={s.labelText}>Đoạn dẫn (Hero trang dịch vụ)</span>
                   <textarea className={s.textarea} rows={3} value={draft.lead} onChange={(e) => set('lead', e.target.value)} maxLength={2000} />
                 </label>
+                <MarkdownField
+                  label="Bài giới thiệu (ngay dưới phần xanh)"
+                  hint="để trống thì trang không hiện mục này"
+                  value={draft.introMd}
+                  onChange={(v) => set('introMd', v)}
+                  folder="services"
+                  onError={(text) => setNotice({ ok: false, text })}
+                  rows={8}
+                />
                 <div className={s.fieldRow} style={{ alignItems: 'flex-start' }}>
                   <div className={s.stack} style={{ flex: '0 1 240px' }}>
                     <span className={s.labelText}>Ảnh thẻ dịch vụ</span>
@@ -394,10 +407,6 @@ export function ServiceManager({ initial, groups: initialGroups }: { initial: Ad
                   <label className={s.label}>
                     <span className={s.labelText}>Mô tả trên card trang chủ</span>
                     <input className={s.input} value={draft.cardText} onChange={(e) => set('cardText', e.target.value)} maxLength={255} />
-                  </label>
-                  <label className={s.label}>
-                    <span className={s.labelText}>Gợi ý ngắn (menu)</span>
-                    <input className={s.input} value={draft.shortHint} onChange={(e) => set('shortHint', e.target.value)} maxLength={160} />
                   </label>
                 </div>
                 <div className={s.fieldRow}>

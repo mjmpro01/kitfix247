@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { CONTENT_PAGES, POSTS_MAX_LIMIT, type PostSummary } from '@kitfix/types';
-import { getBrands, getPosts, getServices } from '@/lib/api';
-import { KNOWLEDGE_PATH, SITE_URL, brandHref, postHref, serviceHref } from '@/lib/site';
+import { getBrands, getPosts, getProducts, getServices } from '@/lib/api';
+import { KNOWLEDGE_PATH, SITE_URL, brandHref, postHref, productHref, serviceHref } from '@/lib/site';
 
 export const revalidate = 3600;
 
@@ -14,7 +14,7 @@ async function allPosts(): Promise<PostSummary[]> {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [services, brands, posts] = await Promise.all([getServices(), getBrands(), allPosts()]);
+  const [services, brands, posts, products] = await Promise.all([getServices(), getBrands(), allPosts(), getProducts({ limit: 48 })]);
   return [
     { url: `${SITE_URL}/`, changeFrequency: 'weekly', priority: 1 },
     { url: `${SITE_URL}/dat-lich`, changeFrequency: 'monthly', priority: 0.8 },
@@ -23,6 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...services.map((sv) => ({ url: `${SITE_URL}${serviceHref(sv.slug)}`, changeFrequency: 'monthly' as const, priority: 0.9 })),
     { url: `${SITE_URL}${KNOWLEDGE_PATH}`, changeFrequency: 'daily', priority: 0.7 },
     ...brands.map((b) => ({ url: `${SITE_URL}${brandHref(b.slug)}`, changeFrequency: 'weekly' as const, priority: 0.6 })),
+    ...products.map((p) => ({ url: `${SITE_URL}${productHref(p.slug)}`, changeFrequency: 'weekly' as const, priority: 0.5 })),
     ...posts.map((p) => ({
       url: `${SITE_URL}${postHref(p.slug)}`,
       lastModified: new Date(p.publishedAt),

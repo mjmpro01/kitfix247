@@ -87,6 +87,8 @@ export interface ServiceDetail extends ServiceSummary {
   faultsTitle: string;
   seoTitle: string | null;
   seoDesc: string | null;
+  /** Bài giới thiệu (Markdown) dưới khối hero; null = không hiện. */
+  introMd: string | null;
   faults: ServiceFault[];
   faqs: ServiceFaq[];
 }
@@ -110,6 +112,8 @@ export interface BrandDetail extends Brand {
   devices: string[];
   seoTitle: string | null;
   seoDesc: string | null;
+  /** Bài giới thiệu sửa chữa thiết bị hãng (Markdown), mục "Sửa chữa" ở trang hãng. */
+  repairMd: string | null;
 }
 
 export interface Category {
@@ -130,13 +134,30 @@ export interface Review {
 export interface Product {
   id: number;
   sku: string;
+  /** Đường dẫn trang chi tiết: /san-pham/[slug]. */
+  slug: string;
   name: string;
   category: string;
+  brand: { slug: string; name: string } | null;
   description: string | null;
   icon: string;
-  /** null = chưa có giá: không bán online, khách gọi hỏi giá. */
+  /** null = chưa có giá: khách thấy "Giá: liên hệ", báo giá khi gọi xác nhận đơn. */
   price: number | null;
+  /** Giá gốc trước giảm (gạch ngang); null = không giảm. */
+  compareAtPrice: number | null;
   imageUrl: string | null;
+}
+
+export interface ProductDetail extends Product {
+  /** Thông tin chi tiết, thông số kỹ thuật (Markdown). */
+  contentMd: string | null;
+}
+
+/** % giảm hiện trên nhãn (vd 25 → "-25%"); null khi không có giá gốc hợp lệ hoặc giảm dưới 1%. */
+export function discountPercent(price: number | null, compareAtPrice: number | null): number | null {
+  if (price === null || compareAtPrice === null || compareAtPrice <= price || compareAtPrice <= 0) return null;
+  const pct = Math.round(((compareAtPrice - price) / compareAtPrice) * 100);
+  return pct >= 1 ? pct : null;
 }
 
 export const PRODUCT_SORTS = ['new', 'price_asc', 'price_desc'] as const;

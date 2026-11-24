@@ -156,8 +156,8 @@ export async function saveBrands(changes: BrandChange[], order: string[] | null)
       else ids[c.key] = (await adminSend<AdminBrand>('PATCH', `/admin/brands/${c.id}`, c.data)).id;
     }
     if (order) await adminSend('PUT', '/admin/brands/order', { ids: order.map((k) => ids[k] ?? Number(k)) });
-    // Tên hãng hiện ở thẻ bài viết → làm mới cả "posts".
-    refresh('brands', 'posts');
+    // Tên hãng hiện ở thẻ bài viết và thẻ sản phẩm → làm mới cả "posts", "products".
+    refresh('brands', 'posts', 'products');
     return ids;
   }, 'Đã lưu thay đổi');
 }

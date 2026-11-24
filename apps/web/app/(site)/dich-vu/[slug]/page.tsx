@@ -9,6 +9,8 @@ import { BookingSection } from '@/components/BookingSection';
 import { getService, getServices, getSettings } from '@/lib/api';
 import { SITE_URL, lowerFirst, serviceHref } from '@/lib/site';
 import s from './service.module.css';
+import a from '@/app/(site)/kien-thuc/[slug]/article.module.css';
+import { renderArticle } from '@/lib/markdown';
 
 export const revalidate = 300;
 
@@ -36,6 +38,8 @@ export default async function ServicePage({ params }: { params: Params }) {
   const tel = `tel:${settings.hotlineTel}`;
   const url = `${SITE_URL}${serviceHref(sv.slug)}`;
   const h1 = `${sv.name} tận nhà tại TP.HCM`;
+  // Bài giới thiệu admin soạn (Admin › Dịch vụ); trống thì không hiện phần này.
+  const intro = sv.introMd?.trim() ? renderArticle(sv.introMd).html : null;
 
   const jsonLd = [
     {
@@ -126,6 +130,15 @@ export default async function ServicePage({ params }: { params: Params }) {
           </ul>
         </div>
       </section>
+
+      {/* Giới thiệu dịch vụ — ngay sau hero */}
+      {intro && (
+        <section aria-label={`Giới thiệu dịch vụ ${sv.name.toLocaleLowerCase('vi')}`} className={`section ${s.introSec}`}>
+          <div className="container">
+            <div className={`${a.body} ${s.intro}`} dangerouslySetInnerHTML={{ __html: intro }} />
+          </div>
+        </section>
+      )}
 
       {/* Lỗi thường gặp */}
       {sv.faults.length > 0 && (

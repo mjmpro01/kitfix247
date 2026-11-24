@@ -34,6 +34,8 @@ model Service {
   /// Ảnh thẻ dịch vụ ở trang chủ (admin tải lên); trống thì hiện icon + placeholder.
   imageUrl    String?        @map("image_url") @db.VarChar(512)
   imageAlt    String?        @map("image_alt") @db.VarChar(255)
+  /// Bài giới thiệu dịch vụ (Markdown) hiện ngay dưới khối hero trang dịch vụ; trống thì ẩn.
+  introMd     String?        @map("intro_md") @db.LongText
   sort        Int            @default(0)
   showHome    Boolean        @default(true) @map("show_home")
   seoTitle    String?        @map("seo_title") @db.VarChar(160)
@@ -143,7 +145,10 @@ model Brand {
   showHome    Boolean     @default(true) @map("show_home")
   seoTitle    String?     @map("seo_title") @db.VarChar(160)
   seoDesc     String?     @map("seo_desc") @db.VarChar(320)
+  /// Bài giới thiệu dịch vụ sửa chữa thiết bị của hãng (Markdown), mục "Sửa chữa" ở trang hãng.
+  repairMd    String?    @map("repair_md") @db.LongText
   posts       PostBrand[]
+  products    Product[]
 
   @@map("brands")
 }
@@ -231,18 +236,27 @@ model Booking {
 }
 
 model Product {
-  id          Int         @id @default(autoincrement())
-  sku         String      @unique @db.VarChar(64)
-  name        String      @db.VarChar(200)
-  category    String      @db.VarChar(80)
-  description String?     @db.Text
-  price       Int?
-  stock       Int         @default(0)
-  imageUrl    String?     @map("image_url") @db.VarChar(512)
-  icon        String      @default("wrench") @db.VarChar(40)
-  status      String      @default("active") @db.VarChar(20)
-  orderItems  OrderItem[]
+  id             Int         @id @default(autoincrement())
+  sku            String      @unique @db.VarChar(64)
+  /// Đường dẫn trang chi tiết /san-pham/[slug].
+  slug           String      @unique @db.VarChar(200)
+  name           String      @db.VarChar(200)
+  category       String      @db.VarChar(80)
+  brandId        Int?        @map("brand_id")
+  brand          Brand?      @relation(fields: [brandId], references: [id], onDelete: SetNull)
+  description    String?     @db.Text
+  /// Thông tin chi tiết, thông số kỹ thuật (Markdown) ở trang chi tiết sản phẩm.
+  contentMd      String?     @map("content_md") @db.LongText
+  price          Int?
+  /// Giá gốc trước giảm (gạch ngang); null = không giảm giá.
+  compareAtPrice Int?        @map("compare_at_price")
+  stock          Int         @default(0)
+  imageUrl       String?     @map("image_url") @db.VarChar(512)
+  icon           String      @default("wrench") @db.VarChar(40)
+  status         String      @default("active") @db.VarChar(20)
+  orderItems     OrderItem[]
 
+  @@index([brandId])
   @@map("products")
 }
 

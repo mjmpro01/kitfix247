@@ -133,6 +133,7 @@ export interface AdminServiceFields {
   seoDesc: string | null;
   imageUrl: string | null;
   imageAlt: string | null;
+  introMd: string | null;
 }
 
 export interface AdminService extends AdminServiceFields {
@@ -160,10 +161,12 @@ export interface AdminBrand {
   showHome: boolean;
   seoTitle: string | null;
   seoDesc: string | null;
+  repairMd: string | null;
   postCount: number;
+  productCount: number;
 }
 
-export type AdminBrandInput = Partial<Omit<AdminBrand, 'id' | 'sort' | 'postCount'>>;
+export type AdminBrandInput = Partial<Omit<AdminBrand, 'id' | 'sort' | 'postCount' | 'productCount'>>;
 
 /** Ảnh tải lên tối đa 2 MB (API chặn; web báo trước khi gửi). */
 export const UPLOAD_MAX_BYTES = 2 * 1024 * 1024;

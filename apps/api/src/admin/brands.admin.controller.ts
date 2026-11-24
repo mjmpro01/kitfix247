@@ -5,7 +5,7 @@ import { slugifyVi } from '@kitfix/ui';
 import { PrismaService } from '../prisma/prisma.service';
 import { asBody, Check, defined, parseId } from './validate';
 
-const brandInclude = { _count: { select: { posts: true } } } satisfies Prisma.BrandInclude;
+const brandInclude = { _count: { select: { posts: true, products: true } } } satisfies Prisma.BrandInclude;
 type BrandRow = Prisma.BrandGetPayload<{ include: typeof brandInclude }>;
 
 function toAdminBrand(b: BrandRow): AdminBrand {
@@ -21,7 +21,9 @@ function toAdminBrand(b: BrandRow): AdminBrand {
     showHome: b.showHome,
     seoTitle: b.seoTitle,
     seoDesc: b.seoDesc,
+    repairMd: b.repairMd,
     postCount: b._count.posts,
+    productCount: b._count.products,
   };
 }
 
@@ -41,6 +43,7 @@ function brandFields(body: unknown, creating: boolean) {
     showHome: c.bool('showHome', 'Hiện ở trang chủ'),
     seoTitle: c.optStr('seoTitle', 'Tiêu đề SEO', 160),
     seoDesc: c.optStr('seoDesc', 'Mô tả SEO', 320),
+    repairMd: c.optStr('repairMd', 'Bài giới thiệu sửa chữa', 100_000),
   });
   if (data.slug === '') c.errors.slug = 'Đường dẫn không hợp lệ.';
   if (c.has('name') && name === '') c.errors.name = 'Tên hãng là bắt buộc.';

@@ -1,0 +1,129 @@
+/* Thẻ sản phẩm dùng chung — ảnh, nhãn giảm giá, giá gốc gạch ngang (ảnh mẫu trong "Sửa web.docx"). */
+.card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.img {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: var(--surface-sunken);
+  overflow: hidden;
+}
+.imgEl {
+  object-fit: cover;
+  transition: transform 0.25s;
+}
+.card:hover .imgEl {
+  transform: scale(1.03);
+}
+@media (prefers-reduced-motion: reduce) {
+  .imgEl {
+    transition: none;
+  }
+  .card:hover .imgEl {
+    transform: none;
+  }
+}
+.placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--ink-muted);
+  font-size: 13px;
+}
+.badge {
+  position: absolute;
+  top: 12px;
+  left: 0;
+  padding: 4px 10px;
+  background: var(--glass);
+  color: var(--on-glass);
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 20px;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+.body {
+  padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-grow: 1;
+}
+.cat {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.name {
+  margin: 0;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 600;
+}
+.link {
+  color: var(--ink);
+  text-decoration: none;
+}
+.link:hover {
+  color: var(--heat-strong);
+}
+/* Cả thẻ bấm được (stretched link); nút giỏ hàng nằm trên lớp này. */
+.link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.link:focus-visible {
+  outline: none;
+}
+.link:focus-visible::after {
+  outline: 2px solid var(--heat);
+  outline-offset: -2px;
+  border-radius: var(--radius-md);
+}
+.grow {
+  flex-grow: 1;
+}
+.prices {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 10px;
+}
+.compare {
+  color: var(--ink-muted);
+  font-size: 14px;
+  line-height: 20px;
+}
+.price {
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 26px;
+  color: var(--heat);
+  font-variant-numeric: tabular-nums;
+}
+.pricesLg .compare {
+  font-size: 17px;
+}
+.priceLg {
+  font-size: 28px;
+  line-height: 36px;
+}
+.add {
+  position: relative;
+  z-index: 2;
+  margin-top: 8px;
+  min-height: 44px;
+  font-size: 15px;
+}

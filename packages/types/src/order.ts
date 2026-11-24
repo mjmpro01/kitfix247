@@ -138,10 +138,14 @@ export interface AdminOrderPage {
 export interface AdminProduct {
   id: number;
   sku: string;
+  slug: string;
   name: string;
   category: string;
+  brandId: number | null;
   description: string | null;
+  contentMd: string | null;
   price: number | null;
+  compareAtPrice: number | null;
   stock: number;
   imageUrl: string | null;
   icon: string;

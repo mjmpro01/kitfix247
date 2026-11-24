@@ -38,6 +38,7 @@ export class ContentController {
       devices: Array.isArray(b.devices) ? b.devices.filter((d): d is string => typeof d === 'string') : [],
       seoTitle: b.seoTitle,
       seoDesc: b.seoDesc,
+      repairMd: b.repairMd,
     };
   }
 
