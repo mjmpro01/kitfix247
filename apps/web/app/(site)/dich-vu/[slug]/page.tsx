@@ -5,6 +5,8 @@ import { PRICE_NOTE, formatPriceRange } from '@kitfix/ui';
 import { Icon } from '@/components/Icon';
 import { JsonLd } from '@/components/JsonLd';
 import { SectionTitle } from '@/components/SectionTitle';
+import { SideWidgets } from '@/components/SideWidgets';
+import w from '@/components/SideWidgets.module.css';
 import { BookingSection } from '@/components/BookingSection';
 import { getService, getServices, getSettings } from '@/lib/api';
 import { SITE_URL, lowerFirst, serviceHref } from '@/lib/site';
@@ -131,71 +133,75 @@ export default async function ServicePage({ params }: { params: Params }) {
         </div>
       </section>
 
-      {/* Giới thiệu dịch vụ — ngay sau hero */}
-      {intro && (
-        <section aria-label={`Giới thiệu dịch vụ ${sv.name.toLocaleLowerCase('vi')}`} className={`section ${s.introSec}`}>
-          <div className="container">
-            <div className={`${a.body} ${s.intro}`} dangerouslySetInnerHTML={{ __html: intro }} />
-          </div>
-        </section>
-      )}
+      {/* Nội dung + cột phải (bài viết mới, dịch vụ) */}
+      <section className="section">
+        <div className={`container ${w.row}`}>
+          <div className={w.main}>
+            {/* Giới thiệu dịch vụ — ngay sau hero */}
+            {intro && (
+              <section aria-label={`Giới thiệu dịch vụ ${sv.name.toLocaleLowerCase('vi')}`}>
+                <div className={`${a.body} ${s.intro}`} dangerouslySetInnerHTML={{ __html: intro }} />
+              </section>
+            )}
 
-      {/* Lỗi thường gặp */}
-      {sv.faults.length > 0 && (
-        <section aria-labelledby="loi-title" className="section">
-          <div className="container">
-            <SectionTitle id="loi-title" eyebrow="Lỗi thường gặp">
-              {sv.faultsTitle}
-            </SectionTitle>
-            <div className={`grid ${s.faults}`}>
-              {sv.faults.map((f) => (
-                <article key={f.id} className={`card ${s.fault}`}>
-                  <div className={s.faultHead}>
-                    <h3 className={s.h3}>{f.title}</h3>
-                    <span className="code-tag">{f.code}</span>
-                  </div>
-                  <p className={s.cause}>
-                    <strong>Nguyên nhân thường gặp:</strong> {f.cause}
-                  </p>
-                  <div className={s.priceRow}>
-                    <span className="muted">Giá tham khảo</span>
-                    <span className={s.price}>{formatPriceRange(f.priceFrom, f.priceTo)}</span>
-                  </div>
-                </article>
-              ))}
-            </div>
-            <p className="note">
-              {PRICE_NOTE} Không thấy lỗi của nhà mình? Gọi{' '}
-              <a href={tel} className={s.strong}>
-                {settings.hotline}
-              </a>{' '}
-              hoặc mô tả trong form đặt lịch bên dưới.
-            </p>
-          </div>
-        </section>
-      )}
+            {/* Lỗi thường gặp */}
+            {sv.faults.length > 0 && (
+              <section aria-labelledby="loi-title" className={s.block}>
+                <SectionTitle id="loi-title" eyebrow="Lỗi thường gặp">
+                  {sv.faultsTitle}
+                </SectionTitle>
+                <div className={`grid ${s.faults}`}>
+                  {sv.faults.map((f) => (
+                    <article key={f.id} className={`card ${s.fault}`}>
+                      <div className={s.faultHead}>
+                        <h3 className={s.h3}>{f.title}</h3>
+                        <span className="code-tag">{f.code}</span>
+                      </div>
+                      <p className={s.cause}>
+                        <strong>Nguyên nhân thường gặp:</strong> {f.cause}
+                      </p>
+                      <div className={s.priceRow}>
+                        <span className="muted">Giá tham khảo</span>
+                        <span className={s.price}>{formatPriceRange(f.priceFrom, f.priceTo)}</span>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+                <p className="note">
+                  {PRICE_NOTE} Không thấy lỗi của nhà mình? Gọi{' '}
+                  <a href={tel} className={s.strong}>
+                    {settings.hotline}
+                  </a>{' '}
+                  hoặc mô tả trong form đặt lịch bên dưới.
+                </p>
+              </section>
+            )}
 
-      {/* FAQ */}
-      {sv.faqs.length > 0 && (
-        <section aria-labelledby="faq-title" className="section section--sunken">
-          <div className={`container ${s.faqWrap}`}>
-            <h2 id="faq-title" className="h2">
-              Câu hỏi thường gặp
-            </h2>
-            <div className={s.faqList}>
-              {sv.faqs.map((q) => (
-                <details key={q.id} className={s.faq}>
-                  <summary className={s.faqQ}>
-                    {q.question}
-                    <Icon name="chevron" size={20} className={s.chev} />
-                  </summary>
-                  <p className={s.faqA}>{q.answer}</p>
-                </details>
-              ))}
-            </div>
+            {/* FAQ */}
+            {sv.faqs.length > 0 && (
+              <section aria-labelledby="faq-title" className={s.faqBox}>
+                <h2 id="faq-title" className="h2">
+                  Câu hỏi thường gặp
+                </h2>
+                <div className={s.faqList}>
+                  {sv.faqs.map((q) => (
+                    <details key={q.id} className={s.faq}>
+                      <summary className={s.faqQ}>
+                        {q.question}
+                        <Icon name="chevron" size={20} className={s.chev} />
+                      </summary>
+                      <p className={s.faqA}>{q.answer}</p>
+                    </details>
+                  ))}
+                </div>
+              </section>
+            )}
           </div>
-        </section>
-      )}
+          <aside className={w.side} aria-label="Bài viết mới và dịch vụ">
+            <SideWidgets currentService={sv.slug} />
+          </aside>
+        </div>
+      </section>
 
       <BookingSection settings={settings} title={`Đặt lịch ${lowerFirst(sv.name)}`} defaultDevice={sv.device} variant="page" />
     </>

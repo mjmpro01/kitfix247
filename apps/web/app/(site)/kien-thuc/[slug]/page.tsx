@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { ArticleCard, PostCover } from '@/components/ArticleCard';
 import { Icon } from '@/components/Icon';
 import { JsonLd } from '@/components/JsonLd';
+import { SideWidgets } from '@/components/SideWidgets';
 import { getPost, getPosts, getServices, getSettings } from '@/lib/api';
 import { renderArticle } from '@/lib/markdown';
 import { KNOWLEDGE_PATH, SITE_URL, brandHref, formatDateVi, knowledgeHref, lowerFirst, postHref, serviceHref, telLd } from '@/lib/site';
@@ -181,7 +182,7 @@ export default async function ArticlePage({ params }: { params: Params }) {
             </aside>
           </div>
 
-          <aside className={s.side} aria-label="Mục lục và dịch vụ liên quan">
+          <aside className={s.side} aria-label="Mục lục, bài viết mới và dịch vụ">
             {toc.length > 0 && (
               <nav aria-labelledby="toc-title" className={s.box}>
                 <h2 id="toc-title" className={s.boxTitle}>
@@ -211,6 +212,7 @@ export default async function ArticlePage({ params }: { params: Params }) {
               </div>
             )}
             <p className={s.trust}>{settings.promises.join(' · ')}</p>
+            <SideWidgets currentPost={post.slug} />
           </aside>
         </div>
       </article>

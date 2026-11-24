@@ -5,6 +5,8 @@ import { notFound } from 'next/navigation';
 import { discountPercent } from '@kitfix/types';
 import { Icon } from '@/components/Icon';
 import { JsonLd } from '@/components/JsonLd';
+import { SideWidgets } from '@/components/SideWidgets';
+import w from '@/components/SideWidgets.module.css';
 import { ProductCard, ProductPrice } from '@/components/ProductCard';
 import { AddToCartButton } from '@/components/cart/AddToCartButton';
 import { BuyNowButton } from '@/components/cart/BuyNowButton';
@@ -129,22 +131,27 @@ export default async function ProductPage({ params }: { params: Params }) {
         </div>
       </section>
 
-      <section aria-labelledby="thong-tin" className={`section ${s.detail}`}>
-        <div className="container">
-          <h2 id="thong-tin" className="h2">
-            Thông tin sản phẩm
-          </h2>
-          {content ? (
-            <div className={`${a.body} ${s.content}`} dangerouslySetInnerHTML={{ __html: content }} />
-          ) : (
-            <p className="muted">
-              Thông tin chi tiết đang được cập nhật. Anh/chị gọi{' '}
-              <a href={tel} className={s.strong}>
-                {settings.hotline}
-              </a>{' '}
-              để được tư vấn thông số và lắp đặt.
-            </p>
-          )}
+      <section className="section">
+        <div className={`container ${w.row}`}>
+          <section aria-labelledby="thong-tin" className={`${w.main} ${s.detail}`}>
+            <h2 id="thong-tin" className="h2">
+              Thông tin sản phẩm
+            </h2>
+            {content ? (
+              <div className={`${a.body} ${s.content}`} dangerouslySetInnerHTML={{ __html: content }} />
+            ) : (
+              <p className="muted">
+                Thông tin chi tiết đang được cập nhật. Anh/chị gọi{' '}
+                <a href={tel} className={s.strong}>
+                  {settings.hotline}
+                </a>{' '}
+                để được tư vấn thông số và lắp đặt.
+              </p>
+            )}
+          </section>
+          <aside className={w.side} aria-label="Bài viết mới và dịch vụ">
+            <SideWidgets />
+          </aside>
         </div>
       </section>
 

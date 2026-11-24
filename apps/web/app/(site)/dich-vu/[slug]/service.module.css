@@ -102,9 +102,24 @@
   text-decoration: none;
 }
 
-.faqWrap {
-  max-width: 820px;
-  gap: var(--space-5) !important;
+/* Khối nội dung trong cột trái (cột phải: bài viết mới, dịch vụ). */
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+.faqBox {
+  background: var(--surface-sunken);
+  border-radius: var(--radius-md);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+@media (max-width: 640px) {
+  .faqBox {
+    padding: 24px 16px;
+  }
 }
 .faqList {
   display: flex;
@@ -154,12 +169,6 @@
 }
 
 /* Bài giới thiệu dịch vụ dưới hero (Markdown, style thân bài của trang bài viết). */
-.introSec {
-  padding-bottom: 0;
-}
-.intro {
-  max-width: 820px;
-}
 /* Bài Markdown: bỏ khoảng trên của khối đầu tiên (tiêu đề mục đã có khoảng). */
 .intro > :first-child {
   margin-top: 0;

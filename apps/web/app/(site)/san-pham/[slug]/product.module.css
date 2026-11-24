@@ -137,9 +137,7 @@
   font-size: 14px;
   color: var(--ink-muted);
 }
-.detail > :global(.container) {
-  display: flex;
-  flex-direction: column;
+.detail {
   gap: 24px;
 }
 .content {

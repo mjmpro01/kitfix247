@@ -1,0 +1,124 @@
+/* ---------- Bố cục 2 cột cho trang chưa có cột phải (dịch vụ, chi tiết sản phẩm) ---------- */
+/* Cột phải xuống dưới nội dung khi không đủ chỗ (< ~910px). */
+.row,
+:global(.section) > :global(.container).row {
+  /* Mạnh hơn quy tắc chung `.section > .container` (xếp dọc) ở globals.css. */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 48px;
+  align-items: flex-start;
+}
+.main {
+  flex: 999 1 560px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+.side {
+  flex: 1 1 300px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ---------- Khối ---------- */
+.box {
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.title {
+  margin: 0;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+/* Bài viết mới */
+.posts,
+.services {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.post {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+}
+.post:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+.post:last-child {
+  padding-bottom: 0;
+}
+.thumb {
+  flex: none;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  font-size: 0;
+}
+.postText {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.postLink {
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 21px;
+  text-decoration: none;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.postLink:hover {
+  color: var(--heat);
+  text-decoration: underline;
+}
+.date {
+  font-size: 13px;
+  line-height: 18px;
+  color: var(--ink-muted);
+}
+
+/* Dịch vụ */
+.svc {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 21px;
+  text-decoration: none;
+}
+.services li:first-child .svc {
+  border-top: 0;
+}
+.svc:hover {
+  color: var(--heat);
+}
+.svc[aria-current='page'] {
+  color: var(--heat);
+  box-shadow: inset 3px 0 0 var(--heat);
+  padding-left: 12px;
+}
