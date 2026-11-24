@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { PostCover } from '@/components/ArticleCard';
 import { getLatestPosts, getServices } from '@/lib/api';
-import { formatDateVi, postHref, serviceHref } from '@/lib/site';
+import { KNOWLEDGE_PATH, formatDateVi, postHref, serviceHref } from '@/lib/site';
 import s from './SideWidgets.module.css';
 
 const LATEST = 5;
@@ -36,6 +36,9 @@ export async function SideWidgets({ currentPost, currentService }: { currentPost
               </li>
             ))}
           </ul>
+          <Link href={KNOWLEDGE_PATH} className={s.more}>
+            Xem thêm bài viết →
+          </Link>
         </nav>
       )}
 
