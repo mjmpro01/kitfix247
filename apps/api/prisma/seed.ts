@@ -252,11 +252,12 @@ const reviews = [
 
 const brands = ['Bosch', 'Hafele', 'Chefs', 'Eurosun', 'Teka', 'Siemens', 'Canzy', 'Fagor', 'Malloca'];
 
-const categories = ['Bảng mã lỗi', 'Mẹo sử dụng', 'Tư vấn', 'Khuyến mãi'];
+/** Chuyên mục khớp 3 mục của trang hãng (thứ tự = sort). */
+const categories = ['Sửa chữa', 'Lỗi', 'Sản phẩm'];
 
 const posts = [
   {
-    cat: 'Bảng mã lỗi',
+    cat: 'Lỗi',
     date: '2026-10-10',
     device: 'Bếp từ',
     kw: 'bếp từ báo lỗi E1',
@@ -265,7 +266,7 @@ const posts = [
     excerpt: 'Giải thích ý nghĩa từng mã lỗi phổ biến và khi nào anh/chị nên gọi kỹ thuật viên.',
   },
   {
-    cat: 'Mẹo sử dụng',
+    cat: 'Sửa chữa',
     date: '2026-10-06',
     device: 'Máy hút mùi',
     kw: 'vệ sinh máy hút mùi',
@@ -274,7 +275,7 @@ const posts = [
     excerpt: 'Dấu hiệu lưới lọc đã bám dầu và cách vệ sinh đúng để máy hút khỏe, bền.',
   },
   {
-    cat: 'Tư vấn',
+    cat: 'Sửa chữa',
     date: '2026-10-01',
     device: 'Lò vi sóng',
     kw: 'lò vi sóng không nóng',
@@ -380,7 +381,7 @@ async function main() {
     data: brands.map((name, i) => ({ slug: slugifyVi(name), name, logoUrl: null, logoStyle: 'gray' as const, sort: i + 1, showHome: true })),
   });
 
-  for (const name of categories) await prisma.category.create({ data: { slug: slugifyVi(name), name } });
+  for (const [i, name] of categories.entries()) await prisma.category.create({ data: { slug: slugifyVi(name), name, sort: i + 1 } });
 
   for (const p of posts) {
     const cat = await prisma.category.findUniqueOrThrow({ where: { slug: slugifyVi(p.cat) } });

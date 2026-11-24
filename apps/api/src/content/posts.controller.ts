@@ -11,7 +11,7 @@ export class PostsController {
 
   @Get('categories')
   async categories(): Promise<Category[]> {
-    const rows = await this.prisma.category.findMany({ orderBy: { id: 'asc' } });
+    const rows = await this.prisma.category.findMany({ orderBy: [{ sort: 'asc' }, { id: 'asc' }] });
     return rows.map((c) => ({ id: c.id, slug: c.slug, name: c.name }));
   }
 

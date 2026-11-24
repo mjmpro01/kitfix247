@@ -157,6 +157,7 @@ model Category {
   id    Int    @id @default(autoincrement())
   slug  String @unique @db.VarChar(80)
   name  String @db.VarChar(80)
+  sort  Int    @default(0)
   posts Post[]
 
   @@map("categories")
