@@ -2,6 +2,7 @@
 export const SITE_URL = (process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000').replace(/\/$/, '');
 
 export const serviceHref = (slug: string) => `/dich-vu/${slug}`;
+export const productHref = (slug: string) => `/san-pham/${slug}`;
 
 /** "Sửa bếp từ" → "sửa bếp từ" (chỉ hạ chữ đầu, giữ nguyên phần còn lại). */
 export const lowerFirst = (s: string) => s.charAt(0).toLocaleLowerCase('vi') + s.slice(1);

@@ -9,6 +9,7 @@ import s from '@/app/admin/admin.module.css';
 import { uploadImage } from './upload';
 import { AdminIcon } from './AdminIcon';
 import { move, useSortable } from './useSortable';
+import { MarkdownField } from './MarkdownField';
 
 /** Thiết bị hãng (AdminThuongHieu): 6 thiết bị đầu của form đặt lịch. */
 const DEVICES = BOOKING_DEVICES.slice(0, 6).map((d) => d.value);
@@ -25,7 +26,9 @@ interface Row {
   showHome: boolean;
   seoTitle: string;
   seoDesc: string;
+  repairMd: string;
   postCount: number;
+  productCount: number;
 }
 
 const toRow = (b: AdminBrand): Row => ({
@@ -40,7 +43,9 @@ const toRow = (b: AdminBrand): Row => ({
   showHome: b.showHome,
   seoTitle: b.seoTitle ?? '',
   seoDesc: b.seoDesc ?? '',
+  repairMd: b.repairMd ?? '',
   postCount: b.postCount,
+  productCount: b.productCount,
 });
 
 const payload = (r: Row): AdminBrandInput => ({
@@ -53,6 +58,7 @@ const payload = (r: Row): AdminBrandInput => ({
   showHome: r.showHome,
   seoTitle: r.seoTitle.trim() || null,
   seoDesc: r.seoDesc.trim() || null,
+  repairMd: r.repairMd.trim() || null,
 });
 
 const sig = (r: Row) => JSON.stringify(payload(r));
@@ -87,7 +93,7 @@ export function BrandManager({ initial }: { initial: AdminBrand[] }) {
 
   const addBrand = () => {
     const key = `moi-${Date.now()}`;
-    setRows((rs) => [...rs, { key, id: null, name: 'Hãng mới', slug: 'hang-moi', logoUrl: null, logoStyle: 'gray', description: '', devices: [], showHome: false, seoTitle: '', seoDesc: '', postCount: 0 }]);
+    setRows((rs) => [...rs, { key, id: null, name: 'Hãng mới', slug: 'hang-moi', logoUrl: null, logoStyle: 'gray', description: '', devices: [], showHome: false, seoTitle: '', seoDesc: '', repairMd: '', postCount: 0, productCount: 0 }]);
     setSel(rows.length);
     setNotice(null);
   };
@@ -122,7 +128,7 @@ export function BrandManager({ initial }: { initial: AdminBrand[] }) {
       <div className={s.pageHead}>
         <div>
           <h1>Thương hiệu</h1>
-          <p className={s.sub}>Logo hiện ở dải hãng trang chủ. Bấm logo sẽ mở trang Kiến thức của hãng đó.</p>
+          <p className={s.sub}>Logo hiện ở dải hãng trang chủ. Bấm logo sẽ mở trang hãng (2 mục: Sửa chữa, Sản phẩm).</p>
         </div>
         <div className={s.headActions}>
           <span role="status" aria-live="polite">
@@ -193,7 +199,7 @@ export function BrandManager({ initial }: { initial: AdminBrand[] }) {
                       <span className={s.sortPickText}>
                         <span>{b.name || '(chưa đặt tên)'}</span>
                         <span className={s.sortMeta}>
-                          {b.postCount} bài viết · /kien-thuc/hang/{b.slug}
+                          {b.productCount} sản phẩm · /kien-thuc/hang/{b.slug}
                         </span>
                       </span>
                     </button>
@@ -317,9 +323,18 @@ export function BrandManager({ initial }: { initial: AdminBrand[] }) {
               </div>
 
               <label className={s.label}>
-                <span className={s.labelText}>Mô tả đầu trang Kiến thức của hãng</span>
+                <span className={s.labelText}>Mô tả ngắn đầu trang hãng</span>
                 <textarea className={s.textarea} rows={3} value={cur.description} onChange={(e) => patch({ description: e.target.value })} maxLength={2000} />
               </label>
+
+              <MarkdownField
+                label="Bài giới thiệu mục Sửa chữa"
+                hint="trống = trang tự hiện thiết bị chúng tôi sửa và cam kết"
+                value={cur.repairMd}
+                onChange={(v) => patch({ repairMd: v })}
+                folder="brands"
+                onError={(text) => setNotice({ ok: false, text })}
+              />
 
               <fieldset className={s.fieldset}>
                 <legend className={s.legend}>Thiết bị của hãng chúng tôi sửa</legend>
@@ -351,7 +366,7 @@ export function BrandManager({ initial }: { initial: AdminBrand[] }) {
                     className={`${s.input} ${s.inputSm}`}
                     value={cur.seoTitle}
                     onChange={(e) => patch({ seoTitle: e.target.value })}
-                    placeholder={`Kiến thức thiết bị ${cur.name}: mã lỗi, mẹo dùng, sửa chữa`}
+                    placeholder={`Sửa chữa thiết bị bếp ${cur.name} tại nhà TP.HCM`}
                     maxLength={160}
                   />
                 </label>
@@ -369,11 +384,11 @@ export function BrandManager({ initial }: { initial: AdminBrand[] }) {
                   />
                 </label>
                 <p className={s.sub}>
-                  Điểm SEO chi tiết của từng bài vẫn chấm trong màn{' '}
-                  <Link href="/admin/bai-viet" style={{ fontWeight: 700 }}>
-                    Viết bài
+                  Mục Sản phẩm của trang hãng tự lấy các sản phẩm gắn hãng {cur.name} trong màn{' '}
+                  <Link href="/admin/san-pham" style={{ fontWeight: 700 }}>
+                    Sản phẩm
                   </Link>
-                  . Bài được gắn hãng {cur.name} sẽ tự xuất hiện ở trang hãng.
+                  .
                 </p>
               </div>
             </section>

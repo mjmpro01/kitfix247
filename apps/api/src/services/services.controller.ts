@@ -44,6 +44,7 @@ export class ServicesController {
       faultsTitle: s.faultsTitle,
       seoTitle: s.seoTitle,
       seoDesc: s.seoDesc,
+      introMd: s.introMd,
       faults: s.faults.map((f) => ({ id: f.id, title: f.title, code: f.code, cause: f.cause, priceFrom: f.priceFrom, priceTo: f.priceTo })),
       faqs: s.faqs.map((q) => ({ id: q.id, question: q.question, answer: q.answer })),
     };

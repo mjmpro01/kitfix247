@@ -408,7 +408,7 @@ async function main() {
     });
   }
 
-  await prisma.product.createMany({ data: products.map((p) => ({ ...p, price: null, stock: 0, status: 'active' })) });
+  await prisma.product.createMany({ data: products.map((p) => ({ ...p, slug: slugifyVi(p.name), price: null, stock: 0, status: 'active' })) });
 
   await seedAdmin();
 

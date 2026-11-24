@@ -1,41 +1,50 @@
 'use client';
 
 import { useMemo, useRef, useState, useTransition } from 'react';
-import type { AdminProduct, AdminProductInput } from '@kitfix/types';
-import { ICONS } from '@kitfix/ui';
+import type { AdminBrand, AdminProduct, AdminProductInput } from '@kitfix/types';
+import { ICONS, slugifyVi } from '@kitfix/ui';
 import { Icon } from '@/components/Icon';
 import { deleteProduct, saveProduct } from '@/app/admin/actions';
 import s from '@/app/admin/admin.module.css';
 import { uploadImage } from './upload';
+import { MarkdownField } from './MarkdownField';
 import { parsePrice, showPrice } from './price';
 
 interface Draft {
   name: string;
+  slug: string;
   sku: string;
+  brandId: string;
   category: string;
   description: string;
   price: string;
+  compareAtPrice: string;
   stock: string;
   icon: string;
   status: 'active' | 'hidden';
   imageUrl: string | null;
+  contentMd: string;
 }
 
-const blank: Draft = { name: '', sku: '', category: '', description: '', price: '', stock: '0', icon: 'wrench', status: 'active', imageUrl: null };
+const blank: Draft = { name: '', slug: '', sku: '', brandId: '', category: '', description: '', price: '', compareAtPrice: '', stock: '0', icon: 'wrench', status: 'active', imageUrl: null, contentMd: '' };
 
 const toDraft = (p: AdminProduct): Draft => ({
   name: p.name,
+  slug: p.slug,
   sku: p.sku,
+  brandId: p.brandId ? String(p.brandId) : '',
   category: p.category,
   description: p.description ?? '',
   price: showPrice(p.price),
+  compareAtPrice: showPrice(p.compareAtPrice),
   stock: String(p.stock),
   icon: p.icon,
   status: p.status,
   imageUrl: p.imageUrl,
+  contentMd: p.contentMd ?? '',
 });
 
-export function ProductManager({ initial }: { initial: AdminProduct[] }) {
+export function ProductManager({ initial, brands }: { initial: AdminProduct[]; brands: Pick<AdminBrand, 'id' | 'name'>[] }) {
   const [list, setList] = useState(initial);
   /** id đang sửa; null = thêm mới. */
   const [selId, setSelId] = useState<number | null>(initial[0]?.id ?? null);
@@ -71,16 +80,24 @@ export function ProductManager({ initial }: { initial: AdminProduct[] }) {
     if (!draft.category.trim()) errs.category = 'Nhập nhóm sản phẩm.';
     const price = draft.price.trim() ? parsePrice(draft.price) : null;
     if (draft.price.trim() && (price === null || price < 1000)) errs.price = 'Giá là số ₫ (tối thiểu 1.000), hoặc để trống.';
+    const compareAtPrice = draft.compareAtPrice.trim() ? parsePrice(draft.compareAtPrice) : null;
+    if (draft.compareAtPrice.trim() && (compareAtPrice === null || compareAtPrice < 1000)) errs.compareAtPrice = 'Giá gốc là số ₫, hoặc để trống.';
+    else if (compareAtPrice !== null && (price === null || compareAtPrice <= price)) errs.compareAtPrice = 'Giá gốc phải lớn hơn giá bán (để trống nếu không giảm giá).';
+    const slug = slugifyVi(draft.slug || draft.name);
     const stock = Number(draft.stock || 0);
     if (!Number.isInteger(stock) || stock < 0) errs.stock = 'Tồn kho là số nguyên ≥ 0.';
     setErrors(errs);
     if (Object.keys(errs).length) return;
     const data: AdminProductInput = {
       name: draft.name,
+      slug,
       sku: draft.sku,
+      brandId: draft.brandId ? Number(draft.brandId) : null,
       category: draft.category,
       description: draft.description.trim() || null,
       price,
+      compareAtPrice,
+      contentMd: draft.contentMd.trim() || null,
       stock,
       icon: draft.icon,
       status: draft.status,
@@ -207,6 +224,27 @@ export function ProductManager({ initial }: { initial: AdminProduct[] }) {
               </label>
             </div>
             <div className={s.fieldRow}>
+              <label className={s.label} style={{ flex: '2 1 280px' }}>
+                <span className={s.labelText}>
+                  Đường dẫn <span className={s.labelHint}>/san-pham/…; trống = tạo từ tên</span>
+                </span>
+                <input className={s.input} value={draft.slug} onChange={(e) => set('slug', e.target.value)} onBlur={() => draft.slug && set('slug', slugifyVi(draft.slug))} maxLength={200} placeholder={slugifyVi(draft.name) || 'vd may-hut-mui-bosch'} {...errProps('slug')} />
+                {fieldErr('slug')}
+              </label>
+              <label className={s.label}>
+                <span className={s.labelText}>Hãng</span>
+                <select className={s.select} value={draft.brandId} onChange={(e) => set('brandId', e.target.value)} {...errProps('brandId')}>
+                  <option value="">Không thuộc hãng nào</option>
+                  {brands.map((b) => (
+                    <option key={b.id} value={b.id}>
+                      {b.name}
+                    </option>
+                  ))}
+                </select>
+                {fieldErr('brandId')}
+              </label>
+            </div>
+            <div className={s.fieldRow}>
               <label className={s.label}>
                 <span className={s.labelText}>Nhóm</span>
                 <input className={s.input} value={draft.category} onChange={(e) => set('category', e.target.value)} list="p-cats" maxLength={80} {...errProps('category')} />
@@ -225,6 +263,13 @@ export function ProductManager({ initial }: { initial: AdminProduct[] }) {
                 {fieldErr('price')}
               </label>
               <label className={s.label}>
+                <span className={s.labelText}>
+                  Giá gốc (₫) <span className={s.labelHint}>gạch ngang, hiện % giảm</span>
+                </span>
+                <input className={`${s.input} ${s.priceIn}`} inputMode="numeric" value={draft.compareAtPrice} onChange={(e) => set('compareAtPrice', e.target.value)} placeholder="trống = không giảm" {...errProps('compareAtPrice')} />
+                {fieldErr('compareAtPrice')}
+              </label>
+              <label className={s.label}>
                 <span className={s.labelText}>Tồn kho</span>
                 <input className={s.input} inputMode="numeric" value={draft.stock} onChange={(e) => set('stock', e.target.value.replace(/[^\d]/g, ''))} {...errProps('stock')} />
                 {fieldErr('stock')}
@@ -234,6 +279,16 @@ export function ProductManager({ initial }: { initial: AdminProduct[] }) {
               <span className={s.labelText}>Mô tả ngắn</span>
               <textarea className={s.textarea} rows={2} value={draft.description} onChange={(e) => set('description', e.target.value)} maxLength={2000} />
             </label>
+            <MarkdownField
+              label="Thông tin chi tiết"
+              hint="hiện ở trang sản phẩm: thông số kỹ thuật, tính năng, ảnh"
+              value={draft.contentMd}
+              onChange={(v) => set('contentMd', v)}
+              folder="products"
+              onError={(text) => setNotice({ ok: false, text })}
+              placeholder={'## Thông số kỹ thuật\n- Công suất: …\n- Kích thước: …'}
+            />
+            {fieldErr('contentMd')}
             <div className={s.fieldRow} style={{ alignItems: 'flex-start' }}>
               <div className={s.stack}>
                 <span className={s.labelText}>Ảnh sản phẩm</span>

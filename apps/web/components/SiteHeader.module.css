@@ -92,8 +92,9 @@
 .ddItem {
   display: flex;
   gap: 12px;
-  align-items: flex-start;
-  padding: 10px 12px;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 12px;
   border-radius: 8px;
   text-decoration: none;
   color: var(--ink);
@@ -114,19 +115,10 @@
   justify-content: center;
   flex: none;
 }
-.ddText {
-  display: flex;
-  flex-direction: column;
-}
 .ddName {
   font-weight: 600;
   font-size: 15px;
   line-height: 22px;
-}
-.ddHint {
-  font-size: 13px;
-  line-height: 18px;
-  color: var(--ink-muted);
 }
 
 .actions {

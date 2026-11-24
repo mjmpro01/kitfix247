@@ -81,10 +81,7 @@ export function SiteHeader({ settings, services }: Props) {
                         <span className={s.ddIcon}>
                           <Icon name={sv.icon} size={20} />
                         </span>
-                        <span className={s.ddText}>
-                          <span className={s.ddName}>{sv.name}</span>
-                          <span className={s.ddHint}>{sv.shortHint}</span>
-                        </span>
+                        <span className={s.ddName}>{sv.name}</span>
                       </Link>
                     ))}
                   </div>

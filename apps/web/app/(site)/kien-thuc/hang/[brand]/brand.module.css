@@ -1,0 +1,18 @@
+/* Trang hãng: mục Sửa chữa (bài giới thiệu) và Sản phẩm (thẻ sản phẩm). */
+.repair {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.content {
+  max-width: 820px;
+}
+/* Bài Markdown: bỏ khoảng trên của khối đầu tiên (tiêu đề mục đã có khoảng). */
+.content > :first-child {
+  margin-top: 0;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 16px;
+}
